@@ -6,6 +6,12 @@ import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+/**
+ * 6 de nov de 2019
+ * 
+ * @author gregory.feijon
+ */
+
 @Component("customKeyGenerator")
 public class CacheCustomKeyGenerator implements KeyGenerator {
 

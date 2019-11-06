@@ -13,6 +13,12 @@ import javax.validation.constraints.NotBlank;
 
 import br.com.ifsp.garageando.enums.Estado;
 
+/**
+ * 6 de nov de 2019
+ * 
+ * @author gregory.feijon
+ */
+
 @Entity
 public class Endereco implements Serializable {
 

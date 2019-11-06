@@ -4,6 +4,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.ifsp.garageando.model.Local;
 
+/**
+ * 6 de nov de 2019
+ * 
+ * @author gregory.feijon
+ */
+
 public interface LocalRepository extends JpaRepository<Local, Long> {
 
 }

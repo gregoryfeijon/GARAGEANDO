@@ -18,6 +18,12 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+/**
+ * 6 de nov de 2019
+ * 
+ * @author gregory.feijon
+ */
+
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Pessoa implements Serializable {

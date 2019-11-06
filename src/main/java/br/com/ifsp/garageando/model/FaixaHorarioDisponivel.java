@@ -15,6 +15,12 @@ import javax.validation.constraints.NotBlank;
 
 import br.com.ifsp.garageando.enums.DiaSemana;
 
+/**
+ * 6 de nov de 2019
+ * 
+ * @author gregory.feijon
+ */
+
 @Entity
 public class FaixaHorarioDisponivel implements Serializable {
 

@@ -15,6 +15,12 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+/**
+ * 6 de nov de 2019
+ * 
+ * @author gregory.feijon
+ */
+
 @Entity
 public class Avaliacao implements Serializable {
 
@@ -37,7 +43,7 @@ public class Avaliacao implements Serializable {
 	@JoinColumn(unique = false)
 	@ManyToOne(fetch = FetchType.EAGER)
 	@NotNull(message = USUARIO_OBRIGATORIO)
-	private Usuario usuario;
+	private UsuarioPessoaFisica usuario;
 	
 	public long getId() {
 		return id;

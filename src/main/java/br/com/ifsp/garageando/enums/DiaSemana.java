@@ -1,5 +1,11 @@
 package br.com.ifsp.garageando.enums;
 
+/**
+ * 6 de nov de 2019
+ * 
+ * @author gregory.feijon
+ */
+
 public enum DiaSemana {
 	
 	DOMINGO(1) {

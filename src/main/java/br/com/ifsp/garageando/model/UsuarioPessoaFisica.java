@@ -11,9 +11,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotBlank;
 
+/**
+ * 6 de nov de 2019
+ * 
+ * @author gregory.feijon
+ */
+
 @Entity
 @PrimaryKeyJoinColumn(name = "id_pessoa")
-public class Usuario extends Pessoa implements Serializable {
+public class UsuarioPessoaFisica extends Pessoa implements Serializable {
 
 	private static final long serialVersionUID = -4210899032728690736L;
 

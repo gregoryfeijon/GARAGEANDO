@@ -1,5 +1,11 @@
 package br.com.ifsp.garageando.enums;
 
+/**
+ * 6 de nov de 2019
+ * 
+ * @author gregory.feijon
+ */
+
 public enum Estado {
 
 	RO(11, "Rondônia"), AC(12, "Acre"), AM(13, "Amazonas"), RR(14, "Roraima"), PA(15, "Pará"), AP(16, "Amapá"),

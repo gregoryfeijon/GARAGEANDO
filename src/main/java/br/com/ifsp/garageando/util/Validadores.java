@@ -3,6 +3,12 @@ package br.com.ifsp.garageando.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * 6 de nov de 2019
+ * 
+ * @author gregory.feijon
+ */
+
 public class Validadores {
 
 	public static boolean validarEMail(String email) {

@@ -2,6 +2,14 @@ package br.com.ifsp.garageando.api.response;
 
 import java.util.List;
 
+/**
+ * 6 de nov de 2019
+ * 
+ * @author gregory.feijon
+ * 
+ * @param <T>
+ */
+
 public class Response<T> {
 
 	private T data;

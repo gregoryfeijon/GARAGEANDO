@@ -3,6 +3,14 @@ package br.com.ifsp.garageando.service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * 6 de nov de 2019
+ * 
+ * @author gregory.feijon
+ *
+ * @param <T>
+ */
+
 interface IService<T> {
 
 	public List<T> findAll();
@@ -14,4 +22,6 @@ interface IService<T> {
 	public void delete(T entity);
 
 	public void deleteById(Long id);
+
+	public boolean existsById(Long id);
 }

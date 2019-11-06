@@ -2,7 +2,7 @@ package br.com.ifsp.garageando.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.ifsp.garageando.model.FaixaHorarioDisponivel;
+import br.com.ifsp.garageando.model.UsuarioPessoaFisica;
 
 /**
  * 6 de nov de 2019
@@ -10,6 +10,6 @@ import br.com.ifsp.garageando.model.FaixaHorarioDisponivel;
  * @author gregory.feijon
  */
 
-public interface FaixaHorarioDisponivelRepository extends JpaRepository<FaixaHorarioDisponivel, Long> {
+public interface UsuarioPessoaFisicaRepository extends JpaRepository<UsuarioPessoaFisica, Long> {
 
 }
