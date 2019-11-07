@@ -7,6 +7,6 @@ package br.com.ifsp.garageando.security.enums;
  */
 public enum Perfil {
 
-	ROLE_ADMIN, ROLE_USUARIO_PESSOA_FISICA, ROLE_USUARIO_PESSOA_JURIDICA;
+	ROLE_ADMIN, ROLE_USUARIO;
 
 }
