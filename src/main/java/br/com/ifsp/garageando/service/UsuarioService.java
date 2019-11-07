@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.ifsp.garageando.model.UsuarioPessoaFisica;
-import br.com.ifsp.garageando.repository.UsuarioPessoaFisicaRepository;
+import br.com.ifsp.garageando.model.Usuario;
+import br.com.ifsp.garageando.repository.UsuarioRepository;
 
 /**
  * 6 de nov de 2019
@@ -16,28 +16,28 @@ import br.com.ifsp.garageando.repository.UsuarioPessoaFisicaRepository;
  */
 
 @Service
-public class UsuarioPessoaFisicaService implements IService<UsuarioPessoaFisica> {
+public class UsuarioService implements IService<Usuario> {
 
 	@Autowired
-	private UsuarioPessoaFisicaRepository usuarioRepository;
+	private UsuarioRepository usuarioRepository;
 
 	@Override
-	public List<UsuarioPessoaFisica> findAll() {
+	public List<Usuario> findAll() {
 		return usuarioRepository.findAll();
 	}
 
 	@Override
-	public Optional<UsuarioPessoaFisica> findById(Long id) {
+	public Optional<Usuario> findById(Long id) {
 		return usuarioRepository.findById(id);
 	}
 
 	@Override
-	public Optional<UsuarioPessoaFisica> save(UsuarioPessoaFisica usuario) {
+	public Optional<Usuario> save(Usuario usuario) {
 		return Optional.of(usuarioRepository.save(usuario));
 	}
 
 	@Override
-	public void delete(UsuarioPessoaFisica usuario) {
+	public void delete(Usuario usuario) {
 		usuarioRepository.delete(usuario);
 	}
 
@@ -49,5 +49,9 @@ public class UsuarioPessoaFisicaService implements IService<UsuarioPessoaFisica>
 	@Override
 	public boolean existsById(Long id) {
 		return usuarioRepository.existsById(id);
+	}
+
+	public Optional<Usuario> findUsuarioByLogin(String login) {
+		return usuarioRepository.findByLogin(login);
 	}
 }

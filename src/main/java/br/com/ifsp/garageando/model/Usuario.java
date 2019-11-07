@@ -11,6 +11,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.validator.constraints.Length;
+
 /**
  * 6 de nov de 2019
  * 
@@ -19,7 +21,7 @@ import javax.validation.constraints.NotBlank;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "id_pessoa")
-public class UsuarioPessoaFisica extends Pessoa implements Serializable {
+public class Usuario extends Pessoa implements Serializable {
 
 	private static final long serialVersionUID = -4210899032728690736L;
 
@@ -27,9 +29,11 @@ public class UsuarioPessoaFisica extends Pessoa implements Serializable {
 	private static final String SENHA_OBRIGATÓRIO = "ATENÇÃO! O campo senha é OBRIGATÓRIO!";
 
 	@NotBlank(message = LOGIN_OBRIGATÓRIO)
+	@Length(min = 3)
 	private String login;
 
 	@NotBlank(message = SENHA_OBRIGATÓRIO)
+	@Length(min = 3)
 	private String senha;
 
 	@JoinColumn(unique = true)

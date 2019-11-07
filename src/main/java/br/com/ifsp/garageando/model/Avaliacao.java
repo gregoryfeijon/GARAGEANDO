@@ -43,7 +43,7 @@ public class Avaliacao implements Serializable {
 	@JoinColumn(unique = false)
 	@ManyToOne(fetch = FetchType.EAGER)
 	@NotNull(message = USUARIO_OBRIGATORIO)
-	private UsuarioPessoaFisica usuario;
+	private Usuario usuario;
 	
 	public long getId() {
 		return id;

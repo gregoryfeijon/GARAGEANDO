@@ -19,27 +19,27 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ifsp.garageando.api.dto.UsuarioPessoaFisicaDTO;
+import br.com.ifsp.garageando.api.dto.UsuarioDTO;
 import br.com.ifsp.garageando.api.response.Response;
-import br.com.ifsp.garageando.model.UsuarioPessoaFisica;
-import br.com.ifsp.garageando.service.UsuarioPessoaFisicaService;
+import br.com.ifsp.garageando.model.Usuario;
+import br.com.ifsp.garageando.service.UsuarioService;
 
 @RestController
 @RequestMapping("api/garageando")
 @CrossOrigin(origins = "*")
-public class UsuarioPessoaFisicaAPIController implements IAPIController<UsuarioPessoaFisica, UsuarioPessoaFisicaDTO> {
+public class UsuarioAPIController implements IAPIController<Usuario, UsuarioDTO> {
 
-	private static final Logger LOG = LoggerFactory.getLogger(UsuarioPessoaFisicaAPIController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(UsuarioAPIController.class);
 
 	@Autowired
-	private UsuarioPessoaFisicaService usuarioService;
+	private UsuarioService usuarioService;
 
 	@Override
-	public ResponseEntity<Response<UsuarioPessoaFisicaDTO>> findById(UsuarioPessoaFisicaDTO usuarioDTO) {
+	public ResponseEntity<Response<UsuarioDTO>> findById(UsuarioDTO usuarioDTO) {
 		LOG.debug("findById({})", usuarioDTO.getId());
-		Optional<UsuarioPessoaFisica> opUsuario = usuarioService.findById(usuarioDTO.getId());
+		Optional<Usuario> opUsuario = usuarioService.findById(usuarioDTO.getId());
 		if (opUsuario.isPresent()) {
-			Response<UsuarioPessoaFisicaDTO> response = new Response<>();
+			Response<UsuarioDTO> response = new Response<>();
 			usuarioDTO.setUsuario(opUsuario.get());
 			response.setData(usuarioDTO);
 			return ResponseEntity.ok(response);
@@ -50,12 +50,12 @@ public class UsuarioPessoaFisicaAPIController implements IAPIController<UsuarioP
 
 	@GetMapping
 	@Override
-	public ResponseEntity<Response<UsuarioPessoaFisicaDTO>> listAll() {
+	public ResponseEntity<Response<UsuarioDTO>> listAll() {
 		LOG.debug("listAll()");
-		List<UsuarioPessoaFisica> list = usuarioService.findAll();
+		List<Usuario> list = usuarioService.findAll();
 		if (list != null && !list.isEmpty()) {
-			UsuarioPessoaFisicaDTO usuarioDTO = new UsuarioPessoaFisicaDTO();
-			Response<UsuarioPessoaFisicaDTO> response = new Response<>();
+			UsuarioDTO usuarioDTO = new UsuarioDTO();
+			Response<UsuarioDTO> response = new Response<>();
 			usuarioDTO.setUsuarios(list);
 			response.setData(usuarioDTO);
 			return ResponseEntity.ok(response);
@@ -66,10 +66,10 @@ public class UsuarioPessoaFisicaAPIController implements IAPIController<UsuarioP
 
 	@PostMapping
 	@Override
-	public ResponseEntity<Response<UsuarioPessoaFisica>> cadastrar(@Valid @RequestBody UsuarioPessoaFisica usuario) {
+	public ResponseEntity<Response<Usuario>> cadastrar(@Valid @RequestBody Usuario usuario) {
 		LOG.debug("saving({})", usuario);
-		Response<UsuarioPessoaFisica> response = new Response<>();
-		Optional<UsuarioPessoaFisica> opUsuario = usuarioService.save(usuario);
+		Response<Usuario> response = new Response<>();
+		Optional<Usuario> opUsuario = usuarioService.save(usuario);
 		if (opUsuario.isPresent()) {
 			response.setData(opUsuario.get());
 			return ResponseEntity.ok(response);
@@ -80,7 +80,7 @@ public class UsuarioPessoaFisicaAPIController implements IAPIController<UsuarioP
 	}
 
 	@Override
-	public ResponseEntity<Response<UsuarioPessoaFisica>> deletar(UsuarioPessoaFisica usuario) {
+	public ResponseEntity<Response<Usuario>> deletar(Usuario usuario) {
 		LOG.debug("deleting({})", usuario);
 		boolean existeUsuario = usuarioService.existsById(usuario.getId());
 		if (existeUsuario) {
@@ -89,7 +89,7 @@ public class UsuarioPessoaFisicaAPIController implements IAPIController<UsuarioP
 			if (!existeUsuario) {
 				return ResponseEntity.noContent().build();
 			} else {
-				Response<UsuarioPessoaFisica> response = new Response<>();
+				Response<Usuario> response = new Response<>();
 				response.setErrors(Arrays.asList("Erro ao excluir o usuário!"));
 				return ResponseEntity.badRequest().body(response);
 			}
@@ -100,7 +100,7 @@ public class UsuarioPessoaFisicaAPIController implements IAPIController<UsuarioP
 
 	@Override
 	@DeleteMapping("/id/{id}")
-	public ResponseEntity<Response<UsuarioPessoaFisica>> deletar(@PathVariable Long id) {
+	public ResponseEntity<Response<Usuario>> deletar(@PathVariable Long id) {
 		LOG.debug("deletingById({})", id);
 		boolean existeUsuario = usuarioService.existsById(id);
 		if (existeUsuario) {
@@ -109,7 +109,7 @@ public class UsuarioPessoaFisicaAPIController implements IAPIController<UsuarioP
 			if (!existeUsuario) {
 				return ResponseEntity.noContent().build();
 			} else {
-				Response<UsuarioPessoaFisica> response = new Response<>();
+				Response<Usuario> response = new Response<>();
 				response.setErrors(Arrays.asList("Erro ao excluir o usuário!"));
 				return ResponseEntity.badRequest().body(response);
 			}
@@ -119,10 +119,10 @@ public class UsuarioPessoaFisicaAPIController implements IAPIController<UsuarioP
 	}
 
 	@Override
-	public ResponseEntity<Response<UsuarioPessoaFisica>> alterar(UsuarioPessoaFisica usuario) {
+	public ResponseEntity<Response<Usuario>> alterar(Usuario usuario) {
 		LOG.debug("updating({})", usuario);
-		Response<UsuarioPessoaFisica> response = new Response<>();
-		Optional<UsuarioPessoaFisica> opUsuario = usuarioService.save(usuario);
+		Response<Usuario> response = new Response<>();
+		Optional<Usuario> opUsuario = usuarioService.save(usuario);
 		if (opUsuario.isPresent()) {
 			response.setData(opUsuario.get());
 			return ResponseEntity.ok(response);

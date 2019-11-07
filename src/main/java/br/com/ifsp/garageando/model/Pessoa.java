@@ -13,7 +13,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -33,21 +35,32 @@ public abstract class Pessoa implements Serializable {
 	private static final String NOME_OBRIGATORIO = "Atenção! O campo nome é OBRIGATÓRIO!";
 	private static final String CPF_OBRIGATORIO = "Atenção! O campo CPF é OBRIGATÓRIO!";
 	private static final String CPF_INVALIDO = "CPF inválido!!!";
+	private static final String TELEFONE_INVALIDO = "Telefone inválido!!!";
+	private static final String CELULAR_INVALIDO = "Celular inválido!!!";
+	private static final String NOME_INVALIDO = "Nome inválido!!!";
+	private static final String EMAIL_INVALIDO = "Email inválido!!!";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	@NotBlank(message = NOME_OBRIGATORIO)
+	@Length(min = 3, message = NOME_INVALIDO)
+	@Pattern(regexp = "/[a-zA-Z\\u00C0-\\u00FF ]+/i", message = NOME_INVALIDO)
 	private String nome;
 
 	@CPF(message = CPF_INVALIDO)
 	@NotBlank(message = CPF_OBRIGATORIO)
-	@Digits(fraction = 0, integer = 11)
+	@Digits(fraction = 0, integer = 11, message = CPF_INVALIDO)
 	private int cpf;
 
+	@Pattern(regexp = "^[\\\\w!#$%&’*+/=?`{|}~^-]+(?:\\\\.[\\\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\\\.)+[a-zA-Z]{2,6}$", message = EMAIL_INVALIDO)
 	private String email;
+
+	@Length(min = 10, max = 10, message = TELEFONE_INVALIDO)
 	private String telefone;
+
+	@Length(min = 10, max = 11, message = CELULAR_INVALIDO)
 	private String celular;
 
 	@Temporal(TemporalType.DATE)
