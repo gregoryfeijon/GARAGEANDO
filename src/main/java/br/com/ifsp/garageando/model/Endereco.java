@@ -44,12 +44,12 @@ public class Endereco implements Serializable {
 	@Digits(fraction = 0, integer = 8)
 	private int cep;
 
-	private String latitude;
-	private String longitude;
-	
 	@Enumerated(EnumType.ORDINAL)
 	private Estado estado;
-	
+
+	private String latitude;
+	private String longitude;
+
 	public long getId() {
 		return id;
 	}
@@ -88,6 +88,14 @@ public class Endereco implements Serializable {
 
 	public void setCep(int cep) {
 		this.cep = cep;
+	}
+
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
 
 	public String getLatitude() {

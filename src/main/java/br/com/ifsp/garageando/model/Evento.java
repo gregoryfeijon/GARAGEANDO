@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -43,6 +44,10 @@ public class Evento implements Serializable {
 	@NotNull(message = Local.ENDERECO_OBRIGATORIO)
 	private Endereco endereco;
 
+	@JoinColumn(unique = true)
+	@OneToOne(fetch = FetchType.EAGER)
+	private Usuario usuarioResponsavel;
+
 	public long getId() {
 		return id;
 	}
@@ -73,5 +78,21 @@ public class Evento implements Serializable {
 
 	public void setData(LocalDate data) {
 		this.data = data;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+	public Usuario getUsuarioResponsavel() {
+		return usuarioResponsavel;
+	}
+
+	public void setUsuarioResponsavel(Usuario usuarioResponsavel) {
+		this.usuarioResponsavel = usuarioResponsavel;
 	}
 }

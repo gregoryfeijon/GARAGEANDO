@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotBlank;
 
@@ -20,8 +19,8 @@ import org.hibernate.validator.constraints.Length;
  */
 
 @Entity
-@PrimaryKeyJoinColumn(name = "id_pessoa")
-public class Usuario extends Pessoa implements Serializable {
+@PrimaryKeyJoinColumn(name = "id_pessoaFisica")
+public class Usuario extends PessoaFisica implements Serializable {
 
 	private static final long serialVersionUID = -4210899032728690736L;
 
@@ -36,15 +35,15 @@ public class Usuario extends Pessoa implements Serializable {
 	@Length(min = 3)
 	private String senha;
 
-	@JoinColumn(unique = true)
-	@OneToMany(fetch = FetchType.LAZY)
-	private List<Evento> eventos;
+//	@JoinColumn(unique = true)
+//	@OneToMany(fetch = FetchType.LAZY)
+//	private List<Evento> eventos;
 
-	@JoinColumn(unique = true)
-	@OneToMany(fetch = FetchType.LAZY)
-	private List<Local> locaisProprios;
+//	@JoinColumn(unique = true)
+//	@OneToMany(fetch = FetchType.LAZY)
+//	private List<Local> locaisProprios;
 
-	@JoinColumn
+	@JoinColumn(unique = false)
 	@ManyToMany(fetch = FetchType.LAZY)
 	private List<Local> locaisFavoritos;
 
@@ -62,5 +61,13 @@ public class Usuario extends Pessoa implements Serializable {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public List<Local> getLocaisFavoritos() {
+		return locaisFavoritos;
+	}
+
+	public void setLocaisFavoritos(List<Local> locaisFavoritos) {
+		this.locaisFavoritos = locaisFavoritos;
 	}
 }

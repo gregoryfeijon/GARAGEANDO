@@ -40,7 +40,6 @@ public class AuthenticationController {
 
 	@PostMapping(value = "/obter-token")
 	public ResponseEntity<String> register(@RequestBody UsuarioDTO usuarioDTO) throws AuthenticationException {
-
 		authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(usuarioDTO.getLogin(), usuarioDTO.getSenha()));
 		final Optional<Usuario> usuario = usuarioService.findUsuarioByLogin(usuarioDTO.getLogin());

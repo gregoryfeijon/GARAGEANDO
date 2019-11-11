@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -47,11 +48,15 @@ public class Local implements Serializable {
 
 	@JoinColumn(unique = true)
 	@ManyToOne(fetch = FetchType.LAZY)
-	List<Avaliacao> avaliacoes;
+	private List<Avaliacao> avaliacoes;
 
 	@JoinColumn(unique = false)
 	@ManyToMany(fetch = FetchType.EAGER)
-	List<FaixaHorarioDisponivel> horariosDisponiveis;
+	private List<FaixaHorarioDisponivel> horariosDisponiveis;
+
+	@JoinColumn(unique = true)
+	@OneToOne(fetch = FetchType.EAGER)
+	private Usuario usuarioProprietario;
 
 	public long getId() {
 		return id;
@@ -99,5 +104,37 @@ public class Local implements Serializable {
 
 	public void setPrecoMedioHora(Double precoMedioHora) {
 		this.precoMedioHora = precoMedioHora;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+	public List<Avaliacao> getAvaliacoes() {
+		return avaliacoes;
+	}
+
+	public void setAvaliacoes(List<Avaliacao> avaliacoes) {
+		this.avaliacoes = avaliacoes;
+	}
+
+	public List<FaixaHorarioDisponivel> getHorariosDisponiveis() {
+		return horariosDisponiveis;
+	}
+
+	public void setHorariosDisponiveis(List<FaixaHorarioDisponivel> horariosDisponiveis) {
+		this.horariosDisponiveis = horariosDisponiveis;
+	}
+
+	public Usuario getUsuarioProprietario() {
+		return usuarioProprietario;
+	}
+
+	public void setUsuarioProprietario(Usuario usuarioProprietario) {
+		this.usuarioProprietario = usuarioProprietario;
 	}
 }

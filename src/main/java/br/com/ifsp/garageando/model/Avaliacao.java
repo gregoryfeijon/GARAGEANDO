@@ -27,7 +27,7 @@ public class Avaliacao implements Serializable {
 	private static final long serialVersionUID = -695451887754689135L;
 
 	private static final String USUARIO_OBRIGATORIO = "ATENÇÃO! É necessário definir o usuário da avaliação!";
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -44,7 +44,7 @@ public class Avaliacao implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@NotNull(message = USUARIO_OBRIGATORIO)
 	private Usuario usuario;
-	
+
 	public long getId() {
 		return id;
 	}
@@ -69,4 +69,11 @@ public class Avaliacao implements Serializable {
 		this.rating = rating;
 	}
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 }
