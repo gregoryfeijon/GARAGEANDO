@@ -29,35 +29,19 @@ public class Local implements Serializable {
 	private static final String PRECO_MEDIO_OBRIGATORIO = "ATENÇÃO! O campo preço médio é OBRIGATÓRIO!";
 	public static final String ENDERECO_OBRIGATORIO = "ATENÇÃO! é OBRIGATÓRIO que um local possua um endereço!";
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-
 	private Double largura;
 	private Double altura;
 	private int numero;
 	private boolean isDisponivel;
-
-	@NotBlank(message = PRECO_MEDIO_OBRIGATORIO)
 	private Double precoMedioHora;
-
-	@JoinColumn(unique = false)
-	@ManyToOne(fetch = FetchType.EAGER)
-	@NotNull(message = ENDERECO_OBRIGATORIO)
 	private Endereco endereco;
-
-	@JoinColumn(unique = true)
-	@ManyToOne(fetch = FetchType.LAZY)
 	private List<Avaliacao> avaliacoes;
-
-	@JoinColumn(unique = false)
-	@ManyToMany(fetch = FetchType.EAGER)
 	private List<FaixaHorarioDisponivel> horariosDisponiveis;
-
-	@JoinColumn(unique = true)
-	@OneToOne(fetch = FetchType.EAGER)
 	private Usuario usuarioProprietario;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public long getId() {
 		return id;
 	}
@@ -98,6 +82,7 @@ public class Local implements Serializable {
 		this.isDisponivel = isDisponivel;
 	}
 
+	@NotBlank(message = PRECO_MEDIO_OBRIGATORIO)
 	public Double getPrecoMedioHora() {
 		return precoMedioHora;
 	}
@@ -106,6 +91,9 @@ public class Local implements Serializable {
 		this.precoMedioHora = precoMedioHora;
 	}
 
+	@JoinColumn(unique = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@NotNull(message = ENDERECO_OBRIGATORIO)
 	public Endereco getEndereco() {
 		return endereco;
 	}
@@ -114,6 +102,8 @@ public class Local implements Serializable {
 		this.endereco = endereco;
 	}
 
+	@JoinColumn(unique = true)
+	@ManyToOne(fetch = FetchType.LAZY)
 	public List<Avaliacao> getAvaliacoes() {
 		return avaliacoes;
 	}
@@ -122,6 +112,8 @@ public class Local implements Serializable {
 		this.avaliacoes = avaliacoes;
 	}
 
+	@JoinColumn(unique = false)
+	@ManyToMany(fetch = FetchType.EAGER)
 	public List<FaixaHorarioDisponivel> getHorariosDisponiveis() {
 		return horariosDisponiveis;
 	}
@@ -130,6 +122,8 @@ public class Local implements Serializable {
 		this.horariosDisponiveis = horariosDisponiveis;
 	}
 
+	@JoinColumn(unique = true)
+	@OneToOne(fetch = FetchType.EAGER)
 	public Usuario getUsuarioProprietario() {
 		return usuarioProprietario;
 	}

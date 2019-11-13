@@ -29,24 +29,14 @@ public class FaixaHorarioDisponivel implements Serializable {
 	private static final String HORARIO_INICIO_OBRIGATORIO = "ATENÇÃO! O horário de início da disponibilidade do local é OBRIGATÓRIO!";
 	private static final String HORARIO_FIM_OBRIGATORIO = "ATENÇÃO! O horário de fim da disponibilidade do local é OBRIGATÓRIO!";
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-
-	@Temporal(TemporalType.TIME)
-	@NotBlank(message = HORARIO_INICIO_OBRIGATORIO)
 	private LocalTime horarioInicio;
-
-	@Temporal(TemporalType.TIME)
-	@NotBlank(message = HORARIO_FIM_OBRIGATORIO)
 	private LocalTime horarioFim;
-
-	@Enumerated(EnumType.ORDINAL)
 	private DiaSemana diaDaSemanaInicio;
-
-	@Enumerated(EnumType.ORDINAL)
 	private DiaSemana diaDaSemanaFim;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public long getId() {
 		return id;
 	}
@@ -55,6 +45,8 @@ public class FaixaHorarioDisponivel implements Serializable {
 		this.id = id;
 	}
 
+	@Temporal(TemporalType.TIME)
+	@NotBlank(message = HORARIO_INICIO_OBRIGATORIO)
 	public LocalTime getHorarioInicio() {
 		return horarioInicio;
 	}
@@ -63,6 +55,8 @@ public class FaixaHorarioDisponivel implements Serializable {
 		this.horarioInicio = horarioInicio;
 	}
 
+	@Temporal(TemporalType.TIME)
+	@NotBlank(message = HORARIO_FIM_OBRIGATORIO)
 	public LocalTime getHorarioFim() {
 		return horarioFim;
 	}
@@ -71,6 +65,7 @@ public class FaixaHorarioDisponivel implements Serializable {
 		this.horarioFim = horarioFim;
 	}
 
+	@Enumerated(EnumType.ORDINAL)
 	public DiaSemana getDiaDaSemanaInicio() {
 		return diaDaSemanaInicio;
 	}
@@ -79,6 +74,7 @@ public class FaixaHorarioDisponivel implements Serializable {
 		this.diaDaSemanaInicio = diaDaSemanaInicio;
 	}
 
+	@Enumerated(EnumType.ORDINAL)
 	public DiaSemana getDiaDaSemanaFim() {
 		return diaDaSemanaFim;
 	}

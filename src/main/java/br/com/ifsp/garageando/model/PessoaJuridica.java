@@ -24,11 +24,11 @@ public class PessoaJuridica extends Pessoa implements Serializable {
 	private static final String CNPJ_OBRIGATORIO = "Atenção! O campo CNPJ é OBRIGATÓRIO!";
 	private static final String CNPJ_INVALIDO = "CNPJ inválido!!!";
 
+	private int cnpj;
+
 	@CNPJ(message = CNPJ_INVALIDO)
 	@NotBlank(message = CNPJ_OBRIGATORIO)
 	@Digits(fraction = 0, integer = 14, message = CNPJ_INVALIDO)
-	private int cnpj;
-
 	public int getCnpj() {
 		return cnpj;
 	}

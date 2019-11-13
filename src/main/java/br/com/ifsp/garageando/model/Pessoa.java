@@ -41,32 +41,16 @@ public abstract class Pessoa implements Serializable {
 	private static final String NOME_INVALIDO = "Nome inválido!!!";
 	private static final String EMAIL_INVALIDO = "Email inválido!!!";
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-
-	@NotBlank(message = NOME_OBRIGATORIO)
-	@Length(min = 3, message = NOME_INVALIDO)
-	@Pattern(regexp = "/[a-zA-Z\\u00C0-\\u00FF ]+/i", message = NOME_INVALIDO)
 	private String nome;
-
-	@Pattern(regexp = "^[\\\\w!#$%&’*+/=?`{|}~^-]+(?:\\\\.[\\\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\\\.)+[a-zA-Z]{2,6}$", message = EMAIL_INVALIDO)
 	private String email;
-
-	@Length(min = 10, max = 10, message = TELEFONE_INVALIDO)
 	private String telefone;
-
-	@Length(min = 10, max = 11, message = CELULAR_INVALIDO)
 	private String celular;
-
-	@Temporal(TemporalType.DATE)
-	@JsonFormat(pattern = "dd-MM-yyyy")
 	private LocalDate dataNasc;
-
-	@Enumerated(EnumType.STRING)
-	@NotBlank(message = PESSOATIPO_OBRIGATORIO)
 	private PessoaTipo pessoaTipo;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public long getId() {
 		return id;
 	}
@@ -75,6 +59,9 @@ public abstract class Pessoa implements Serializable {
 		this.id = id;
 	}
 
+	@NotBlank(message = NOME_OBRIGATORIO)
+	@Length(min = 3, message = NOME_INVALIDO)
+	@Pattern(regexp = "/[a-zA-Z\\u00C0-\\u00FF ]+/i", message = NOME_INVALIDO)
 	public String getNome() {
 		return nome;
 	}
@@ -83,6 +70,7 @@ public abstract class Pessoa implements Serializable {
 		this.nome = nome;
 	}
 
+	@Pattern(regexp = "^[\\\\w!#$%&’*+/=?`{|}~^-]+(?:\\\\.[\\\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\\\.)+[a-zA-Z]{2,6}$", message = EMAIL_INVALIDO)
 	public String getEmail() {
 		return email;
 	}
@@ -91,6 +79,7 @@ public abstract class Pessoa implements Serializable {
 		this.email = email;
 	}
 
+	@Length(min = 10, max = 10, message = TELEFONE_INVALIDO)
 	public String getTelefone() {
 		return telefone;
 	}
@@ -99,6 +88,7 @@ public abstract class Pessoa implements Serializable {
 		this.telefone = telefone;
 	}
 
+	@Length(min = 10, max = 11, message = CELULAR_INVALIDO)
 	public String getCelular() {
 		return celular;
 	}
@@ -107,6 +97,8 @@ public abstract class Pessoa implements Serializable {
 		this.celular = celular;
 	}
 
+	@Temporal(TemporalType.DATE)
+	@JsonFormat(pattern = "dd-MM-yyyy")
 	public LocalDate getDataNasc() {
 		return dataNasc;
 	}
@@ -115,6 +107,8 @@ public abstract class Pessoa implements Serializable {
 		this.dataNasc = dataNasc;
 	}
 
+	@Enumerated(EnumType.STRING)
+	@NotBlank(message = PESSOATIPO_OBRIGATORIO)
 	public PessoaTipo getPessoaTipo() {
 		return pessoaTipo;
 	}

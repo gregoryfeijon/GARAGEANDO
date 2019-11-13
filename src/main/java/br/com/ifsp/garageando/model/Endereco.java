@@ -28,28 +28,17 @@ public class Endereco implements Serializable {
 	private static final String BAIRRO_OBRIGATORIO = "ATENÇÃO! o campo bairro é OBRIGATÓRIO!";
 	private static final String RUA_OBRIGATORIO = "ATENÇÃO! o campo rua é OBRIGATÓRIO!";
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-
-	@NotBlank(message = CIDADE_OBRIGATORIO)
 	private String cidade;
-
-	@NotBlank(message = BAIRRO_OBRIGATORIO)
 	private String bairro;
-
-	@NotBlank(message = RUA_OBRIGATORIO)
 	private String rua;
-
-	@Digits(fraction = 0, integer = 8)
 	private int cep;
-
-	@Enumerated(EnumType.ORDINAL)
 	private Estado estado;
-
 	private String latitude;
 	private String longitude;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public long getId() {
 		return id;
 	}
@@ -58,6 +47,7 @@ public class Endereco implements Serializable {
 		this.id = id;
 	}
 
+	@NotBlank(message = CIDADE_OBRIGATORIO)
 	public String getCidade() {
 		return cidade;
 	}
@@ -66,6 +56,7 @@ public class Endereco implements Serializable {
 		this.cidade = cidade;
 	}
 
+	@NotBlank(message = BAIRRO_OBRIGATORIO)
 	public String getBairro() {
 		return bairro;
 	}
@@ -74,6 +65,7 @@ public class Endereco implements Serializable {
 		this.bairro = bairro;
 	}
 
+	@NotBlank(message = RUA_OBRIGATORIO)
 	public String getRua() {
 		return rua;
 	}
@@ -82,6 +74,7 @@ public class Endereco implements Serializable {
 		this.rua = rua;
 	}
 
+	@Digits(fraction = 0, integer = 8)
 	public int getCep() {
 		return cep;
 	}
@@ -90,6 +83,7 @@ public class Endereco implements Serializable {
 		this.cep = cep;
 	}
 
+	@Enumerated(EnumType.ORDINAL)
 	public Estado getEstado() {
 		return estado;
 	}

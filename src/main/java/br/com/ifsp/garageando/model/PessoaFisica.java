@@ -24,19 +24,16 @@ import org.hibernate.validator.constraints.br.CPF;
 public class PessoaFisica extends Pessoa implements Serializable {
 
 	private static final long serialVersionUID = -3134130963471833905L;
-	
+
 	private static final String CPF_OBRIGATORIO = "Atenção! O campo CPF é OBRIGATÓRIO!";
 	private static final String CPF_INVALIDO = "CPF inválido!!!";
+
+	private int cpf;
+	private List<PessoaJuridica> empresas;
 
 	@CPF(message = CPF_INVALIDO)
 	@NotBlank(message = CPF_OBRIGATORIO)
 	@Digits(fraction = 0, integer = 11, message = CPF_INVALIDO)
-	private int cpf;
-
-	@JoinColumn(unique = true)
-	@OneToMany(fetch = FetchType.EAGER)
-	private List<PessoaJuridica> empresas;
-
 	public int getCpf() {
 		return cpf;
 	}
@@ -45,6 +42,8 @@ public class PessoaFisica extends Pessoa implements Serializable {
 		this.cpf = cpf;
 	}
 
+	@JoinColumn(unique = true)
+	@OneToMany(fetch = FetchType.EAGER)
 	public List<PessoaJuridica> getEmpresas() {
 		return empresas;
 	}

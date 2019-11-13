@@ -27,14 +27,9 @@ public class Usuario extends PessoaFisica implements Serializable {
 	private static final String LOGIN_OBRIGATÓRIO = "ATENÇÃO! O campo login é OBRIGATÓRIO!";
 	private static final String SENHA_OBRIGATÓRIO = "ATENÇÃO! O campo senha é OBRIGATÓRIO!";
 
-	@NotBlank(message = LOGIN_OBRIGATÓRIO)
-	@Length(min = 3)
 	private String login;
-
-	@NotBlank(message = SENHA_OBRIGATÓRIO)
-	@Length(min = 3)
 	private String senha;
-
+	private List<Local> locaisFavoritos;
 //	@JoinColumn(unique = true)
 //	@OneToMany(fetch = FetchType.LAZY)
 //	private List<Evento> eventos;
@@ -43,10 +38,8 @@ public class Usuario extends PessoaFisica implements Serializable {
 //	@OneToMany(fetch = FetchType.LAZY)
 //	private List<Local> locaisProprios;
 
-	@JoinColumn(unique = false)
-	@ManyToMany(fetch = FetchType.LAZY)
-	private List<Local> locaisFavoritos;
-
+	@NotBlank(message = LOGIN_OBRIGATÓRIO)
+	@Length(min = 3)
 	public String getLogin() {
 		return login;
 	}
@@ -55,6 +48,8 @@ public class Usuario extends PessoaFisica implements Serializable {
 		this.login = login;
 	}
 
+	@NotBlank(message = SENHA_OBRIGATÓRIO)
+	@Length(min = 3)
 	public String getSenha() {
 		return senha;
 	}
@@ -63,6 +58,8 @@ public class Usuario extends PessoaFisica implements Serializable {
 		this.senha = senha;
 	}
 
+	@JoinColumn(unique = false)
+	@ManyToMany(fetch = FetchType.LAZY)
 	public List<Local> getLocaisFavoritos() {
 		return locaisFavoritos;
 	}

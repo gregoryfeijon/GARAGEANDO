@@ -26,25 +26,16 @@ public class Avaliacao implements Serializable {
 
 	private static final long serialVersionUID = -695451887754689135L;
 
+	private static final String COMENTARIO_OBRIGATORIO = "ATENÇÃO! É necessário adicionar um comentário à avaliação!";
 	private static final String USUARIO_OBRIGATORIO = "ATENÇÃO! É necessário definir o usuário da avaliação!";
+
+	private long id;
+	private String comentario;
+	private double rating;
+	private Usuario usuario;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-
-	@NotBlank
-	private String comentario;
-
-	@Min(value = 1)
-	@Max(value = 5)
-	@Digits(fraction = 1, integer = 1)
-	private double rating;
-
-	@JoinColumn(unique = false)
-	@ManyToOne(fetch = FetchType.EAGER)
-	@NotNull(message = USUARIO_OBRIGATORIO)
-	private Usuario usuario;
-
 	public long getId() {
 		return id;
 	}
@@ -53,6 +44,7 @@ public class Avaliacao implements Serializable {
 		this.id = id;
 	}
 
+	@NotBlank(message = COMENTARIO_OBRIGATORIO)
 	public String getComentario() {
 		return comentario;
 	}
@@ -61,6 +53,9 @@ public class Avaliacao implements Serializable {
 		this.comentario = comentario;
 	}
 
+	@Min(value = 1)
+	@Max(value = 5)
+	@Digits(fraction = 1, integer = 1)
 	public double getRating() {
 		return rating;
 	}
@@ -69,6 +64,9 @@ public class Avaliacao implements Serializable {
 		this.rating = rating;
 	}
 
+	@JoinColumn(unique = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@NotNull(message = USUARIO_OBRIGATORIO)
 	public Usuario getUsuario() {
 		return usuario;
 	}

@@ -27,27 +27,18 @@ public class Evento implements Serializable {
 
 	private static final long serialVersionUID = 2982597699707445282L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private static final String NOME_EVENTO_OBRIGATORIO = "ATENÇÃO! O campo nome do evento é OBRIGATÓRIO!";
+	private static final String DATA_OBRIGATORIO = "ATENÇÃO! O campo data do evento é OBRIGATÓRIO!";
 
-	@NotBlank
+	private long id;
 	private String nome;
 	private Double preco;
-
-	@JsonFormat(pattern = "dd-MM-yyyy")
-	@NotBlank
 	private LocalDate data;
-
-	@JoinColumn(unique = false)
-	@ManyToOne(fetch = FetchType.EAGER)
-	@NotNull(message = Local.ENDERECO_OBRIGATORIO)
 	private Endereco endereco;
-
-	@JoinColumn(unique = true)
-	@OneToOne(fetch = FetchType.EAGER)
 	private Usuario usuarioResponsavel;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public long getId() {
 		return id;
 	}
@@ -56,6 +47,7 @@ public class Evento implements Serializable {
 		this.id = id;
 	}
 
+	@NotBlank(message = NOME_EVENTO_OBRIGATORIO)
 	public String getNome() {
 		return nome;
 	}
@@ -72,6 +64,8 @@ public class Evento implements Serializable {
 		this.preco = preco;
 	}
 
+	@JsonFormat(pattern = "dd-MM-yyyy")
+	@NotBlank(message = DATA_OBRIGATORIO)
 	public LocalDate getData() {
 		return data;
 	}
@@ -80,6 +74,9 @@ public class Evento implements Serializable {
 		this.data = data;
 	}
 
+	@JoinColumn(unique = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@NotNull(message = Local.ENDERECO_OBRIGATORIO)
 	public Endereco getEndereco() {
 		return endereco;
 	}
@@ -88,6 +85,8 @@ public class Evento implements Serializable {
 		this.endereco = endereco;
 	}
 
+	@JoinColumn(unique = true)
+	@OneToOne(fetch = FetchType.EAGER)
 	public Usuario getUsuarioResponsavel() {
 		return usuarioResponsavel;
 	}
