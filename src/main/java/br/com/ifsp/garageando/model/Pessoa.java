@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
@@ -29,6 +30,7 @@ import br.com.ifsp.garageando.enums.PessoaTipo;
  */
 
 @Entity
+@Table(name = "pessoas")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Pessoa implements Serializable {
 

@@ -2,12 +2,16 @@ package br.com.ifsp.garageando.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 
@@ -20,13 +24,15 @@ import br.com.ifsp.garageando.enums.Estado;
  */
 
 @Entity
+@Table(name = "enderecos")
 public class Endereco implements Serializable {
 
 	private static final long serialVersionUID = 4830439413890041038L;
 
-	private static final String CIDADE_OBRIGATORIO = "ATENÇÃO! o campo cidade é OBRIGATÓRIO!";
-	private static final String BAIRRO_OBRIGATORIO = "ATENÇÃO! o campo bairro é OBRIGATÓRIO!";
-	private static final String RUA_OBRIGATORIO = "ATENÇÃO! o campo rua é OBRIGATÓRIO!";
+	private static final String CIDADE_OBRIGATORIO = "ATENÇÃO! O campo cidade é OBRIGATÓRIO!";
+	private static final String BAIRRO_OBRIGATORIO = "ATENÇÃO! O campo bairro é OBRIGATÓRIO!";
+	private static final String RUA_OBRIGATORIO = "ATENÇÃO! O campo rua é OBRIGATÓRIO!";
+	private static final String CEP_INVALIDO = "ATENÇÃO! O número de CEP inserido é inválido!";
 
 	private long id;
 	private String cidade;
@@ -36,9 +42,11 @@ public class Endereco implements Serializable {
 	private Estado estado;
 	private String latitude;
 	private String longitude;
+	private Evento evento;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
 	public long getId() {
 		return id;
 	}
@@ -48,6 +56,7 @@ public class Endereco implements Serializable {
 	}
 
 	@NotBlank(message = CIDADE_OBRIGATORIO)
+	@Column(name = "CIDADE")
 	public String getCidade() {
 		return cidade;
 	}
@@ -57,6 +66,7 @@ public class Endereco implements Serializable {
 	}
 
 	@NotBlank(message = BAIRRO_OBRIGATORIO)
+	@Column(name = "BAIRRO")
 	public String getBairro() {
 		return bairro;
 	}
@@ -66,6 +76,7 @@ public class Endereco implements Serializable {
 	}
 
 	@NotBlank(message = RUA_OBRIGATORIO)
+	@Column(name = "RUA")
 	public String getRua() {
 		return rua;
 	}
@@ -74,7 +85,8 @@ public class Endereco implements Serializable {
 		this.rua = rua;
 	}
 
-	@Digits(fraction = 0, integer = 8)
+	@Digits(fraction = 0, integer = 8, message = CEP_INVALIDO)
+	@Column(name = "CEP")
 	public int getCep() {
 		return cep;
 	}
@@ -83,7 +95,8 @@ public class Endereco implements Serializable {
 		this.cep = cep;
 	}
 
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
+	@Column(name = "ESTADO")
 	public Estado getEstado() {
 		return estado;
 	}
@@ -92,6 +105,7 @@ public class Endereco implements Serializable {
 		this.estado = estado;
 	}
 
+	@Column(name = "LATITUDE")
 	public String getLatitude() {
 		return latitude;
 	}
@@ -100,11 +114,21 @@ public class Endereco implements Serializable {
 		this.latitude = latitude;
 	}
 
+	@Column(name = "LONGITUDE")
 	public String getLongitude() {
 		return longitude;
 	}
 
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "enderecoEvento")
+	public Evento getEvento() {
+		return evento;
+	}
+
+	public void setEvento(Evento evento) {
+		this.evento = evento;
 	}
 }

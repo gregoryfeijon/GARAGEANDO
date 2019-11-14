@@ -3,6 +3,9 @@ package br.com.ifsp.garageando.model;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
@@ -25,6 +28,7 @@ public class PessoaJuridica extends Pessoa implements Serializable {
 	private static final String CNPJ_INVALIDO = "CNPJ inválido!!!";
 
 	private int cnpj;
+	private PessoaFisica pessoaFisica;
 
 	@CNPJ(message = CNPJ_INVALIDO)
 	@NotBlank(message = CNPJ_OBRIGATORIO)
@@ -35,5 +39,15 @@ public class PessoaJuridica extends Pessoa implements Serializable {
 
 	public void setCnpj(int cnpj) {
 		this.cnpj = cnpj;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "PESSOA_FISICA_ID")
+	public PessoaFisica getPessoaFisica() {
+		return pessoaFisica;
+	}
+
+	public void setPessoaFisica(PessoaFisica pessoaFisica) {
+		this.pessoaFisica = pessoaFisica;
 	}
 }

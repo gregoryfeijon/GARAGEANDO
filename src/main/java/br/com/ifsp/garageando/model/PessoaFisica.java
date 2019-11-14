@@ -3,9 +3,8 @@ package br.com.ifsp.garageando.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.Digits;
@@ -42,8 +41,7 @@ public class PessoaFisica extends Pessoa implements Serializable {
 		this.cpf = cpf;
 	}
 
-	@JoinColumn(unique = true)
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "pessoaFisica", cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<PessoaJuridica> getEmpresas() {
 		return empresas;
 	}

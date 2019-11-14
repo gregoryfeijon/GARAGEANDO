@@ -3,10 +3,12 @@ package br.com.ifsp.garageando.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotBlank;
 
@@ -30,16 +32,12 @@ public class Usuario extends PessoaFisica implements Serializable {
 	private String login;
 	private String senha;
 	private List<Local> locaisFavoritos;
-//	@JoinColumn(unique = true)
-//	@OneToMany(fetch = FetchType.LAZY)
-//	private List<Evento> eventos;
-
-//	@JoinColumn(unique = true)
-//	@OneToMany(fetch = FetchType.LAZY)
-//	private List<Local> locaisProprios;
+	private Avaliacao avaliacao;
+	private Evento evento;
 
 	@NotBlank(message = LOGIN_OBRIGATÓRIO)
 	@Length(min = 3)
+	@Column(name = "LOGIN")
 	public String getLogin() {
 		return login;
 	}
@@ -50,6 +48,7 @@ public class Usuario extends PessoaFisica implements Serializable {
 
 	@NotBlank(message = SENHA_OBRIGATÓRIO)
 	@Length(min = 3)
+	@Column(name = "SENHA")
 	public String getSenha() {
 		return senha;
 	}
@@ -66,5 +65,23 @@ public class Usuario extends PessoaFisica implements Serializable {
 
 	public void setLocaisFavoritos(List<Local> locaisFavoritos) {
 		this.locaisFavoritos = locaisFavoritos;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "usuarioAvaliacao")
+	public Avaliacao getAvaliacao() {
+		return avaliacao;
+	}
+
+	public void setAvaliacao(Avaliacao avaliacao) {
+		this.avaliacao = avaliacao;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "usuarioResponsavelEvento")
+	public Evento getEvento() {
+		return evento;
+	}
+
+	public void setEvento(Evento evento) {
+		this.evento = evento;
 	}
 }

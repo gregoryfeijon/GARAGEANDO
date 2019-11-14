@@ -3,6 +3,7 @@ package br.com.ifsp.garageando.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -22,6 +24,7 @@ import javax.validation.constraints.NotNull;
  */
 
 @Entity
+@Table(name = "locais")
 public class Local implements Serializable {
 
 	private static final long serialVersionUID = -903758268377656191L;
@@ -42,6 +45,7 @@ public class Local implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
 	public long getId() {
 		return id;
 	}
@@ -50,6 +54,7 @@ public class Local implements Serializable {
 		this.id = id;
 	}
 
+	@Column(name = "LARGURA")
 	public Double getLargura() {
 		return largura;
 	}
@@ -58,6 +63,7 @@ public class Local implements Serializable {
 		this.largura = largura;
 	}
 
+	@Column(name = "ALTURA")
 	public Double getAltura() {
 		return altura;
 	}
@@ -66,6 +72,7 @@ public class Local implements Serializable {
 		this.altura = altura;
 	}
 
+	@Column(name = "NUMERO")
 	public int getNumero() {
 		return numero;
 	}
@@ -74,6 +81,7 @@ public class Local implements Serializable {
 		this.numero = numero;
 	}
 
+	@Column(name = "DISPONIVEL")
 	public boolean isDisponivel() {
 		return isDisponivel;
 	}
@@ -83,6 +91,7 @@ public class Local implements Serializable {
 	}
 
 	@NotBlank(message = PRECO_MEDIO_OBRIGATORIO)
+	@Column(name = "PRECO_MEDIO_HORA")
 	public Double getPrecoMedioHora() {
 		return precoMedioHora;
 	}

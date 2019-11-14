@@ -3,14 +3,16 @@ package br.com.ifsp.garageando.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -23,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  */
 
 @Entity
+@Table(name = "eventos")
 public class Evento implements Serializable {
 
 	private static final long serialVersionUID = 2982597699707445282L;
@@ -34,11 +37,12 @@ public class Evento implements Serializable {
 	private String nome;
 	private Double preco;
 	private LocalDate data;
-	private Endereco endereco;
-	private Usuario usuarioResponsavel;
+	private Endereco enderecoEvento;
+	private Usuario usuarioResponsavelEvento;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
 	public long getId() {
 		return id;
 	}
@@ -48,6 +52,7 @@ public class Evento implements Serializable {
 	}
 
 	@NotBlank(message = NOME_EVENTO_OBRIGATORIO)
+	@Column(name = "NOME")
 	public String getNome() {
 		return nome;
 	}
@@ -56,6 +61,7 @@ public class Evento implements Serializable {
 		this.nome = nome;
 	}
 
+	@Column(name = "PRECO")
 	public Double getPreco() {
 		return preco;
 	}
@@ -66,6 +72,7 @@ public class Evento implements Serializable {
 
 	@JsonFormat(pattern = "dd-MM-yyyy")
 	@NotBlank(message = DATA_OBRIGATORIO)
+	@Column(name = "DATA")
 	public LocalDate getData() {
 		return data;
 	}
@@ -74,24 +81,24 @@ public class Evento implements Serializable {
 		this.data = data;
 	}
 
-	@JoinColumn(unique = false)
-	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(unique = false, name = "ENDERECO_ID", referencedColumnName = "ID")
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@NotNull(message = Local.ENDERECO_OBRIGATORIO)
-	public Endereco getEndereco() {
-		return endereco;
+	public Endereco getEnderecoEvento() {
+		return enderecoEvento;
 	}
 
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
+	public void setEnderecoEvento(Endereco endereco) {
+		this.enderecoEvento = endereco;
 	}
 
-	@JoinColumn(unique = true)
-	@OneToOne(fetch = FetchType.EAGER)
-	public Usuario getUsuarioResponsavel() {
-		return usuarioResponsavel;
+	@JoinColumn(unique = true, name = "USUARIO_ID", referencedColumnName = "ID")
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	public Usuario getUsuarioResponsavelEvento() {
+		return usuarioResponsavelEvento;
 	}
 
-	public void setUsuarioResponsavel(Usuario usuarioResponsavel) {
-		this.usuarioResponsavel = usuarioResponsavel;
+	public void setUsuarioResponsavelEvento(Usuario usuarioResponsavelEvento) {
+		this.usuarioResponsavelEvento = usuarioResponsavelEvento;
 	}
 }

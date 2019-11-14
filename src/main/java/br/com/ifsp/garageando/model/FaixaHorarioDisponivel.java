@@ -3,12 +3,14 @@ package br.com.ifsp.garageando.model;
 import java.io.Serializable;
 import java.time.LocalTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
@@ -22,6 +24,7 @@ import br.com.ifsp.garageando.enums.DiaSemana;
  */
 
 @Entity
+@Table(name = "faixa_horarios_disponiveis")
 public class FaixaHorarioDisponivel implements Serializable {
 
 	private static final long serialVersionUID = 769585940406699350L;
@@ -37,6 +40,7 @@ public class FaixaHorarioDisponivel implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
 	public long getId() {
 		return id;
 	}
@@ -47,6 +51,7 @@ public class FaixaHorarioDisponivel implements Serializable {
 
 	@Temporal(TemporalType.TIME)
 	@NotBlank(message = HORARIO_INICIO_OBRIGATORIO)
+	@Column(name = "HORARIO_INICIO")
 	public LocalTime getHorarioInicio() {
 		return horarioInicio;
 	}
@@ -57,6 +62,7 @@ public class FaixaHorarioDisponivel implements Serializable {
 
 	@Temporal(TemporalType.TIME)
 	@NotBlank(message = HORARIO_FIM_OBRIGATORIO)
+	@Column(name = "HORARIO_FIM")
 	public LocalTime getHorarioFim() {
 		return horarioFim;
 	}
@@ -66,6 +72,7 @@ public class FaixaHorarioDisponivel implements Serializable {
 	}
 
 	@Enumerated(EnumType.ORDINAL)
+	@Column(name = "DIA_SEMANA_INICIO")
 	public DiaSemana getDiaDaSemanaInicio() {
 		return diaDaSemanaInicio;
 	}
@@ -75,6 +82,7 @@ public class FaixaHorarioDisponivel implements Serializable {
 	}
 
 	@Enumerated(EnumType.ORDINAL)
+	@Column(name = "DIA_SEMANA_FIM")
 	public DiaSemana getDiaDaSemanaFim() {
 		return diaDaSemanaFim;
 	}
