@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
@@ -40,6 +41,7 @@ public class Avaliacao implements Serializable {
 	private String comentario;
 	private double rating;
 	private Usuario usuarioAvaliacao;
+	private Local localAvaliado;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -84,5 +86,15 @@ public class Avaliacao implements Serializable {
 
 	public void setUsuarioAvaliacao(Usuario usuarioAvaliacao) {
 		this.usuarioAvaliacao = usuarioAvaliacao;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "LOCAL_ID", foreignKey = @ForeignKey(foreignKeyDefinition = "fnk_local"))
+	public Local getLocalAvaliado() {
+		return localAvaliado;
+	}
+
+	public void setLocalAvaliado(Local localAvaliado) {
+		this.localAvaliado = localAvaliado;
 	}
 }

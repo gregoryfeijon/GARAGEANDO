@@ -3,15 +3,18 @@ package br.com.ifsp.garageando.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -100,7 +103,7 @@ public class Local implements Serializable {
 		this.precoMedioHora = precoMedioHora;
 	}
 
-	@JoinColumn(unique = false)
+	@JoinColumn(unique = false, name = "ENDERECO_ID", referencedColumnName = "ID", foreignKey = @ForeignKey(foreignKeyDefinition = "fnk_endereco_id"))
 	@ManyToOne(fetch = FetchType.EAGER)
 	@NotNull(message = ENDERECO_OBRIGATORIO)
 	public Endereco getEndereco() {
@@ -111,8 +114,7 @@ public class Local implements Serializable {
 		this.endereco = endereco;
 	}
 
-	@JoinColumn(unique = true)
-	@ManyToOne(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "localAvaliado", cascade = CascadeType.ALL)
 	public List<Avaliacao> getAvaliacoes() {
 		return avaliacoes;
 	}

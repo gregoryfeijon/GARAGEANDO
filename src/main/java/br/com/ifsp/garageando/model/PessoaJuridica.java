@@ -2,8 +2,10 @@ package br.com.ifsp.garageando.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -33,6 +35,7 @@ public class PessoaJuridica extends Pessoa implements Serializable {
 	@CNPJ(message = CNPJ_INVALIDO)
 	@NotBlank(message = CNPJ_OBRIGATORIO)
 	@Digits(fraction = 0, integer = 14, message = CNPJ_INVALIDO)
+	@Column(name = "CNPJ")
 	public int getCnpj() {
 		return cnpj;
 	}
@@ -42,7 +45,7 @@ public class PessoaJuridica extends Pessoa implements Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "PESSOA_FISICA_ID")
+	@JoinColumn(name = "PESSOA_FISICA_ID", foreignKey = @ForeignKey(foreignKeyDefinition = "fnk_pessoa_fisica_id"))
 	public PessoaFisica getPessoaFisica() {
 		return pessoaFisica;
 	}

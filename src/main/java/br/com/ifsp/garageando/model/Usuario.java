@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -57,7 +58,8 @@ public class Usuario extends PessoaFisica implements Serializable {
 		this.senha = senha;
 	}
 
-	@JoinColumn(unique = false)
+	@JoinTable(name = "locais", joinColumns = { @JoinColumn(name = "USUARIO_ID") }, inverseJoinColumns = {
+			@JoinColumn(name = "LOCAL_ID") })
 	@ManyToMany(fetch = FetchType.LAZY)
 	public List<Local> getLocaisFavoritos() {
 		return locaisFavoritos;

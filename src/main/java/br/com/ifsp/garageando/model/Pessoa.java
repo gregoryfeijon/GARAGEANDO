@@ -3,6 +3,7 @@ package br.com.ifsp.garageando.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -53,6 +54,7 @@ public abstract class Pessoa implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
 	public long getId() {
 		return id;
 	}
@@ -64,6 +66,7 @@ public abstract class Pessoa implements Serializable {
 	@NotBlank(message = NOME_OBRIGATORIO)
 	@Length(min = 3, message = NOME_INVALIDO)
 	@Pattern(regexp = "/[a-zA-Z\\u00C0-\\u00FF ]+/i", message = NOME_INVALIDO)
+	@Column(name = "NOME")
 	public String getNome() {
 		return nome;
 	}
@@ -73,6 +76,7 @@ public abstract class Pessoa implements Serializable {
 	}
 
 	@Pattern(regexp = "^[\\\\w!#$%&’*+/=?`{|}~^-]+(?:\\\\.[\\\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\\\.)+[a-zA-Z]{2,6}$", message = EMAIL_INVALIDO)
+	@Column(name = "E_MAIL", length = 255)
 	public String getEmail() {
 		return email;
 	}
@@ -82,6 +86,7 @@ public abstract class Pessoa implements Serializable {
 	}
 
 	@Length(min = 10, max = 10, message = TELEFONE_INVALIDO)
+	@Column(name = "TELEFONE")
 	public String getTelefone() {
 		return telefone;
 	}
@@ -91,6 +96,7 @@ public abstract class Pessoa implements Serializable {
 	}
 
 	@Length(min = 10, max = 11, message = CELULAR_INVALIDO)
+	@Column(name = "CELULAR")
 	public String getCelular() {
 		return celular;
 	}
@@ -101,6 +107,7 @@ public abstract class Pessoa implements Serializable {
 
 	@Temporal(TemporalType.DATE)
 	@JsonFormat(pattern = "dd-MM-yyyy")
+	@Column(name = "DATA_NASC")
 	public LocalDate getDataNasc() {
 		return dataNasc;
 	}
@@ -111,6 +118,7 @@ public abstract class Pessoa implements Serializable {
 
 	@Enumerated(EnumType.STRING)
 	@NotBlank(message = PESSOATIPO_OBRIGATORIO)
+	@Column(name = "PESSOA_TIPO")
 	public PessoaTipo getPessoaTipo() {
 		return pessoaTipo;
 	}
