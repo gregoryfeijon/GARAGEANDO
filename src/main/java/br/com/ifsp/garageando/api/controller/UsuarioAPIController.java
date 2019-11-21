@@ -10,11 +10,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +25,7 @@ import br.com.ifsp.garageando.api.dto.UsuarioDTO;
 import br.com.ifsp.garageando.api.response.Response;
 import br.com.ifsp.garageando.model.Usuario;
 import br.com.ifsp.garageando.service.UsuarioService;
+import br.com.ifsp.garageando.util.StringUtil;
 
 @RestController
 @RequestMapping("api/garageando")
@@ -34,8 +37,12 @@ public class UsuarioAPIController implements IAPIController<Usuario, UsuarioDTO>
 	@Autowired
 	private UsuarioService usuarioService;
 
+	@Autowired
+	private BCryptPasswordEncoder bCryptEncoder;
+
 	@Override
-	public ResponseEntity<Response<UsuarioDTO>> findById(UsuarioDTO usuarioDTO) {
+	@PostMapping("/id")
+	public ResponseEntity<Response<UsuarioDTO>> findById(@RequestBody UsuarioDTO usuarioDTO) {
 		LOG.debug("findById({})", usuarioDTO.getId());
 		Optional<Usuario> opUsuario = usuarioService.findById(usuarioDTO.getId());
 		if (opUsuario.isPresent()) {
@@ -48,8 +55,8 @@ public class UsuarioAPIController implements IAPIController<Usuario, UsuarioDTO>
 		}
 	}
 
-	@GetMapping
 	@Override
+	@GetMapping
 	public ResponseEntity<Response<UsuarioDTO>> listAll() {
 		LOG.debug("listAll()");
 		List<Usuario> list = usuarioService.findAll();
@@ -64,11 +71,12 @@ public class UsuarioAPIController implements IAPIController<Usuario, UsuarioDTO>
 		}
 	}
 
-	@PostMapping
 	@Override
+	@PostMapping
 	public ResponseEntity<Response<Usuario>> cadastrar(@Valid @RequestBody Usuario usuario) {
 		LOG.debug("saving({})", usuario);
 		Response<Usuario> response = new Response<>();
+		usuario.setSenha(bCryptEncoder.encode(usuario.getSenha()));
 		Optional<Usuario> opUsuario = usuarioService.save(usuario);
 		if (opUsuario.isPresent()) {
 			response.setData(opUsuario.get());
@@ -80,6 +88,7 @@ public class UsuarioAPIController implements IAPIController<Usuario, UsuarioDTO>
 	}
 
 	@Override
+	@DeleteMapping
 	public ResponseEntity<Response<Usuario>> deletar(Usuario usuario) {
 		LOG.debug("deleting({})", usuario);
 		boolean existeUsuario = usuarioService.existsById(usuario.getId());
@@ -119,9 +128,13 @@ public class UsuarioAPIController implements IAPIController<Usuario, UsuarioDTO>
 	}
 
 	@Override
-	public ResponseEntity<Response<Usuario>> alterar(Usuario usuario) {
+	@PutMapping
+	public ResponseEntity<Response<Usuario>> alterar(@Valid @RequestBody Usuario usuario) {
 		LOG.debug("updating({})", usuario);
 		Response<Usuario> response = new Response<>();
+		if (StringUtil.isNotNull(usuario.getSenha())) {
+			usuario.setSenha(bCryptEncoder.encode(usuario.getSenha()));
+		}
 		Optional<Usuario> opUsuario = usuarioService.save(usuario);
 		if (opUsuario.isPresent()) {
 			response.setData(opUsuario.get());

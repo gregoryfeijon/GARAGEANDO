@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,6 +20,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
+
+import br.com.ifsp.garageando.security.enums.Perfil;
 
 /**
  * 6 de nov de 2019
@@ -37,6 +41,7 @@ public class Usuario implements Serializable {
 	private Long id;
 	private String login;
 	private String senha;
+	private Perfil perfil;
 	private List<Local> locaisFavoritos;
 	private Avaliacao avaliacao;
 	private Evento evento;
@@ -74,6 +79,16 @@ public class Usuario implements Serializable {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	@Enumerated(EnumType.ORDINAL)
+	@Column(name = "PERFIL")
+	public Perfil getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(Perfil perfil) {
+		this.perfil = perfil;
 	}
 
 	@JoinTable(name = "locais", joinColumns = {
