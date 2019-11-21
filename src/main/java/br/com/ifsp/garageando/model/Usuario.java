@@ -6,11 +6,15 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
@@ -22,19 +26,33 @@ import org.hibernate.validator.constraints.Length;
  */
 
 @Entity
-@PrimaryKeyJoinColumn(name = "id_pessoaFisica")
-public class Usuario extends PessoaFisica implements Serializable {
+@Table(name = "usuarios")
+public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = -4210899032728690736L;
 
 	private static final String LOGIN_OBRIGATÓRIO = "ATENÇÃO! O campo login é OBRIGATÓRIO!";
 	private static final String SENHA_OBRIGATÓRIO = "ATENÇÃO! O campo senha é OBRIGATÓRIO!";
 
+	private Long id;
 	private String login;
 	private String senha;
 	private List<Local> locaisFavoritos;
 	private Avaliacao avaliacao;
 	private Evento evento;
+	private PessoaFisica pessoa;
+	private Local local;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	@NotBlank(message = LOGIN_OBRIGATÓRIO)
 	@Length(min = 3)
@@ -58,8 +76,9 @@ public class Usuario extends PessoaFisica implements Serializable {
 		this.senha = senha;
 	}
 
-	@JoinTable(name = "locais", joinColumns = { @JoinColumn(name = "USUARIO_ID") }, inverseJoinColumns = {
-			@JoinColumn(name = "LOCAL_ID") })
+	@JoinTable(name = "locais", joinColumns = {
+			@JoinColumn(name = "USUARIO_ID", table = "usuarios", referencedColumnName = "ID") }, inverseJoinColumns = {
+					@JoinColumn(name = "LOCAL_ID", table = "locais", referencedColumnName = "ID") })
 	@ManyToMany(fetch = FetchType.LAZY)
 	public List<Local> getLocaisFavoritos() {
 		return locaisFavoritos;
@@ -69,7 +88,7 @@ public class Usuario extends PessoaFisica implements Serializable {
 		this.locaisFavoritos = locaisFavoritos;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "usuarioAvaliacao")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuarioAvaliacao")
 	public Avaliacao getAvaliacao() {
 		return avaliacao;
 	}
@@ -78,12 +97,30 @@ public class Usuario extends PessoaFisica implements Serializable {
 		this.avaliacao = avaliacao;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "usuarioResponsavelEvento")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuarioResponsavelEvento")
 	public Evento getEvento() {
 		return evento;
 	}
 
 	public void setEvento(Evento evento) {
 		this.evento = evento;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "usuario")
+	public PessoaFisica getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(PessoaFisica pessoa) {
+		this.pessoa = pessoa;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuarioProprietario")
+	public Local getLocal() {
+		return local;
+	}
+
+	public void setLocal(Local local) {
+		this.local = local;
 	}
 }

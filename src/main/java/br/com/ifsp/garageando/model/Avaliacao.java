@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Max;
@@ -77,8 +76,8 @@ public class Avaliacao implements Serializable {
 		this.rating = rating;
 	}
 
-	@JoinColumn(unique = false, name = "USUARIO_ID", referencedColumnName = "ID", foreignKey = @ForeignKey(foreignKeyDefinition = "fnk_usuario_id"))
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "USUARIO_ID", foreignKey = @ForeignKey(foreignKeyDefinition = "fnk_usuario_id"))
 	@NotNull(message = USUARIO_OBRIGATORIO)
 	public Usuario getUsuarioAvaliacao() {
 		return usuarioAvaliacao;
@@ -89,7 +88,7 @@ public class Avaliacao implements Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "LOCAL_ID", foreignKey = @ForeignKey(foreignKeyDefinition = "fnk_local"))
+	@JoinColumn(name = "LOCAL_ID", foreignKey = @ForeignKey(foreignKeyDefinition = "fnk_local_id"))
 	public Local getLocalAvaliado() {
 		return localAvaliado;
 	}

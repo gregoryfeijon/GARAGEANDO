@@ -24,7 +24,7 @@ import br.com.ifsp.garageando.enums.DiaSemana;
  */
 
 @Entity
-@Table(name = "faixa_horarios_disponiveis")
+@Table(name = "faixas_horarios_disponiveis")
 public class FaixaHorarioDisponivel implements Serializable {
 
 	private static final long serialVersionUID = 769585940406699350L;

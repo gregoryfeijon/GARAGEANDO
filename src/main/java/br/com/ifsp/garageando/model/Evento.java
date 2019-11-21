@@ -7,14 +7,17 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -32,11 +35,14 @@ public class Evento implements Serializable {
 
 	private static final String NOME_EVENTO_OBRIGATORIO = "ATENÇÃO! O campo nome do evento é OBRIGATÓRIO!";
 	private static final String DATA_OBRIGATORIO = "ATENÇÃO! O campo data do evento é OBRIGATÓRIO!";
+	private static final String NUMERO_INVALIDO = "ATENÇÃO! O número do local do evento inserido é inválido!";
 
 	private long id;
 	private String nome;
 	private Double preco;
 	private LocalDate data;
+	private int numero;
+	private String complemento;
 	private Endereco enderecoEvento;
 	private Usuario usuarioResponsavelEvento;
 
@@ -81,8 +87,28 @@ public class Evento implements Serializable {
 		this.data = data;
 	}
 
-	@JoinColumn(unique = false, name = "ENDERECO_ID", referencedColumnName = "ID")
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@Positive(message = NUMERO_INVALIDO)
+	@Column(name = "NUMERO")
+	public int getNumero() {
+		return numero;
+	}
+
+	@Lob
+	@Column(name = "COMPLEMENTO")
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+
+	@JoinColumn(name = "ENDERECO_ID", nullable = false, foreignKey = @ForeignKey(foreignKeyDefinition = "fnk_endereco_evento_id"))
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@NotNull(message = Local.ENDERECO_OBRIGATORIO)
 	public Endereco getEnderecoEvento() {
 		return enderecoEvento;
@@ -92,8 +118,8 @@ public class Evento implements Serializable {
 		this.enderecoEvento = endereco;
 	}
 
-	@JoinColumn(unique = true, name = "USUARIO_ID", referencedColumnName = "ID")
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "USUARIO_ID", nullable = false, foreignKey = @ForeignKey(foreignKeyDefinition = "fnk_usuario_resp_id"))
+	@ManyToOne(fetch = FetchType.EAGER)
 	public Usuario getUsuarioResponsavelEvento() {
 		return usuarioResponsavelEvento;
 	}

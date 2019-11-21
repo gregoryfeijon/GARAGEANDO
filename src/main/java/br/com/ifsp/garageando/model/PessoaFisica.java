@@ -5,7 +5,11 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
@@ -28,6 +32,7 @@ public class PessoaFisica extends Pessoa implements Serializable {
 	private static final String CPF_INVALIDO = "CPF inválido!!!";
 
 	private int cpf;
+	private Usuario usuario;
 	private List<PessoaJuridica> empresas;
 
 	@CPF(message = CPF_INVALIDO)
@@ -39,6 +44,16 @@ public class PessoaFisica extends Pessoa implements Serializable {
 
 	public void setCpf(int cpf) {
 		this.cpf = cpf;
+	}
+
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "USUARIO_ID", referencedColumnName = "ID", nullable = false, unique = true, foreignKey = @ForeignKey(foreignKeyDefinition = "fnk_usuario_id"))
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	@OneToMany(mappedBy = "pessoaFisica", cascade = CascadeType.ALL, orphanRemoval = true)

@@ -31,7 +31,7 @@ import br.com.ifsp.garageando.enums.PessoaTipo;
  */
 
 @Entity
-@Table(name = "pessoas")
+@Table
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Pessoa implements Serializable {
 

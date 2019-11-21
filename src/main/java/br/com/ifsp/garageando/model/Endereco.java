@@ -10,7 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
@@ -43,6 +43,7 @@ public class Endereco implements Serializable {
 	private String latitude;
 	private String longitude;
 	private Evento evento;
+	private Local local;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -123,12 +124,21 @@ public class Endereco implements Serializable {
 		this.longitude = longitude;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "enderecoEvento")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "enderecoEvento")
 	public Evento getEvento() {
 		return evento;
 	}
 
 	public void setEvento(Evento evento) {
 		this.evento = evento;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "enderecoLocal")
+	public Local getLocal() {
+		return local;
+	}
+
+	public void setLocal(Local local) {
+		this.local = local;
 	}
 }

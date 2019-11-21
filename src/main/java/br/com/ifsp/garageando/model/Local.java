@@ -12,10 +12,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -41,7 +41,7 @@ public class Local implements Serializable {
 	private int numero;
 	private boolean isDisponivel;
 	private Double precoMedioHora;
-	private Endereco endereco;
+	private Endereco enderecoLocal;
 	private List<Avaliacao> avaliacoes;
 	private List<FaixaHorarioDisponivel> horariosDisponiveis;
 	private Usuario usuarioProprietario;
@@ -103,15 +103,15 @@ public class Local implements Serializable {
 		this.precoMedioHora = precoMedioHora;
 	}
 
-	@JoinColumn(unique = false, name = "ENDERECO_ID", referencedColumnName = "ID", foreignKey = @ForeignKey(foreignKeyDefinition = "fnk_endereco_id"))
-	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "ENDERECO_ID", foreignKey = @ForeignKey(foreignKeyDefinition = "fnk_endereco_local_id"))
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@NotNull(message = ENDERECO_OBRIGATORIO)
-	public Endereco getEndereco() {
-		return endereco;
+	public Endereco getEnderecoLocal() {
+		return enderecoLocal;
 	}
 
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
+	public void setEnderecoLocal(Endereco enderecoLocal) {
+		this.enderecoLocal = enderecoLocal;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "localAvaliado", cascade = CascadeType.ALL)
@@ -123,7 +123,9 @@ public class Local implements Serializable {
 		this.avaliacoes = avaliacoes;
 	}
 
-	@JoinColumn(unique = false)
+	@JoinTable(name = "horarios_locais", joinColumns = {
+			@JoinColumn(name = "LOCAL_ID", table = "locais", referencedColumnName = "ID") }, inverseJoinColumns = {
+					@JoinColumn(name = "HORARIO_DISP_ID", table = "faixas_horarios_disponiveis", referencedColumnName = "ID") })
 	@ManyToMany(fetch = FetchType.EAGER)
 	public List<FaixaHorarioDisponivel> getHorariosDisponiveis() {
 		return horariosDisponiveis;
@@ -133,8 +135,8 @@ public class Local implements Serializable {
 		this.horariosDisponiveis = horariosDisponiveis;
 	}
 
-	@JoinColumn(unique = true)
-	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "USUARIO_ID", nullable = false, foreignKey = @ForeignKey(foreignKeyDefinition = "fnk_usuario_prop_id"))
+	@ManyToOne(fetch = FetchType.EAGER)
 	public Usuario getUsuarioProprietario() {
 		return usuarioProprietario;
 	}
