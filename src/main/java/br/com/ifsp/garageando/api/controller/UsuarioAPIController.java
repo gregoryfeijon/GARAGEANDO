@@ -28,7 +28,7 @@ import br.com.ifsp.garageando.service.UsuarioService;
 import br.com.ifsp.garageando.util.StringUtil;
 
 @RestController
-@RequestMapping("api/garageando")
+@RequestMapping("api/usuario")
 @CrossOrigin(origins = "*")
 public class UsuarioAPIController implements IAPIController<Usuario, UsuarioDTO> {
 
