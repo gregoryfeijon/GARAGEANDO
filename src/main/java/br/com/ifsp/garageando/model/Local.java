@@ -38,12 +38,12 @@ public class Local implements Serializable {
 	private long id;
 	private Double largura;
 	private Double altura;
-	private int numero;
 	private boolean isDisponivel;
 	private Double precoMedioHora;
+	private int numero;
 	private Endereco enderecoLocal;
 	private List<Avaliacao> avaliacoes;
-	private List<FaixaHorarioDisponivel> horariosDisponiveis;
+	private List<FaixaHorarioDisponivel> faixasHorariosDisponiveis;
 	private Usuario usuarioProprietario;
 
 	@Id
@@ -127,12 +127,12 @@ public class Local implements Serializable {
 			@JoinColumn(name = "LOCAL_ID", table = "locais", referencedColumnName = "ID") }, inverseJoinColumns = {
 					@JoinColumn(name = "HORARIO_DISP_ID", table = "faixas_horarios_disponiveis", referencedColumnName = "ID") })
 	@ManyToMany(fetch = FetchType.EAGER)
-	public List<FaixaHorarioDisponivel> getHorariosDisponiveis() {
-		return horariosDisponiveis;
+	public List<FaixaHorarioDisponivel> getFaixasHorariosDisponiveis() {
+		return faixasHorariosDisponiveis;
 	}
 
-	public void setHorariosDisponiveis(List<FaixaHorarioDisponivel> horariosDisponiveis) {
-		this.horariosDisponiveis = horariosDisponiveis;
+	public void setFaixasHorariosDisponiveis(List<FaixaHorarioDisponivel> faixasHorariosDisponiveis) {
+		this.faixasHorariosDisponiveis = faixasHorariosDisponiveis;
 	}
 
 	@JoinColumn(name = "USUARIO_ID", nullable = false, foreignKey = @ForeignKey(foreignKeyDefinition = "fnk_usuario_prop_id"))

@@ -39,9 +39,9 @@ public class Endereco implements Serializable {
 	private String bairro;
 	private String rua;
 	private int cep;
-	private Estado estado;
 	private String latitude;
 	private String longitude;
+	private Estado estado;
 	private Evento evento;
 	private Local local;
 
