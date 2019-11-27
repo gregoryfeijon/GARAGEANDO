@@ -3,9 +3,14 @@ package br.com.ifsp.garageando.api.controller;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 
+import br.com.ifsp.garageando.api.dto.UsuarioDTO;
+import br.com.ifsp.garageando.model.UsuarioDTOBuilder;
 import br.com.ifsp.garageando.util.StringUtil;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -21,7 +26,14 @@ public class AuthorizationTestHelper<T> {
 	 * @return String
 	 */
 	private String gerarToken(TestRestTemplate restTemplate) {
-		// desenvolver parte de tokenização com usuário
+		UsuarioDTOBuilder userBuilder = new UsuarioDTOBuilder().withLogin("admin").withSenha("admin123");
+		UsuarioDTO user = userBuilder.build();
+		HttpEntity<UsuarioDTO> httpEntity = new HttpEntity<>(user);
+		ParameterizedTypeReference<String> tipoRetorno = new ParameterizedTypeReference<String>() {
+		};
+		ResponseEntity<String> responseToken = restTemplate.exchange("/autenticacao/obter-token", HttpMethod.POST,
+				httpEntity, tipoRetorno);
+		token = "Bearer " + responseToken.getBody();
 		return token;
 	}
 
