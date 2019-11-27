@@ -31,18 +31,13 @@ public class UsuarioBuilder {
 		return this;
 	}
 
-	public UsuarioBuilder withLocaisFavoritos(List<Local> locaisFavoritos) {
-		usuario.setLocaisFavoritos(locaisFavoritos);
-		return this;
-	}
-
 	public UsuarioBuilder withAvaliacao(Avaliacao avaliacao) {
 		usuario.setAvaliacao(avaliacao);
 		return this;
 	}
 
-	public UsuarioBuilder withEvento(Evento evento) {
-		usuario.setEvento(evento);
+	public UsuarioBuilder withEventos(List<Evento> eventos) {
+		usuario.setEventos(eventos);
 		return this;
 	}
 
@@ -51,8 +46,13 @@ public class UsuarioBuilder {
 		return this;
 	}
 
-	public UsuarioBuilder withLocal(Local local) {
-		usuario.setLocal(local);
+	public UsuarioBuilder withLocaisProprios(List<Local> locaisProprios) {
+		usuario.setLocaisProprios(locaisProprios);
+		return this;
+	}
+	
+	public UsuarioBuilder withLocaisFavoritos(List<Local> locaisFavoritos) {
+		usuario.setLocaisFavoritos(locaisFavoritos);
 		return this;
 	}
 }

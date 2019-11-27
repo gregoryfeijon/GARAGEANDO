@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -37,16 +38,17 @@ public class Usuario implements Serializable {
 
 	private static final String LOGIN_OBRIGATÓRIO = "ATENÇÃO! O campo login é OBRIGATÓRIO!";
 	private static final String SENHA_OBRIGATÓRIO = "ATENÇÃO! O campo senha é OBRIGATÓRIO!";
+	private static final String PESSOA_FISICA_OBRIGATÓRIO = "ATENÇÃO! O cadastro de pessoa física é OBRIGATÓRIO!";
 
 	private Long id;
 	private String login;
 	private String senha;
 	private Perfil perfil;
-	private List<Local> locaisFavoritos;
-	private Avaliacao avaliacao;
-	private Evento evento;
 	private PessoaFisica pessoa;
-	private Local local;
+	private Avaliacao avaliacao;
+	private List<Local> locaisFavoritos;
+	private List<Evento> eventos;
+	private List<Local> locaisProprios;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -113,15 +115,16 @@ public class Usuario implements Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuarioResponsavelEvento")
-	public Evento getEvento() {
-		return evento;
+	public List<Evento> getEventos() {
+		return eventos;
 	}
 
-	public void setEvento(Evento evento) {
-		this.evento = evento;
+	public void setEventos(List<Evento> eventos) {
+		this.eventos = eventos;
 	}
 
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "usuario")
+	@NotNull(message = PESSOA_FISICA_OBRIGATÓRIO)
 	public PessoaFisica getPessoa() {
 		return pessoa;
 	}
@@ -131,11 +134,11 @@ public class Usuario implements Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuarioProprietario")
-	public Local getLocal() {
-		return local;
+	public List<Local> getLocaisProprios() {
+		return locaisProprios;
 	}
 
-	public void setLocal(Local local) {
-		this.local = local;
+	public void setLocaisProprios(List<Local> locaisProprios) {
+		this.locaisProprios = locaisProprios;
 	}
 }

@@ -92,15 +92,15 @@ public class Evento implements Serializable {
 	public int getNumero() {
 		return numero;
 	}
+	
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
 
 	@Lob
 	@Column(name = "COMPLEMENTO")
 	public String getComplemento() {
 		return complemento;
-	}
-
-	public void setNumero(int numero) {
-		this.numero = numero;
 	}
 
 	public void setComplemento(String complemento) {
