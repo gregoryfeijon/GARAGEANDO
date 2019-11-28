@@ -31,20 +31,20 @@ public class UsuarioBuilder {
 		return this;
 	}
 
-	public UsuarioBuilder withAvaliacao(Avaliacao avaliacao) {
-		usuario.setAvaliacao(avaliacao);
-		return this;
-	}
+//	public UsuarioBuilder withAvaliacao(Avaliacao avaliacao) {
+//		usuario.setAvaliacao(avaliacao);
+//		return this;
+//	}
 
 	public UsuarioBuilder withEventos(List<Evento> eventos) {
 		usuario.setEventos(eventos);
 		return this;
 	}
 
-	public UsuarioBuilder withPessoa(PessoaFisica pessoaFisica) {
-		usuario.setPessoa(pessoaFisica);
-		return this;
-	}
+//	public UsuarioBuilder withPessoa(PessoaFisica pessoaFisica) {
+//		usuario.setPessoa(pessoaFisica);
+//		return this;
+//	}
 
 	public UsuarioBuilder withLocaisProprios(List<Local> locaisProprios) {
 		usuario.setLocaisProprios(locaisProprios);

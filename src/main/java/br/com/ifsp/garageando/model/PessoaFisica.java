@@ -4,15 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
-import javax.persistence.JoinColumn;
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -22,41 +16,44 @@ import org.hibernate.validator.constraints.br.CPF;
  * @author gregory.feijon
  */
 
-@Entity
-@PrimaryKeyJoinColumn(name = "id_pessoa")
-public class PessoaFisica extends Pessoa implements Serializable {
+//@Entity
+//@Table(name = "pessoa_fisica")
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@MappedSuperclass
+//@PrimaryKeyJoinColumn(name = "id_pessoa")
+public abstract class PessoaFisica extends Pessoa implements Serializable {
 
 	private static final long serialVersionUID = -3134130963471833905L;
 
-	private static final String CPF_OBRIGATORIO = "Atenção! O campo CPF é OBRIGATÓRIO!";
+//	private static final String CPF_OBRIGATORIO = "Atenção! O campo CPF é OBRIGATÓRIO!";
 	private static final String CPF_INVALIDO = "CPF inválido!!!";
 
-	private int cpf;
-	private Usuario usuario;
+	private String cpf;
+//	private Usuario usuario;
 	private List<PessoaJuridica> empresas;
 
 	@CPF(message = CPF_INVALIDO)
-	@NotBlank(message = CPF_OBRIGATORIO)
-	@Digits(fraction = 0, integer = 11, message = CPF_INVALIDO)
-	public int getCpf() {
+//	@NotBlank(message = CPF_OBRIGATORIO)
+//	@Digits(fraction = 0, integer = 11, message = CPF_INVALIDO)
+	@Column(name = "CPF", nullable = false, unique = true)
+	public String getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(int cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "USUARIO_ID", referencedColumnName = "ID", nullable = false, unique = true, foreignKey = @ForeignKey(foreignKeyDefinition = "fnk_usuario_id"))
-	public Usuario getUsuario() {
-		return usuario;
-	}
+//	@OneToOne(fetch = FetchType.LAZY, mappedBy = "pessoa")
+//	public Usuario getUsuario() {
+//		return usuario;
+//	}
+//
+//	public void setUsuario(Usuario usuario) {
+//		this.usuario = usuario;
+//	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
-	@OneToMany(mappedBy = "pessoaFisica", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "usuarioPessoa", cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<PessoaJuridica> getEmpresas() {
 		return empresas;
 	}

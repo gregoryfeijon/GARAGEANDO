@@ -4,18 +4,12 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotBlank;
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
@@ -30,15 +24,13 @@ import br.com.ifsp.garageando.enums.PessoaTipo;
  * @author gregory.feijon
  */
 
-@Entity
-@Table
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@MappedSuperclass
 public abstract class Pessoa implements Serializable {
 
 	private static final long serialVersionUID = 83601349719433879L;
 
-	private static final String NOME_OBRIGATORIO = "Atenção! O campo nome é OBRIGATÓRIO!";
-	private static final String PESSOATIPO_OBRIGATORIO = "Atenção! O campo referente ao tipo de pessoa é OBRIGATÓRIO!";
+//	private static final String NOME_OBRIGATORIO = "Atenção! O campo nome é OBRIGATÓRIO!";
+//	private static final String PESSOATIPO_OBRIGATORIO = "Atenção! O campo referente ao tipo de pessoa é OBRIGATÓRIO!";
 	private static final String TELEFONE_INVALIDO = "Telefone inválido!!!";
 	private static final String CELULAR_INVALIDO = "Celular inválido!!!";
 	private static final String NOME_INVALIDO = "Nome inválido!!!";
@@ -63,10 +55,10 @@ public abstract class Pessoa implements Serializable {
 		this.id = id;
 	}
 
-	@NotBlank(message = NOME_OBRIGATORIO)
+//	@NotBlank(message = NOME_OBRIGATORIO)
 	@Length(min = 3, message = NOME_INVALIDO)
 	@Pattern(regexp = "/[a-zA-Z\\u00C0-\\u00FF ]+/i", message = NOME_INVALIDO)
-	@Column(name = "NOME")
+	@Column(name = "NOME", nullable = false)
 	public String getNome() {
 		return nome;
 	}
@@ -105,7 +97,7 @@ public abstract class Pessoa implements Serializable {
 		this.celular = celular;
 	}
 
-	@Temporal(TemporalType.DATE)
+//	@Temporal(TemporalType.DATE)
 	@JsonFormat(pattern = "dd-MM-yyyy")
 	@Column(name = "DATA_NASC")
 	public LocalDate getDataNasc() {
@@ -117,7 +109,7 @@ public abstract class Pessoa implements Serializable {
 	}
 
 	@Enumerated(EnumType.STRING)
-	@NotBlank(message = PESSOATIPO_OBRIGATORIO)
+//	@NotBlank(message = PESSOATIPO_OBRIGATORIO)
 	@Column(name = "PESSOA_TIPO")
 	public PessoaTipo getPessoaTipo() {
 		return pessoaTipo;

@@ -1,6 +1,7 @@
 package br.com.ifsp.garageando.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,8 +43,8 @@ public class Endereco implements Serializable {
 	private String latitude;
 	private String longitude;
 	private Estado estado;
-	private Evento evento;
-	private Local local;
+	private List<Evento> eventos;
+	private List<Local> locais;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -125,20 +126,20 @@ public class Endereco implements Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "enderecoEvento")
-	public Evento getEvento() {
-		return evento;
+	public List<Evento> getEventos() {
+		return eventos;
 	}
 
-	public void setEvento(Evento evento) {
-		this.evento = evento;
+	public void setEventos(List<Evento> eventos) {
+		this.eventos = eventos;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "enderecoLocal")
-	public Local getLocal() {
-		return local;
+	public List<Local> getLocais() {
+		return locais;
 	}
 
-	public void setLocal(Local local) {
-		this.local = local;
+	public void setLocais(List<Local> locais) {
+		this.locais = locais;
 	}
 }

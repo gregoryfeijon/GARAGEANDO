@@ -76,6 +76,10 @@ public class UsuarioAPIController implements IAPIController<Usuario, UsuarioDTO>
 	public ResponseEntity<Response<Usuario>> cadastrar(@Valid @RequestBody Usuario usuario) {
 		LOG.debug("saving({})", usuario);
 		Response<Usuario> response = new Response<>();
+//		if (usuario.getPessoa() == null) {
+//			response.setErrors(Arrays.asList("Erro! Deve ser feito um cadastro de pessoa física junto com o de usuário!"));
+//			return ResponseEntity.badRequest().body(response);
+//		}
 		usuario.setSenha(bCryptEncoder.encode(usuario.getSenha()));
 		Optional<Usuario> opUsuario = usuarioService.save(usuario);
 		if (opUsuario.isPresent()) {

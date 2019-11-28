@@ -103,7 +103,7 @@ public class Local implements Serializable {
 		this.precoMedioHora = precoMedioHora;
 	}
 
-	@JoinColumn(name = "ENDERECO_ID", foreignKey = @ForeignKey(foreignKeyDefinition = "fnk_endereco_local_id"))
+	@JoinColumn(name = "ENDERECO_ID", foreignKey = @ForeignKey(name = "fnk_endereco_local_id"))
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@NotNull(message = ENDERECO_OBRIGATORIO)
 	public Endereco getEnderecoLocal() {
@@ -124,8 +124,8 @@ public class Local implements Serializable {
 	}
 
 	@JoinTable(name = "horarios_locais", joinColumns = {
-			@JoinColumn(name = "LOCAL_ID", table = "locais", referencedColumnName = "ID") }, inverseJoinColumns = {
-					@JoinColumn(name = "HORARIO_DISP_ID", table = "faixas_horarios_disponiveis", referencedColumnName = "ID") })
+			@JoinColumn(name = "LOCAL_ID", table = "locais", referencedColumnName = "ID") }, foreignKey = @ForeignKey(name = "fnk_local_id"), inverseJoinColumns = {
+					@JoinColumn(name = "HORARIO_DISP_ID", table = "faixas_horarios_disponiveis", referencedColumnName = "ID") }, inverseForeignKey = @ForeignKey(name = "fnk_horario_disp_id"))
 	@ManyToMany(fetch = FetchType.EAGER)
 	public List<FaixaHorarioDisponivel> getFaixasHorariosDisponiveis() {
 		return faixasHorariosDisponiveis;
@@ -135,7 +135,7 @@ public class Local implements Serializable {
 		this.faixasHorariosDisponiveis = faixasHorariosDisponiveis;
 	}
 
-	@JoinColumn(name = "USUARIO_ID", nullable = false, foreignKey = @ForeignKey(foreignKeyDefinition = "fnk_usuario_prop_id"))
+	@JoinColumn(name = "USUARIO_ID", nullable = false, foreignKey = @ForeignKey(name = "fnk_usuario_prop_id"))
 	@ManyToOne(fetch = FetchType.EAGER)
 	public Usuario getUsuarioProprietario() {
 		return usuarioProprietario;

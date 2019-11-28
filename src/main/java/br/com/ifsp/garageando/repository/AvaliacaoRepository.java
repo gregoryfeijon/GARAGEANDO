@@ -10,6 +10,6 @@ import br.com.ifsp.garageando.model.Avaliacao;
  * @author gregory.feijon
  */
 
-public interface AvalicaoRepository extends JpaRepository<Avaliacao, Long> {
+public interface AvaliacaoRepository extends JpaRepository<Avaliacao, Long> {
 
 }

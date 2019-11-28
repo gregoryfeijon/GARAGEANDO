@@ -107,7 +107,7 @@ public class Evento implements Serializable {
 		this.complemento = complemento;
 	}
 
-	@JoinColumn(name = "ENDERECO_ID", nullable = false, foreignKey = @ForeignKey(foreignKeyDefinition = "fnk_endereco_evento_id"))
+	@JoinColumn(name = "ENDERECO_ID", nullable = false, foreignKey = @ForeignKey(name = "fnk_endereco_evento_id"))
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@NotNull(message = Local.ENDERECO_OBRIGATORIO)
 	public Endereco getEnderecoEvento() {
@@ -118,7 +118,7 @@ public class Evento implements Serializable {
 		this.enderecoEvento = endereco;
 	}
 
-	@JoinColumn(name = "USUARIO_ID", nullable = false, foreignKey = @ForeignKey(foreignKeyDefinition = "fnk_usuario_resp_id"))
+	@JoinColumn(name = "USUARIO_ID", nullable = false, foreignKey = @ForeignKey(name = "fnk_usuario_resp_id"))
 	@ManyToOne(fetch = FetchType.EAGER)
 	public Usuario getUsuarioResponsavelEvento() {
 		return usuarioResponsavelEvento;

@@ -2,7 +2,6 @@ package br.com.ifsp.garageando.model;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -39,7 +38,7 @@ public class Avaliacao implements Serializable {
 	private long id;
 	private String comentario;
 	private double rating;
-	private Usuario usuarioAvaliacao;
+	private Usuario usuarioAvaliador;
 	private Local localAvaliado;
 
 	@Id
@@ -76,19 +75,30 @@ public class Avaliacao implements Serializable {
 		this.rating = rating;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "USUARIO_ID", foreignKey = @ForeignKey(foreignKeyDefinition = "fnk_usuario_id"))
+//	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//	@JoinColumn(name = "USUARIO_ID", foreignKey = @ForeignKey(name = "fnk_usuario_id"))
+//	@NotNull(message = USUARIO_OBRIGATORIO)
+//	public Usuario getUsuarioAvaliacao() {
+//		return usuarioAvaliacao;
+//	}
+//
+//	public void setUsuarioAvaliacao(Usuario usuarioAvaliacao) {
+//		this.usuarioAvaliacao = usuarioAvaliacao;
+//	}
+	
+	@ManyToOne(fetch = FetchType.EAGER, optional = false )
+	@JoinColumn(name = "USUARIO_ID", foreignKey = @ForeignKey(name = "fnk_usuario_id"))
 	@NotNull(message = USUARIO_OBRIGATORIO)
-	public Usuario getUsuarioAvaliacao() {
-		return usuarioAvaliacao;
+	public Usuario getUsuarioAvaliador() {
+		return usuarioAvaliador;
 	}
 
-	public void setUsuarioAvaliacao(Usuario usuarioAvaliacao) {
-		this.usuarioAvaliacao = usuarioAvaliacao;
+	public void setUsuarioAvaliador(Usuario usuarioAvaliacao) {
+		this.usuarioAvaliador = usuarioAvaliacao;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "LOCAL_ID", foreignKey = @ForeignKey(foreignKeyDefinition = "fnk_local_id"))
+	@JoinColumn(name = "LOCAL_ID", foreignKey = @ForeignKey(name = "fnk_local_id"))
 	public Local getLocalAvaliado() {
 		return localAvaliado;
 	}
