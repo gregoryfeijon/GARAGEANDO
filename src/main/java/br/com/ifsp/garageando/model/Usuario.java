@@ -3,15 +3,21 @@ package br.com.ifsp.garageando.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -27,7 +33,7 @@ import br.com.ifsp.garageando.security.enums.Perfil;
 
 @Entity
 @Table(name = "usuarios")
-public class Usuario extends PessoaFisica implements Serializable {
+public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = -4210899032728690736L;
 
@@ -35,26 +41,26 @@ public class Usuario extends PessoaFisica implements Serializable {
 	private static final String SENHA_OBRIGATÓRIO = "ATENÇÃO! O campo senha é OBRIGATÓRIO!";
 //	private static final String PESSOA_FISICA_OBRIGATÓRIO = "ATENÇÃO! O cadastro de pessoa física é OBRIGATÓRIO!";
 
-//	private Long id;
+	private Long id;
 	private String login;
 	private String senha;
 	private Perfil perfil;
-//	private PessoaFisica pessoa;
+	private PessoaFisica pessoa;
 //	private Avaliacao avaliacao;
 	private List<Local> locaisFavoritos;
 	private List<Evento> eventos;
 	private List<Local> locaisProprios;
 
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	@Column(name = "ID")
-//	public Long getId() {
-//		return id;
-//	}
-//
-//	public void setId(Long id) {
-//		this.id = id;
-//	}
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	@NotBlank(message = LOGIN_OBRIGATÓRIO)
 	@Length(min = 3)
@@ -88,9 +94,9 @@ public class Usuario extends PessoaFisica implements Serializable {
 		this.perfil = perfil;
 	}
 
-	@JoinTable(name = "locais", joinColumns = {
-			@JoinColumn(name = "USUARIO_ID", table = "usuarios", referencedColumnName = "ID") }, inverseJoinColumns = {
-					@JoinColumn(name = "LOCAL_ID", table = "locais", referencedColumnName = "ID") })
+	@JoinTable(name = "locais_favoritos_usuarios", joinColumns = {
+			@JoinColumn(name = "USUARIO_ID", table = "usuarios", referencedColumnName = "ID") }, foreignKey = @ForeignKey(name = "fk_usuario_fav_id"), inverseJoinColumns = {
+					@JoinColumn(name = "LOCAL_ID", table = "locais", referencedColumnName = "ID") }, inverseForeignKey = @ForeignKey(name = "fk_local_fav_id"))
 	@ManyToMany(fetch = FetchType.LAZY)
 	public List<Local> getLocaisFavoritos() {
 		return locaisFavoritos;
@@ -118,15 +124,15 @@ public class Usuario extends PessoaFisica implements Serializable {
 		this.eventos = eventos;
 	}
 
-//	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//	@JoinColumn(name = "PESSOA_ID", referencedColumnName = "ID", nullable = false, unique = true, foreignKey = @ForeignKey(name = "fk_pessoa_id"))
-//	public PessoaFisica getPessoa() {
-//		return pessoa;
-//	}
-//
-//	public void setPessoa(PessoaFisica pessoa) {
-//		this.pessoa = pessoa;
-//	}
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "PESSOA_ID", referencedColumnName = "ID", unique = true, foreignKey = @ForeignKey(name = "fk_pessoa_id"))
+	public PessoaFisica getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(PessoaFisica pessoa) {
+		this.pessoa = pessoa;
+	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuarioProprietario")
 	public List<Local> getLocaisProprios() {

@@ -124,7 +124,7 @@ public class Local implements Serializable {
 	}
 
 	@JoinTable(name = "horarios_locais", joinColumns = {
-			@JoinColumn(name = "LOCAL_ID", table = "locais", referencedColumnName = "ID") }, foreignKey = @ForeignKey(name = "fk_local_id"), inverseJoinColumns = {
+			@JoinColumn(name = "LOCAL_ID", table = "locais", referencedColumnName = "ID") }, foreignKey = @ForeignKey(name = "fk_local_hora_id"), inverseJoinColumns = {
 					@JoinColumn(name = "HORARIO_DISP_ID", table = "faixas_horarios_disponiveis", referencedColumnName = "ID") }, inverseForeignKey = @ForeignKey(name = "fk_horario_disp_id"))
 	@ManyToMany(fetch = FetchType.EAGER)
 	public List<FaixaHorarioDisponivel> getFaixasHorariosDisponiveis() {

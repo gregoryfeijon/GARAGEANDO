@@ -30,13 +30,13 @@ public class PessoaJuridica extends Pessoa implements Serializable {
 	private static final String CNPJ_INVALIDO = "CNPJ inválido!!!";
 
 	private String cnpj;
-//	private PessoaFisica pessoaFisica;
-	private Usuario usuarioPessoa;
+	private PessoaFisica pessoaFisica;
+//	private Usuario usuarioPessoa;
 
 	@CNPJ(message = CNPJ_INVALIDO)
 	@NotBlank(message = CNPJ_OBRIGATORIO)
 //	@Digits(fraction = 0, integer = 14, message = CNPJ_INVALIDO)
-	@Column(name = "CNPJ", nullable = false, unique = true)
+	@Column(name = "CNPJ", unique = true)
 	public String getCnpj() {
 		return cnpj;
 	}
@@ -45,23 +45,23 @@ public class PessoaJuridica extends Pessoa implements Serializable {
 		this.cnpj = cnpj;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "PESSOA_FISICA_ID", foreignKey = @ForeignKey(name = "fk_pessoa_fisica_id"))
-	public Usuario getUsuarioPessoa() {
-		return usuarioPessoa;
-	}
-
-	public void setUsuarioPessoa(Usuario usuarioPessoa) {
-		this.usuarioPessoa = usuarioPessoa;
-	}
-
 //	@ManyToOne(fetch = FetchType.LAZY)
 //	@JoinColumn(name = "PESSOA_FISICA_ID", foreignKey = @ForeignKey(name = "fk_pessoa_fisica_id"))
-//	public PessoaFisica getPessoaFisica() {
-//		return pessoaFisica;
+//	public Usuario getUsuarioPessoa() {
+//		return usuarioPessoa;
 //	}
 //
-//	public void setPessoaFisica(PessoaFisica pessoaFisica) {
-//		this.pessoaFisica = pessoaFisica;
+//	public void setUsuarioPessoa(Usuario usuarioPessoa) {
+//		this.usuarioPessoa = usuarioPessoa;
 //	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "PESSOA_FISICA_ID", foreignKey = @ForeignKey(name = "fk_pessoa_fisica_id"))
+	public PessoaFisica getPessoaFisica() {
+		return pessoaFisica;
+	}
+
+	public void setPessoaFisica(PessoaFisica pessoaFisica) {
+		this.pessoaFisica = pessoaFisica;
+	}
 }

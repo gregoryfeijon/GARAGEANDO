@@ -5,8 +5,12 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -16,26 +20,26 @@ import org.hibernate.validator.constraints.br.CPF;
  * @author gregory.feijon
  */
 
-//@Entity
-//@Table(name = "pessoa_fisica")
+@Entity
+@Table(name = "pessoa_fisica")
 //@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@MappedSuperclass
+//@MappedSuperclass
 //@PrimaryKeyJoinColumn(name = "id_pessoa")
-public abstract class PessoaFisica extends Pessoa implements Serializable {
+public class PessoaFisica extends Pessoa implements Serializable {
 
 	private static final long serialVersionUID = -3134130963471833905L;
 
-//	private static final String CPF_OBRIGATORIO = "Atenção! O campo CPF é OBRIGATÓRIO!";
+	private static final String CPF_OBRIGATORIO = "Atenção! O campo CPF é OBRIGATÓRIO!";
 	private static final String CPF_INVALIDO = "CPF inválido!!!";
 
 	private String cpf;
-//	private Usuario usuario;
+	private Usuario usuario;
 	private List<PessoaJuridica> empresas;
 
 	@CPF(message = CPF_INVALIDO)
-//	@NotBlank(message = CPF_OBRIGATORIO)
+	@NotNull(message = CPF_OBRIGATORIO)
 //	@Digits(fraction = 0, integer = 11, message = CPF_INVALIDO)
-	@Column(name = "CPF", nullable = false, unique = true)
+	@Column(name = "CPF", unique = true)
 	public String getCpf() {
 		return cpf;
 	}
@@ -44,16 +48,16 @@ public abstract class PessoaFisica extends Pessoa implements Serializable {
 		this.cpf = cpf;
 	}
 
-//	@OneToOne(fetch = FetchType.LAZY, mappedBy = "pessoa")
-//	public Usuario getUsuario() {
-//		return usuario;
-//	}
-//
-//	public void setUsuario(Usuario usuario) {
-//		this.usuario = usuario;
-//	}
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "pessoa")
+	public Usuario getUsuario() {
+		return usuario;
+	}
 
-	@OneToMany(mappedBy = "usuarioPessoa", cascade = CascadeType.ALL, orphanRemoval = true)
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	@OneToMany(mappedBy = "pessoaFisica", cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<PessoaJuridica> getEmpresas() {
 		return empresas;
 	}
