@@ -39,14 +39,12 @@ public class Usuario implements Serializable {
 
 	private static final String LOGIN_OBRIGATÓRIO = "ATENÇÃO! O campo login é OBRIGATÓRIO!";
 	private static final String SENHA_OBRIGATÓRIO = "ATENÇÃO! O campo senha é OBRIGATÓRIO!";
-//	private static final String PESSOA_FISICA_OBRIGATÓRIO = "ATENÇÃO! O cadastro de pessoa física é OBRIGATÓRIO!";
 
 	private Long id;
 	private String login;
 	private String senha;
 	private Perfil perfil;
 	private PessoaFisica pessoa;
-//	private Avaliacao avaliacao;
 	private List<Local> locaisFavoritos;
 	private List<Evento> eventos;
 	private List<Local> locaisProprios;
@@ -105,15 +103,6 @@ public class Usuario implements Serializable {
 	public void setLocaisFavoritos(List<Local> locaisFavoritos) {
 		this.locaisFavoritos = locaisFavoritos;
 	}
-
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuarioAvaliacao")
-//	public Avaliacao getAvaliacao() {
-//		return avaliacao;
-//	}
-//
-//	public void setAvaliacao(Avaliacao avaliacao) {
-//		this.avaliacao = avaliacao;
-//	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuarioResponsavelEvento")
 	public List<Evento> getEventos() {

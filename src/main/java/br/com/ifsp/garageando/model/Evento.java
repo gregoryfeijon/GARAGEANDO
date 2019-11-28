@@ -92,7 +92,7 @@ public class Evento implements Serializable {
 	public int getNumero() {
 		return numero;
 	}
-	
+
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}

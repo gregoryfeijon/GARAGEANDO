@@ -75,26 +75,15 @@ public class Avaliacao implements Serializable {
 		this.rating = rating;
 	}
 
-//	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//	@JoinColumn(name = "USUARIO_ID", foreignKey = @ForeignKey(name = "fk_usuario_id"))
-//	@NotNull(message = USUARIO_OBRIGATORIO)
-//	public Usuario getUsuarioAvaliacao() {
-//		return usuarioAvaliacao;
-//	}
-//
-//	public void setUsuarioAvaliacao(Usuario usuarioAvaliacao) {
-//		this.usuarioAvaliacao = usuarioAvaliacao;
-//	}
-	
-	@ManyToOne(fetch = FetchType.EAGER, optional = false )
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "USUARIO_ID", foreignKey = @ForeignKey(name = "fk_usuario_id"))
 	@NotNull(message = USUARIO_OBRIGATORIO)
 	public Usuario getUsuarioAvaliador() {
 		return usuarioAvaliador;
 	}
 
-	public void setUsuarioAvaliador(Usuario usuarioAvaliacao) {
-		this.usuarioAvaliador = usuarioAvaliacao;
+	public void setUsuarioAvaliador(Usuario usuarioAvaliador) {
+		this.usuarioAvaliador = usuarioAvaliador;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

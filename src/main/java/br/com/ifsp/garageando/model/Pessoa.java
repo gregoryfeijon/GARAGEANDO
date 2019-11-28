@@ -58,7 +58,6 @@ public abstract class Pessoa implements Serializable {
 	}
 
 	@NotBlank(message = NOME_OBRIGATORIO)
-//	@NotNull(message = NOME_OBRIGATORIO)
 	@Length(min = 3, message = NOME_INVALIDO)
 	@Pattern(regexp = "/[a-zA-Z\\u00C0-\\u00FF ]+/i", message = NOME_INVALIDO)
 	@Column(name = "NOME")
@@ -100,7 +99,6 @@ public abstract class Pessoa implements Serializable {
 		this.celular = celular;
 	}
 
-//	@Temporal(TemporalType.DATE)
 	@JsonFormat(pattern = "dd-MM-yyyy")
 	@Column(name = "DATA_NASC")
 	public LocalDate getDataNasc() {

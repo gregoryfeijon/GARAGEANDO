@@ -22,9 +22,6 @@ import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 @Table(name = "pessoa_fisica")
-//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-//@MappedSuperclass
-//@PrimaryKeyJoinColumn(name = "id_pessoa")
 public class PessoaFisica extends Pessoa implements Serializable {
 
 	private static final long serialVersionUID = -3134130963471833905L;
