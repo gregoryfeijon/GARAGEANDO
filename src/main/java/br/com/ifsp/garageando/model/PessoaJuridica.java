@@ -33,7 +33,7 @@ public class PessoaJuridica extends Pessoa implements Serializable {
 
 	@CNPJ(message = CNPJ_INVALIDO)
 	@NotBlank(message = CNPJ_OBRIGATORIO)
-	@Column(name = "CNPJ", unique = true)
+	@Column(name = "CNPJ", nullable = false, unique = true)
 	public String getCnpj() {
 		return cnpj;
 	}
@@ -42,8 +42,8 @@ public class PessoaJuridica extends Pessoa implements Serializable {
 		this.cnpj = cnpj;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "PESSOA_FISICA_ID", foreignKey = @ForeignKey(name = "fk_pessoa_fisica_id"))
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "PESSOA_FISICA_ID", nullable = false, foreignKey = @ForeignKey(name = "fk_pessoa_fisica_id"))
 	public PessoaFisica getPessoaFisica() {
 		return pessoaFisica;
 	}

@@ -54,7 +54,7 @@ public class Avaliacao implements Serializable {
 
 	@Lob
 	@NotBlank(message = COMENTARIO_OBRIGATORIO)
-	@Column(name = "COMENTARIO")
+	@Column(name = "COMENTARIO", nullable = false)
 	public String getComentario() {
 		return comentario;
 	}
@@ -66,7 +66,7 @@ public class Avaliacao implements Serializable {
 	@Min(value = 1, message = RATING_INVALIDO)
 	@Max(value = 5, message = RATING_INVALIDO)
 	@Digits(fraction = 1, integer = 1, message = RATING_INVALIDO)
-	@Column(name = "RATING")
+	@Column(name = "RATING", nullable = false)
 	public double getRating() {
 		return rating;
 	}
@@ -76,7 +76,7 @@ public class Avaliacao implements Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
-	@JoinColumn(name = "USUARIO_ID", foreignKey = @ForeignKey(name = "fk_usuario_id"))
+	@JoinColumn(name = "USUARIO_ID", nullable = false, foreignKey = @ForeignKey(name = "fk_usuario_id"))
 	@NotNull(message = USUARIO_OBRIGATORIO)
 	public Usuario getUsuarioAvaliador() {
 		return usuarioAvaliador;
@@ -86,8 +86,8 @@ public class Avaliacao implements Serializable {
 		this.usuarioAvaliador = usuarioAvaliador;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "LOCAL_ID", foreignKey = @ForeignKey(name = "fk_local_id"))
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "LOCAL_ID", nullable = false, foreignKey = @ForeignKey(name = "fk_local_id"))
 	public Local getLocalAvaliado() {
 		return localAvaliado;
 	}

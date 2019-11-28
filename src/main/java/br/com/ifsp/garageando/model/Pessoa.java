@@ -60,7 +60,7 @@ public abstract class Pessoa implements Serializable {
 	@NotBlank(message = NOME_OBRIGATORIO)
 	@Length(min = 3, message = NOME_INVALIDO)
 	@Pattern(regexp = "/[a-zA-Z\\u00C0-\\u00FF ]+/i", message = NOME_INVALIDO)
-	@Column(name = "NOME")
+	@Column(name = "NOME", nullable = false)
 	public String getNome() {
 		return nome;
 	}
@@ -111,7 +111,7 @@ public abstract class Pessoa implements Serializable {
 
 	@Enumerated(EnumType.STRING)
 	@NotNull(message = PESSOATIPO_OBRIGATORIO)
-	@Column(name = "PESSOA_TIPO")
+	@Column(name = "PESSOA_TIPO", nullable = false)
 	public PessoaTipo getPessoaTipo() {
 		return pessoaTipo;
 	}

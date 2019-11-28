@@ -36,7 +36,7 @@ public class PessoaFisica extends Pessoa implements Serializable {
 	@CPF(message = CPF_INVALIDO)
 	@NotNull(message = CPF_OBRIGATORIO)
 //	@Digits(fraction = 0, integer = 11, message = CPF_INVALIDO)
-	@Column(name = "CPF", unique = true)
+	@Column(name = "CPF", nullable = false, unique = true)
 	public String getCpf() {
 		return cpf;
 	}

@@ -33,6 +33,7 @@ public class Local implements Serializable {
 	private static final long serialVersionUID = -903758268377656191L;
 
 	private static final String PRECO_MEDIO_OBRIGATORIO = "ATENÇÃO! O campo preço médio é OBRIGATÓRIO!";
+	private static final String USUARIO_OBRIGATORIO = "ATENÇÃO! O campo referente a usuário é OBRIGATÓRIO!";
 	public static final String ENDERECO_OBRIGATORIO = "ATENÇÃO! é OBRIGATÓRIO que um local possua um endereço!";
 
 	private long id;
@@ -84,7 +85,7 @@ public class Local implements Serializable {
 		this.numero = numero;
 	}
 
-	@Column(name = "DISPONIVEL")
+	@Column(name = "DISPONIVEL", nullable = false)
 	public boolean isDisponivel() {
 		return isDisponivel;
 	}
@@ -94,7 +95,7 @@ public class Local implements Serializable {
 	}
 
 	@NotBlank(message = PRECO_MEDIO_OBRIGATORIO)
-	@Column(name = "PRECO_MEDIO_HORA")
+	@Column(name = "PRECO_MEDIO_HORA", nullable = false)
 	public Double getPrecoMedioHora() {
 		return precoMedioHora;
 	}
@@ -103,8 +104,8 @@ public class Local implements Serializable {
 		this.precoMedioHora = precoMedioHora;
 	}
 
-	@JoinColumn(name = "ENDERECO_ID", foreignKey = @ForeignKey(name = "fk_endereco_local_id"))
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "ENDERECO_ID", nullable = false, foreignKey = @ForeignKey(name = "fk_endereco_local_id"))
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false)
 	@NotNull(message = ENDERECO_OBRIGATORIO)
 	public Endereco getEnderecoLocal() {
 		return enderecoLocal;
@@ -137,6 +138,7 @@ public class Local implements Serializable {
 
 	@JoinColumn(name = "USUARIO_ID", nullable = false, foreignKey = @ForeignKey(name = "fk_usuario_prop_id"))
 	@ManyToOne(fetch = FetchType.EAGER)
+	@NotNull(message = USUARIO_OBRIGATORIO)
 	public Usuario getUsuarioProprietario() {
 		return usuarioProprietario;
 	}

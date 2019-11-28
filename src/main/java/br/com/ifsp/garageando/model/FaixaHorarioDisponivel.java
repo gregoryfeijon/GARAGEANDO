@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -31,6 +32,8 @@ public class FaixaHorarioDisponivel implements Serializable {
 
 	private static final String HORARIO_INICIO_OBRIGATORIO = "ATENÇÃO! O horário de início da disponibilidade do local é OBRIGATÓRIO!";
 	private static final String HORARIO_FIM_OBRIGATORIO = "ATENÇÃO! O horário de fim da disponibilidade do local é OBRIGATÓRIO!";
+	private static final String DIA_SEMANA_INICIO_OBRIGATORIO = "ATENÇÃO! O dia inicial da semana em que o local está disponível naquela faixa de horário é OBRIGATÓRIO!";
+	private static final String DIA_SEMANA_FIM_OBRIGATORIO = "ATENÇÃO! O dia final da semana em que o local está disponível naquela faixa de horário é OBRIGATÓRIO!";
 
 	private long id;
 	private LocalTime horarioInicio;
@@ -51,7 +54,7 @@ public class FaixaHorarioDisponivel implements Serializable {
 
 	@JsonFormat(pattern = "HH:mm:ss.SSS")
 	@NotBlank(message = HORARIO_INICIO_OBRIGATORIO)
-	@Column(name = "HORARIO_INICIO")
+	@Column(name = "HORARIO_INICIO", nullable = false)
 	public LocalTime getHorarioInicio() {
 		return horarioInicio;
 	}
@@ -62,7 +65,7 @@ public class FaixaHorarioDisponivel implements Serializable {
 
 	@JsonFormat(pattern = "HH:mm:ss.SSS")
 	@NotBlank(message = HORARIO_FIM_OBRIGATORIO)
-	@Column(name = "HORARIO_FIM")
+	@Column(name = "HORARIO_FIM", nullable = false)
 	public LocalTime getHorarioFim() {
 		return horarioFim;
 	}
@@ -72,7 +75,8 @@ public class FaixaHorarioDisponivel implements Serializable {
 	}
 
 	@Enumerated(EnumType.ORDINAL)
-	@Column(name = "DIA_SEMANA_INICIO")
+	@NotNull(message = DIA_SEMANA_INICIO_OBRIGATORIO)
+	@Column(name = "DIA_SEMANA_INICIO", nullable = false)
 	public DiaSemana getDiaDaSemanaInicio() {
 		return diaDaSemanaInicio;
 	}
@@ -82,7 +86,8 @@ public class FaixaHorarioDisponivel implements Serializable {
 	}
 
 	@Enumerated(EnumType.ORDINAL)
-	@Column(name = "DIA_SEMANA_FIM")
+	@NotNull(message = DIA_SEMANA_FIM_OBRIGATORIO)
+	@Column(name = "DIA_SEMANA_FIM", nullable = false)
 	public DiaSemana getDiaDaSemanaFim() {
 		return diaDaSemanaFim;
 	}

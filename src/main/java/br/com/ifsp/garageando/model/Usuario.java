@@ -20,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -37,8 +38,9 @@ public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = -4210899032728690736L;
 
-	private static final String LOGIN_OBRIGATÓRIO = "ATENÇÃO! O campo login é OBRIGATÓRIO!";
-	private static final String SENHA_OBRIGATÓRIO = "ATENÇÃO! O campo senha é OBRIGATÓRIO!";
+	private static final String LOGIN_OBRIGATORIO = "ATENÇÃO! O campo login é OBRIGATÓRIO!";
+	private static final String SENHA_OBRIGATORIO = "ATENÇÃO! O campo senha é OBRIGATÓRIO!";
+	private static final String PERFIL_OBRIGATORIO = "ATENÇÃO! A informação referente a perfil é OBRIGATÓRIO!";
 
 	private Long id;
 	private String login;
@@ -60,9 +62,9 @@ public class Usuario implements Serializable {
 		this.id = id;
 	}
 
-	@NotBlank(message = LOGIN_OBRIGATÓRIO)
+	@NotBlank(message = LOGIN_OBRIGATORIO)
 	@Length(min = 3)
-	@Column(name = "LOGIN")
+	@Column(name = "LOGIN", nullable = false)
 	public String getLogin() {
 		return login;
 	}
@@ -71,9 +73,9 @@ public class Usuario implements Serializable {
 		this.login = login;
 	}
 
-	@NotBlank(message = SENHA_OBRIGATÓRIO)
+	@NotBlank(message = SENHA_OBRIGATORIO)
 	@Length(min = 3)
-	@Column(name = "SENHA")
+	@Column(name = "SENHA", nullable = false)
 	public String getSenha() {
 		return senha;
 	}
@@ -83,7 +85,8 @@ public class Usuario implements Serializable {
 	}
 
 	@Enumerated(EnumType.ORDINAL)
-	@Column(name = "PERFIL")
+	@NotNull(message = PERFIL_OBRIGATORIO)
+	@Column(name = "PERFIL", nullable = false)
 	public Perfil getPerfil() {
 		return perfil;
 	}

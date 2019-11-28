@@ -58,7 +58,7 @@ public class Evento implements Serializable {
 	}
 
 	@NotBlank(message = NOME_EVENTO_OBRIGATORIO)
-	@Column(name = "NOME")
+	@Column(name = "NOME", nullable = false)
 	public String getNome() {
 		return nome;
 	}
@@ -78,7 +78,7 @@ public class Evento implements Serializable {
 
 	@JsonFormat(pattern = "dd-MM-yyyy")
 	@NotBlank(message = DATA_OBRIGATORIO)
-	@Column(name = "DATA")
+	@Column(name = "DATA", nullable = false)
 	public LocalDate getData() {
 		return data;
 	}
@@ -108,7 +108,7 @@ public class Evento implements Serializable {
 	}
 
 	@JoinColumn(name = "ENDERECO_ID", nullable = false, foreignKey = @ForeignKey(name = "fk_endereco_evento_id"))
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false)
 	@NotNull(message = Local.ENDERECO_OBRIGATORIO)
 	public Endereco getEnderecoEvento() {
 		return enderecoEvento;

@@ -58,7 +58,7 @@ public class Endereco implements Serializable {
 	}
 
 	@NotBlank(message = CIDADE_OBRIGATORIO)
-	@Column(name = "CIDADE")
+	@Column(name = "CIDADE", nullable = false)
 	public String getCidade() {
 		return cidade;
 	}
@@ -68,7 +68,7 @@ public class Endereco implements Serializable {
 	}
 
 	@NotBlank(message = BAIRRO_OBRIGATORIO)
-	@Column(name = "BAIRRO")
+	@Column(name = "BAIRRO", nullable = false)
 	public String getBairro() {
 		return bairro;
 	}
@@ -78,7 +78,7 @@ public class Endereco implements Serializable {
 	}
 
 	@NotBlank(message = RUA_OBRIGATORIO)
-	@Column(name = "RUA")
+	@Column(name = "RUA", nullable = false)
 	public String getRua() {
 		return rua;
 	}
@@ -88,7 +88,7 @@ public class Endereco implements Serializable {
 	}
 
 	@Digits(fraction = 0, integer = 8, message = CEP_INVALIDO)
-	@Column(name = "CEP")
+	@Column(name = "CEP", nullable = false)
 	public int getCep() {
 		return cep;
 	}
@@ -98,7 +98,7 @@ public class Endereco implements Serializable {
 	}
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "ESTADO")
+	@Column(name = "ESTADO", nullable = false)
 	public Estado getEstado() {
 		return estado;
 	}
