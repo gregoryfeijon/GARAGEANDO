@@ -25,7 +25,7 @@ import br.com.ifsp.garageando.repository.UsuarioRepository;
 public class UsuarioService implements IService<Usuario>, UserDetailsService {
 
 	@Autowired
-	private UsuarioRepository usuarioRepository;
+	UsuarioRepository usuarioRepository;
 
 	@Override
 	public List<Usuario> findAll() {
@@ -61,9 +61,9 @@ public class UsuarioService implements IService<Usuario>, UserDetailsService {
 		return usuarioRepository.findByLogin(login);
 	}
 
-//	public Optional<Usuario> findUsuarioByEmail(String email) {
-//		return usuarioRepository.findByEmail(email);
-//	}
+	public Optional<Usuario> findUsuarioByEmail(String email) {
+		return usuarioRepository.findByEmail(email);
+	}
 
 	@Override
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {

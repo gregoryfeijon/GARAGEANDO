@@ -26,7 +26,7 @@ import br.com.ifsp.garageando.service.UsuarioService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping
+@RequestMapping("/autenticacao")
 public class AuthenticationController {
 
 	@Autowired

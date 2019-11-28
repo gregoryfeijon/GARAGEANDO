@@ -3,6 +3,7 @@ package br.com.ifsp.garageando.repository;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import br.com.ifsp.garageando.model.Usuario;
 
@@ -15,6 +16,7 @@ import br.com.ifsp.garageando.model.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 	public Optional<Usuario> findByLogin(String login);
-	
-//	public Optional<Usuario> findByEmail(String email);
+
+	@Query("SELECT u, p FROM Usuario u JOIN FETCH u.pessoa p WHERE p.email = :email")
+	public Optional<Usuario> findByEmail(String email);
 }

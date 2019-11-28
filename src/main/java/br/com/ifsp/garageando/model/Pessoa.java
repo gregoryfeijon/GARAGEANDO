@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -28,6 +29,11 @@ import br.com.ifsp.garageando.enums.PessoaTipo;
 
 @MappedSuperclass
 public abstract class Pessoa implements Serializable {
+
+	/*
+	 * Futura implementação: meio de o usuário cadastrar + de 1 celular, telefone ou
+	 * email; possivelmente: lista de um objeto contato?
+	 */
 
 	private static final long serialVersionUID = 83601349719433879L;
 
@@ -59,7 +65,7 @@ public abstract class Pessoa implements Serializable {
 
 	@NotBlank(message = NOME_OBRIGATORIO)
 	@Length(min = 3, message = NOME_INVALIDO)
-	@Pattern(regexp = "/[a-zA-Z\\u00C0-\\u00FF ]+/i", message = NOME_INVALIDO)
+//	@Pattern(regexp = "/^[a-zA-Z\\u00C0-\\u00FF ]+/i", message = NOME_INVALIDO)
 	@Column(name = "NOME", nullable = false)
 	public String getNome() {
 		return nome;
@@ -69,8 +75,8 @@ public abstract class Pessoa implements Serializable {
 		this.nome = nome;
 	}
 
-	@Pattern(regexp = "^[\\\\w!#$%&’*+/=?`{|}~^-]+(?:\\\\.[\\\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\\\.)+[a-zA-Z]{2,6}$", message = EMAIL_INVALIDO)
-	@Column(name = "E_MAIL", length = 255)
+	@Email(message = EMAIL_INVALIDO)
+	@Column(name = "E_MAIL", length = 255, unique = true)
 	public String getEmail() {
 		return email;
 	}
@@ -80,6 +86,7 @@ public abstract class Pessoa implements Serializable {
 	}
 
 	@Length(min = 10, max = 10, message = TELEFONE_INVALIDO)
+	@Pattern(regexp = "^[0-9]+$")
 	@Column(name = "TELEFONE")
 	public String getTelefone() {
 		return telefone;
@@ -90,6 +97,7 @@ public abstract class Pessoa implements Serializable {
 	}
 
 	@Length(min = 10, max = 11, message = CELULAR_INVALIDO)
+	@Pattern(regexp = "^[0-9]+$")
 	@Column(name = "CELULAR")
 	public String getCelular() {
 		return celular;
