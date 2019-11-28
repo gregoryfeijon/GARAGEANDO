@@ -50,7 +50,7 @@ public class FaixaHorarioDisponivel implements Serializable {
 	}
 
 //	@Temporal(TemporalType.TIME)
-	@JsonFormat(pattern = "HH:mm:SSS")
+	@JsonFormat(pattern = "HH:mm:ss.SSS")
 	@NotBlank(message = HORARIO_INICIO_OBRIGATORIO)
 	@Column(name = "HORARIO_INICIO")
 	public LocalTime getHorarioInicio() {
@@ -62,7 +62,7 @@ public class FaixaHorarioDisponivel implements Serializable {
 	}
 
 //	@Temporal(TemporalType.TIME)
-	@JsonFormat(pattern = "HH:mm:SSS")
+	@JsonFormat(pattern = "HH:mm:ss.SSS")
 	@NotBlank(message = HORARIO_FIM_OBRIGATORIO)
 	@Column(name = "HORARIO_FIM")
 	public LocalTime getHorarioFim() {

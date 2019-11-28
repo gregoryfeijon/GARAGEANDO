@@ -76,7 +76,7 @@ public class Avaliacao implements Serializable {
 	}
 
 //	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//	@JoinColumn(name = "USUARIO_ID", foreignKey = @ForeignKey(name = "fnk_usuario_id"))
+//	@JoinColumn(name = "USUARIO_ID", foreignKey = @ForeignKey(name = "fk_usuario_id"))
 //	@NotNull(message = USUARIO_OBRIGATORIO)
 //	public Usuario getUsuarioAvaliacao() {
 //		return usuarioAvaliacao;
@@ -87,7 +87,7 @@ public class Avaliacao implements Serializable {
 //	}
 	
 	@ManyToOne(fetch = FetchType.EAGER, optional = false )
-	@JoinColumn(name = "USUARIO_ID", foreignKey = @ForeignKey(name = "fnk_usuario_id"))
+	@JoinColumn(name = "USUARIO_ID", foreignKey = @ForeignKey(name = "fk_usuario_id"))
 	@NotNull(message = USUARIO_OBRIGATORIO)
 	public Usuario getUsuarioAvaliador() {
 		return usuarioAvaliador;
@@ -98,7 +98,7 @@ public class Avaliacao implements Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "LOCAL_ID", foreignKey = @ForeignKey(name = "fnk_local_id"))
+	@JoinColumn(name = "LOCAL_ID", foreignKey = @ForeignKey(name = "fk_local_id"))
 	public Local getLocalAvaliado() {
 		return localAvaliado;
 	}

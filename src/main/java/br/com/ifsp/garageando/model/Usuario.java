@@ -119,7 +119,7 @@ public class Usuario extends PessoaFisica implements Serializable {
 	}
 
 //	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//	@JoinColumn(name = "PESSOA_ID", referencedColumnName = "ID", nullable = false, unique = true, foreignKey = @ForeignKey(name = "fnk_pessoa_id"))
+//	@JoinColumn(name = "PESSOA_ID", referencedColumnName = "ID", nullable = false, unique = true, foreignKey = @ForeignKey(name = "fk_pessoa_id"))
 //	public PessoaFisica getPessoa() {
 //		return pessoa;
 //	}

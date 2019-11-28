@@ -46,7 +46,7 @@ public class PessoaJuridica extends Pessoa implements Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "PESSOA_FISICA_ID", foreignKey = @ForeignKey(name = "fnk_pessoa_fisica_id"))
+	@JoinColumn(name = "PESSOA_FISICA_ID", foreignKey = @ForeignKey(name = "fk_pessoa_fisica_id"))
 	public Usuario getUsuarioPessoa() {
 		return usuarioPessoa;
 	}
@@ -56,7 +56,7 @@ public class PessoaJuridica extends Pessoa implements Serializable {
 	}
 
 //	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "PESSOA_FISICA_ID", foreignKey = @ForeignKey(name = "fnk_pessoa_fisica_id"))
+//	@JoinColumn(name = "PESSOA_FISICA_ID", foreignKey = @ForeignKey(name = "fk_pessoa_fisica_id"))
 //	public PessoaFisica getPessoaFisica() {
 //		return pessoaFisica;
 //	}
