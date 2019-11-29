@@ -13,6 +13,8 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.br.CNPJ;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * 10 de nov de 2019
  *
@@ -21,6 +23,7 @@ import org.hibernate.validator.constraints.br.CNPJ;
 
 @Entity
 @Table(name = "pessoa_juridica")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PessoaJuridica extends Pessoa implements Serializable {
 
 	private static final long serialVersionUID = -1598649510122761952L;

@@ -18,6 +18,7 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.com.ifsp.garageando.enums.PessoaTipo;
 
@@ -28,6 +29,7 @@ import br.com.ifsp.garageando.enums.PessoaTipo;
  */
 
 @MappedSuperclass
+@JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class Pessoa implements Serializable {
 
 	/*

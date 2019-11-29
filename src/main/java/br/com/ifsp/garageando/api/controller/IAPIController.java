@@ -1,5 +1,7 @@
 package br.com.ifsp.garageando.api.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 
 import br.com.ifsp.garageando.api.response.Response;
@@ -17,7 +19,7 @@ interface IAPIController<T, D> {
 
 	public ResponseEntity<Response<D>> findById(D entity);
 
-	public ResponseEntity<Response<D>> listAll();
+	public ResponseEntity<List<T>> listAll();
 
 	public ResponseEntity<Response<T>> cadastrar(T entity);
 

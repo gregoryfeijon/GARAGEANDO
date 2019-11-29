@@ -27,6 +27,12 @@ import br.com.ifsp.garageando.model.Usuario;
 import br.com.ifsp.garageando.service.UsuarioService;
 import br.com.ifsp.garageando.util.StringUtil;
 
+/**
+ * 27 de nov de 2019
+ *
+ * @author gregory.feijon
+ */
+
 @RestController
 @RequestMapping("api/usuario")
 @CrossOrigin(origins = "*")
@@ -39,6 +45,24 @@ public class UsuarioAPIController implements IAPIController<Usuario, UsuarioDTO>
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptEncoder;
+
+	/*
+	 * Implementar: findByEmail e findByLogin apenas
+	 */
+
+//	@PostMapping("/login/senha")
+//	public ResponseEntity<Response<UsuarioDTO>> findByLoginESenha(@RequestBody UsuarioDTO usuarioDTO) {
+//		LOG.debug("findById({})", usuarioDTO.getId());
+//		Optional<Usuario> opUsuario = usuarioService.findByLoginESenha(usuarioDTO.getId());
+//		if (opUsuario.isPresent()) {
+//			Response<UsuarioDTO> response = new Response<>();
+//			usuarioDTO.setUsuario(opUsuario.get());
+//			response.setData(usuarioDTO);
+//			return ResponseEntity.ok(response);
+//		} else {
+//			return ResponseEntity.notFound().build();
+//		}
+//	}
 
 	@Override
 	@PostMapping("/id")
@@ -57,15 +81,11 @@ public class UsuarioAPIController implements IAPIController<Usuario, UsuarioDTO>
 
 	@Override
 	@GetMapping
-	public ResponseEntity<Response<UsuarioDTO>> listAll() {
+	public ResponseEntity<List<Usuario>> listAll() {
 		LOG.debug("listAll()");
 		List<Usuario> list = usuarioService.findAll();
 		if (list != null && !list.isEmpty()) {
-			UsuarioDTO usuarioDTO = new UsuarioDTO();
-			Response<UsuarioDTO> response = new Response<>();
-			usuarioDTO.setUsuarios(list);
-			response.setData(usuarioDTO);
-			return ResponseEntity.ok(response);
+			return ResponseEntity.ok(list);
 		} else {
 			return ResponseEntity.notFound().build();
 		}
@@ -76,10 +96,11 @@ public class UsuarioAPIController implements IAPIController<Usuario, UsuarioDTO>
 	public ResponseEntity<Response<Usuario>> cadastrar(@Valid @RequestBody Usuario usuario) {
 		LOG.debug("saving({})", usuario);
 		Response<Usuario> response = new Response<>();
-//		if (usuario.getPessoa() == null) {
-//			response.setErrors(Arrays.asList("Erro! Deve ser feito um cadastro de pessoa física junto com o de usuário!"));
-//			return ResponseEntity.badRequest().body(response);
-//		}
+		if (usuario.getPessoa() == null) {
+			response.setErrors(
+					Arrays.asList("Erro! Deve ser feito um cadastro de pessoa física junto com o de usuário!"));
+			return ResponseEntity.badRequest().body(response);
+		}
 		usuario.setSenha(bCryptEncoder.encode(usuario.getSenha()));
 		Optional<Usuario> opUsuario = usuarioService.save(usuario);
 		if (opUsuario.isPresent()) {

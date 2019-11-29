@@ -25,7 +25,7 @@ import br.com.ifsp.garageando.repository.UsuarioRepository;
 public class UsuarioService implements IService<Usuario>, UserDetailsService {
 
 	@Autowired
-	UsuarioRepository usuarioRepository;
+	private UsuarioRepository usuarioRepository;
 
 	@Override
 	public List<Usuario> findAll() {

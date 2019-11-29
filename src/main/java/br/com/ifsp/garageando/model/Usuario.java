@@ -24,6 +24,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import br.com.ifsp.garageando.security.enums.Perfil;
 
 /**
@@ -34,6 +36,7 @@ import br.com.ifsp.garageando.security.enums.Perfil;
 
 @Entity
 @Table(name = "usuarios")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = -4210899032728690736L;

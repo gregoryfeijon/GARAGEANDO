@@ -20,6 +20,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * 6 de nov de 2019
@@ -29,6 +30,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "eventos")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Evento implements Serializable {
 
 	private static final long serialVersionUID = 2982597699707445282L;

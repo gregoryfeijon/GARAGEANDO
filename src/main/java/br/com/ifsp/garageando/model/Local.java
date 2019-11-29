@@ -20,6 +20,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * 6 de nov de 2019
  * 
@@ -28,6 +30,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "locais")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Local implements Serializable {
 
 	private static final long serialVersionUID = -903758268377656191L;

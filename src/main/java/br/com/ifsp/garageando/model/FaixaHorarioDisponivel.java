@@ -15,6 +15,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.com.ifsp.garageando.enums.DiaSemana;
 
@@ -26,6 +27,7 @@ import br.com.ifsp.garageando.enums.DiaSemana;
 
 @Entity
 @Table(name = "faixas_horarios_disponiveis")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class FaixaHorarioDisponivel implements Serializable {
 
 	private static final long serialVersionUID = 769585940406699350L;

@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import br.com.ifsp.garageando.enums.Estado;
 
 /**
@@ -26,6 +28,7 @@ import br.com.ifsp.garageando.enums.Estado;
 
 @Entity
 @Table(name = "enderecos")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Endereco implements Serializable {
 
 	private static final long serialVersionUID = 4830439413890041038L;

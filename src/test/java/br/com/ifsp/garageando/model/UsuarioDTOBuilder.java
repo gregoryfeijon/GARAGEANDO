@@ -21,6 +21,11 @@ public class UsuarioDTOBuilder {
 		return usuarioDTO;
 	}
 
+	public UsuarioDTOBuilder withId(Long id) {
+		usuarioDTO.setId(id);
+		return this;
+	}
+	
 	public UsuarioDTOBuilder withLogin(String login) {
 		usuarioDTO.setLogin(login);
 		return this;
