@@ -28,16 +28,6 @@ public class UsuarioService implements IService<Usuario>, UserDetailsService {
 	private UsuarioRepository usuarioRepository;
 
 	@Override
-	public List<Usuario> findAll() {
-		return usuarioRepository.findAll();
-	}
-
-	@Override
-	public Optional<Usuario> findById(Long id) {
-		return usuarioRepository.findById(id);
-	}
-
-	@Override
 	public Optional<Usuario> save(Usuario usuario) {
 		return Optional.of(usuarioRepository.save(usuario));
 	}
@@ -55,6 +45,16 @@ public class UsuarioService implements IService<Usuario>, UserDetailsService {
 	@Override
 	public boolean existsById(Long id) {
 		return usuarioRepository.existsById(id);
+	}
+
+	@Override
+	public List<Usuario> findAll() {
+		return usuarioRepository.findAll();
+	}
+
+	@Override
+	public Optional<Usuario> findById(Long id) {
+		return usuarioRepository.findById(id);
 	}
 
 	public Optional<Usuario> findUsuarioByLogin(String login) {

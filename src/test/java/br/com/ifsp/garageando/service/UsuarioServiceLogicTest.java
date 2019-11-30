@@ -26,9 +26,6 @@ import br.com.ifsp.garageando.security.enums.Perfil;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UsuarioServiceLogicTest {
 
-	public static final String USUARIO_LOGIN = "xoblinhas";
-	public static final String USUARIO_SENHA = "xoblas";
-
 	private static final String USUARIO_LOGIN_NOVO = "xobletson";
 	private static final String USUARIO_NOME_NOVO = "xoblesflinston";
 
@@ -53,8 +50,8 @@ public class UsuarioServiceLogicTest {
 	@Test
 	public void test01_CadastrarUsuarios() {
 		pessoas.stream().forEach(pessoa -> {
-			UsuarioBuilder usuarioBuilder = new UsuarioBuilder().withLogin(USUARIO_LOGIN + Math.random())
-					.withSenha(bCryptEncoder.encode(USUARIO_SENHA + Math.random())).withPerfil(Perfil.ROLE_USUARIO)
+			UsuarioBuilder usuarioBuilder = new UsuarioBuilder().withLogin(TestHelper.USUARIO_LOGIN + Math.random())
+					.withSenha(bCryptEncoder.encode(TestHelper.USUARIO_SENHA + Math.random())).withPerfil(Perfil.ROLE_USUARIO)
 					.withPessoa(pessoa);
 			Usuario usuario = usuarioBuilder.build();
 

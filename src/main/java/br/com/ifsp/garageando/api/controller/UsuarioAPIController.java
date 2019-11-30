@@ -25,6 +25,7 @@ import br.com.ifsp.garageando.api.dto.UsuarioDTO;
 import br.com.ifsp.garageando.api.response.Response;
 import br.com.ifsp.garageando.model.Usuario;
 import br.com.ifsp.garageando.service.UsuarioService;
+import br.com.ifsp.garageando.util.Helpers;
 import br.com.ifsp.garageando.util.StringUtil;
 
 /**
@@ -46,23 +47,33 @@ public class UsuarioAPIController implements IAPIController<Usuario, UsuarioDTO>
 	@Autowired
 	private BCryptPasswordEncoder bCryptEncoder;
 
-	/*
-	 * Implementar: findByEmail e findByLogin apenas
-	 */
+	@PostMapping("/email")
+	public ResponseEntity<Response<UsuarioDTO>> findByEmail(@RequestBody UsuarioDTO usuarioDTO) {
+		LOG.debug("findById({})", usuarioDTO.getId());
+		Optional<Usuario> opUsuario = usuarioService.findUsuarioByEmail(usuarioDTO.getEmail());
+		if (opUsuario.isPresent()) {
+			Response<UsuarioDTO> response = new Response<>();
+			usuarioDTO.setUsuario(opUsuario.get());
+			response.setData(usuarioDTO);
+			return ResponseEntity.ok(response);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
 
-//	@PostMapping("/login/senha")
-//	public ResponseEntity<Response<UsuarioDTO>> findByLoginESenha(@RequestBody UsuarioDTO usuarioDTO) {
-//		LOG.debug("findById({})", usuarioDTO.getId());
-//		Optional<Usuario> opUsuario = usuarioService.findByLoginESenha(usuarioDTO.getId());
-//		if (opUsuario.isPresent()) {
-//			Response<UsuarioDTO> response = new Response<>();
-//			usuarioDTO.setUsuario(opUsuario.get());
-//			response.setData(usuarioDTO);
-//			return ResponseEntity.ok(response);
-//		} else {
-//			return ResponseEntity.notFound().build();
-//		}
-//	}
+	@PostMapping("/login")
+	public ResponseEntity<Response<UsuarioDTO>> findByLogin(@RequestBody UsuarioDTO usuarioDTO) {
+		LOG.debug("findById({})", usuarioDTO.getId());
+		Optional<Usuario> opUsuario = usuarioService.findUsuarioByLogin(usuarioDTO.getLogin());
+		if (opUsuario.isPresent()) {
+			Response<UsuarioDTO> response = new Response<>();
+			usuarioDTO.setUsuario(opUsuario.get());
+			response.setData(usuarioDTO);
+			return ResponseEntity.ok(response);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
 
 	@Override
 	@PostMapping("/id")
@@ -84,7 +95,7 @@ public class UsuarioAPIController implements IAPIController<Usuario, UsuarioDTO>
 	public ResponseEntity<List<Usuario>> listAll() {
 		LOG.debug("listAll()");
 		List<Usuario> list = usuarioService.findAll();
-		if (list != null && !list.isEmpty()) {
+		if (!Helpers.listEmpty(list)) {
 			return ResponseEntity.ok(list);
 		} else {
 			return ResponseEntity.notFound().build();

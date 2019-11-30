@@ -67,7 +67,7 @@ public class Usuario implements Serializable {
 
 	@NotBlank(message = LOGIN_OBRIGATORIO)
 	@Length(min = 3)
-	@Column(name = "LOGIN", nullable = false)
+	@Column(name = "LOGIN", nullable = false, unique = true)
 	public String getLogin() {
 		return login;
 	}

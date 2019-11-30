@@ -13,10 +13,6 @@ import java.util.Optional;
 
 interface IService<T> {
 
-	public List<T> findAll();
-
-	public Optional<T> findById(Long id);
-
 	public Optional<T> save(T entity);
 
 	public void delete(T entity);
@@ -24,4 +20,8 @@ interface IService<T> {
 	public void deleteById(Long id);
 
 	public boolean existsById(Long id);
+	
+	public List<T> findAll();
+
+	public Optional<T> findById(Long id);
 }

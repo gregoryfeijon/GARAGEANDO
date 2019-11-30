@@ -16,6 +16,7 @@ import br.com.ifsp.garageando.enums.PessoaTipo;
 import br.com.ifsp.garageando.model.PessoaFisica;
 import br.com.ifsp.garageando.model.PessoaJuridica;
 import br.com.ifsp.garageando.model.Usuario;
+import br.com.ifsp.garageando.model.UsuarioBuilder;
 import br.com.ifsp.garageando.repository.AvaliacaoRepository;
 import br.com.ifsp.garageando.repository.EnderecoRepository;
 import br.com.ifsp.garageando.repository.EventoRepository;
@@ -34,6 +35,9 @@ import br.com.ifsp.garageando.security.enums.Perfil;
 
 @Component
 public class TestHelper {
+
+	public static final String USUARIO_LOGIN = "xoblinhas";
+	public static final String USUARIO_SENHA = "xoblas";
 
 	private static final String CPF1 = "34540622099";
 	private static final String CPF2 = "24818682004";
@@ -130,7 +134,16 @@ public class TestHelper {
 	}
 
 	private List<PessoaJuridica> criaEmpresa(PessoaFisica pessoa) {
+		// TODO -> CRIAR O CRIA EMPRESA E TESTES!
 		return null;
 	}
 
+	public void criarUsuarios() {
+		criarPessoas(false).stream().forEach(pessoa -> {
+			UsuarioBuilder usuarioBuilder = new UsuarioBuilder().withLogin(USUARIO_LOGIN + Math.random())
+					.withSenha(bCryptEncoder.encode(USUARIO_SENHA + Math.random())).withPerfil(Perfil.ROLE_USUARIO)
+					.withPessoa(pessoa);
+			usuarioRepository.save(usuarioBuilder.build());
+		});
+	}
 }

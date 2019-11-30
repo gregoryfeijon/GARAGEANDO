@@ -118,7 +118,7 @@ public class Local implements Serializable {
 		this.enderecoLocal = enderecoLocal;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "localAvaliado", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "localAvaliado")
 	public List<Avaliacao> getAvaliacoes() {
 		return avaliacoes;
 	}
@@ -139,8 +139,9 @@ public class Local implements Serializable {
 		this.faixasHorariosDisponiveis = faixasHorariosDisponiveis;
 	}
 
-	@JoinColumn(name = "USUARIO_ID", nullable = false, foreignKey = @ForeignKey(name = "fk_usuario_prop_id"))
-	@ManyToOne(fetch = FetchType.EAGER)
+	
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@JoinColumn(name = "USUARIO_ID", nullable = false, foreignKey = @ForeignKey(name = "fk_usuario_id"))
 	@NotNull(message = USUARIO_OBRIGATORIO)
 	public Usuario getUsuarioProprietario() {
 		return usuarioProprietario;

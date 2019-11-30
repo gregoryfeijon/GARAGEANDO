@@ -15,6 +15,7 @@ public class UsuarioDTO {
 	private Long id;
 	private String login;
 	private String senha;
+	private String email;
 	private Usuario usuario;
 	private List<Usuario> usuarios;
 
@@ -40,6 +41,14 @@ public class UsuarioDTO {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Usuario getUsuario() {

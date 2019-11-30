@@ -35,6 +35,11 @@ public class UsuarioDTOBuilder {
 		usuarioDTO.setSenha(senha);
 		return this;
 	}
+	
+	public UsuarioDTOBuilder withEmail(String email) {
+		usuarioDTO.setEmail(email);
+		return this;
+	}
 
 	public UsuarioDTOBuilder withUsuario(Usuario usuario) {
 		usuarioDTO.setUsuario(usuario);
