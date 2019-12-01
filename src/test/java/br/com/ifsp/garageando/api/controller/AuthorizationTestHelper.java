@@ -10,6 +10,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
 import br.com.ifsp.garageando.api.dto.UsuarioDTO;
+import br.com.ifsp.garageando.model.Usuario;
 import br.com.ifsp.garageando.model.UsuarioDTOBuilder;
 import br.com.ifsp.garageando.util.StringUtil;
 
@@ -26,9 +27,10 @@ public class AuthorizationTestHelper<T> {
 	 * @return String
 	 */
 	private String gerarToken(TestRestTemplate restTemplate) {
-		UsuarioDTOBuilder userBuilder = new UsuarioDTOBuilder().withLogin("admin").withSenha("admin123");
-		UsuarioDTO user = userBuilder.build();
-		HttpEntity<UsuarioDTO> httpEntity = new HttpEntity<>(user);
+		UsuarioDTOBuilder<Usuario> userBuilder = new UsuarioDTOBuilder<Usuario>().withLogin("admin")
+				.withSenha("admin123");
+		UsuarioDTO<Usuario> user = userBuilder.build();
+		HttpEntity<UsuarioDTO<Usuario>> httpEntity = new HttpEntity<>(user);
 		ParameterizedTypeReference<String> tipoRetorno = new ParameterizedTypeReference<String>() {
 		};
 		ResponseEntity<String> responseToken = restTemplate.exchange("/autenticacao/obter-token", HttpMethod.POST,
