@@ -36,7 +36,7 @@ import br.com.ifsp.garageando.security.enums.Perfil;
 
 @Entity
 @Table(name = "usuarios")
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"locaisProprios"})
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = -4210899032728690736L;

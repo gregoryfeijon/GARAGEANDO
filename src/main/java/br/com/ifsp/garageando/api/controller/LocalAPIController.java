@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,7 +37,7 @@ import br.com.ifsp.garageando.util.Helpers;
 @CrossOrigin(origins = "*")
 public class LocalAPIController implements IAPIController<Local, LocalDTO> {
 
-	private static final Logger LOG = LoggerFactory.getLogger(UsuarioAPIController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(LocalAPIController.class);
 
 	@Autowired
 	private LocalService localService;
@@ -69,7 +72,7 @@ public class LocalAPIController implements IAPIController<Local, LocalDTO> {
 
 	@Override
 	@PostMapping("/id")
-	public ResponseEntity<Response<LocalDTO>> findById(LocalDTO localDTO) {
+	public ResponseEntity<Response<LocalDTO>> findById(@RequestBody LocalDTO localDTO) {
 		LOG.debug("findById({})", localDTO.getId());
 		Optional<Local> opLocal = localService.findById(localDTO.getId());
 		if (opLocal.isPresent()) {
@@ -96,9 +99,14 @@ public class LocalAPIController implements IAPIController<Local, LocalDTO> {
 
 	@Override
 	@PostMapping
-	public ResponseEntity<Response<Local>> cadastrar(Local local) {
+	public ResponseEntity<Response<Local>> cadastrar(@Valid @RequestBody Local local) {
 		LOG.debug("saving({})", local);
 		Response<Local> response = new Response<>();
+		List<String> erros = localService.verificaInformacoesInseridas(local);
+		if (!Helpers.listEmpty(erros)) {
+			response.setErrors(erros);
+			return ResponseEntity.badRequest().body(response);
+		}
 		Optional<Local> opLocal = localService.save(local);
 		if (opLocal.isPresent()) {
 			response.setData(opLocal.get());
@@ -111,7 +119,7 @@ public class LocalAPIController implements IAPIController<Local, LocalDTO> {
 
 	@Override
 	@DeleteMapping
-	public ResponseEntity<Response<Local>> deletar(Local local) {
+	public ResponseEntity<Response<Local>> deletar(@RequestBody Local local) {
 		LOG.debug("deleting({})", local);
 		boolean existeLocal = localService.existsById(local.getId());
 		if (existeLocal) {
@@ -131,7 +139,7 @@ public class LocalAPIController implements IAPIController<Local, LocalDTO> {
 
 	@Override
 	@DeleteMapping("/id/{id}")
-	public ResponseEntity<Response<Local>> deletar(Long id) {
+	public ResponseEntity<Response<Local>> deletar(@PathVariable Long id) {
 		LOG.debug("deletingById({})", id);
 		boolean existeLocal = localService.existsById(id);
 		if (existeLocal) {
@@ -151,7 +159,7 @@ public class LocalAPIController implements IAPIController<Local, LocalDTO> {
 
 	@Override
 	@PutMapping
-	public ResponseEntity<Response<Local>> alterar(Local local) {
+	public ResponseEntity<Response<Local>> alterar(@Valid @RequestBody Local local) {
 		LOG.debug("updating({})", local);
 		Response<Local> response = new Response<>();
 		Optional<Local> opLocal = localService.save(local);

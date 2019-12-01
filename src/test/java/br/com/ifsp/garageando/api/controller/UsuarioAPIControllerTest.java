@@ -64,8 +64,8 @@ public class UsuarioAPIControllerTest {
 
 	@Test
 	public void test01_insereUsuario() {
-		Usuario usuario = criaUsuario(TestHelper.USUARIO_LOGIN,
-				TestHelper.USUARIO_SENHA, Perfil.ROLE_USUARIO, pessoas.get(0));
+		Usuario usuario = criaUsuario(TestHelper.USUARIO_LOGIN, TestHelper.USUARIO_SENHA, Perfil.ROLE_USUARIO,
+				pessoas.get(0));
 
 		HttpEntity<Object> httpEntity = auth.autorizar(usuario, restTemplate);
 		ParameterizedTypeReference<Response<Usuario>> tipoRetorno = new ParameterizedTypeReference<Response<Usuario>>() {
@@ -74,6 +74,7 @@ public class UsuarioAPIControllerTest {
 		ResponseEntity<Response<Usuario>> resposta = restTemplate.exchange("/api/usuario", HttpMethod.POST, httpEntity,
 				tipoRetorno);
 		assertEquals(HttpStatus.OK, resposta.getStatusCode());
+		assertTrue(resposta.getHeaders().getContentType().equals(MediaType.APPLICATION_JSON));
 
 		Usuario retorno = resposta.getBody().getData();
 		assertNotNull(retorno);
@@ -81,10 +82,8 @@ public class UsuarioAPIControllerTest {
 
 	@Test
 	public void test02_tentaInserirUsuarioSemPessoa() {
-		UsuarioBuilder usuarioBuilder = new UsuarioBuilder()
-				.withLogin(TestHelper.USUARIO_LOGIN + Math.random())
-				.withSenha(TestHelper.USUARIO_SENHA + Math.random()).withPerfil(Perfil.ROLE_USUARIO);
-		Usuario usuario = usuarioBuilder.build();
+		Usuario usuario = criaUsuario(TestHelper.USUARIO_LOGIN + Math.random(),
+				TestHelper.USUARIO_SENHA + Math.random(), Perfil.ROLE_USUARIO, null);
 
 		HttpEntity<Object> httpEntity = auth.autorizar(usuario, restTemplate);
 		ParameterizedTypeReference<Response<Usuario>> tipoRetorno = new ParameterizedTypeReference<Response<Usuario>>() {
@@ -185,7 +184,7 @@ public class UsuarioAPIControllerTest {
 		ParameterizedTypeReference<Response<Usuario>> tipoRetornoEdit = new ParameterizedTypeReference<Response<Usuario>>() {
 		};
 
-		ResponseEntity<Response<Usuario>> respostaEdit = restTemplate.exchange("/api/usuario", HttpMethod.POST,
+		ResponseEntity<Response<Usuario>> respostaEdit = restTemplate.exchange("/api/usuario", HttpMethod.PUT,
 				httpEntityEdit, tipoRetornoEdit);
 		assertEquals(HttpStatus.OK, resposta.getStatusCode());
 		assertTrue(respostaEdit.getHeaders().getContentType().equals(MediaType.APPLICATION_JSON));
@@ -216,15 +215,15 @@ public class UsuarioAPIControllerTest {
 				HttpMethod.DELETE, httpEntityDelete, tipoRetorno, 3);
 		assertEquals(HttpStatus.NO_CONTENT, respostaDelete.getStatusCode());
 
-		usuarioDeletar = criaUsuario(USUARIO_DELETAR_LOGIN, USUARIO_DELETAR_SENHA, Perfil.ROLE_USUARIO,
-				pessoas.get(2));
+		usuarioDeletar = criaUsuario(USUARIO_DELETAR_LOGIN, USUARIO_DELETAR_SENHA, Perfil.ROLE_USUARIO, pessoas.get(2));
 		respostaInsereDeletar = restTemplate.exchange("/api/usuario", HttpMethod.POST, httpEntity, tipoRetorno);
 		assertEquals(HttpStatus.OK, respostaInsereDeletar.getStatusCode());
 		assertTrue(respostaInsereDeletar.getHeaders().getContentType().equals(MediaType.APPLICATION_JSON));
 		usuarioDeletar = respostaInsereDeletar.getBody().getData();
 		assertNotNull(usuarioDeletar);
 
-		respostaDelete = restTemplate.exchange("/api/usuario/id/{id}", HttpMethod.DELETE, httpEntityDelete, tipoRetorno,
+		HttpEntity<Object> httpEntityDelete2 = auth.autorizar(usuarioDeletar, restTemplate);
+		respostaDelete = restTemplate.exchange("/api/usuario", HttpMethod.DELETE, httpEntityDelete2, tipoRetorno,
 				4);
 		assertEquals(HttpStatus.NO_CONTENT, respostaDelete.getStatusCode());
 	}

@@ -125,7 +125,7 @@ public class UsuarioAPIController implements IAPIController<Usuario, UsuarioDTO>
 
 	@Override
 	@DeleteMapping
-	public ResponseEntity<Response<Usuario>> deletar(Usuario usuario) {
+	public ResponseEntity<Response<Usuario>> deletar(@RequestBody Usuario usuario) {
 		LOG.debug("deleting({})", usuario);
 		boolean existeUsuario = usuarioService.existsById(usuario.getId());
 		if (existeUsuario) {
