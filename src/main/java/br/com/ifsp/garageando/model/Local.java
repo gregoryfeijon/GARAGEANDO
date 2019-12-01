@@ -17,7 +17,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -42,7 +41,7 @@ public class Local implements Serializable {
 	private long id;
 	private Double largura;
 	private Double altura;
-	private boolean isDisponivel;
+	private boolean isDisponivel = true;
 	private Double precoMedioHora;
 	private int numero;
 	private Endereco enderecoLocal;
@@ -88,7 +87,7 @@ public class Local implements Serializable {
 		this.numero = numero;
 	}
 
-	@Column(name = "DISPONIVEL", nullable = false)
+	@Column(name = "DISPONIVEL", nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAULT TRUE")
 	public boolean isDisponivel() {
 		return isDisponivel;
 	}
@@ -97,7 +96,7 @@ public class Local implements Serializable {
 		this.isDisponivel = isDisponivel;
 	}
 
-	@NotBlank(message = PRECO_MEDIO_OBRIGATORIO)
+	@NotNull(message = PRECO_MEDIO_OBRIGATORIO)
 	@Column(name = "PRECO_MEDIO_HORA", nullable = false)
 	public Double getPrecoMedioHora() {
 		return precoMedioHora;
@@ -130,7 +129,7 @@ public class Local implements Serializable {
 	@JoinTable(name = "horarios_locais", joinColumns = {
 			@JoinColumn(name = "LOCAL_ID", table = "locais", referencedColumnName = "ID") }, foreignKey = @ForeignKey(name = "fk_local_hora_id"), inverseJoinColumns = {
 					@JoinColumn(name = "HORARIO_DISP_ID", table = "faixas_horarios_disponiveis", referencedColumnName = "ID") }, inverseForeignKey = @ForeignKey(name = "fk_horario_disp_id"))
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	public List<FaixaHorarioDisponivel> getFaixasHorariosDisponiveis() {
 		return faixasHorariosDisponiveis;
 	}
@@ -138,7 +137,6 @@ public class Local implements Serializable {
 	public void setFaixasHorariosDisponiveis(List<FaixaHorarioDisponivel> faixasHorariosDisponiveis) {
 		this.faixasHorariosDisponiveis = faixasHorariosDisponiveis;
 	}
-
 	
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "USUARIO_ID", nullable = false, foreignKey = @ForeignKey(name = "fk_usuario_id"))

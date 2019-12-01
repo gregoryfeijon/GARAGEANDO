@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -55,7 +54,7 @@ public class FaixaHorarioDisponivel implements Serializable {
 	}
 
 	@JsonFormat(pattern = "HH:mm:ss.SSS")
-	@NotBlank(message = HORARIO_INICIO_OBRIGATORIO)
+	@NotNull(message = HORARIO_INICIO_OBRIGATORIO)
 	@Column(name = "HORARIO_INICIO", nullable = false)
 	public LocalTime getHorarioInicio() {
 		return horarioInicio;
@@ -66,7 +65,7 @@ public class FaixaHorarioDisponivel implements Serializable {
 	}
 
 	@JsonFormat(pattern = "HH:mm:ss.SSS")
-	@NotBlank(message = HORARIO_FIM_OBRIGATORIO)
+	@NotNull(message = HORARIO_FIM_OBRIGATORIO)
 	@Column(name = "HORARIO_FIM", nullable = false)
 	public LocalTime getHorarioFim() {
 		return horarioFim;

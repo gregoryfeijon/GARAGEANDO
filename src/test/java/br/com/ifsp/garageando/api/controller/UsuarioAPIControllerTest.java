@@ -49,7 +49,7 @@ public class UsuarioAPIControllerTest {
 
 	AuthorizationTestHelper<Object> auth = new AuthorizationTestHelper<>();
 
-	private Usuario criaUsuarioBuilder(String login, String senha, Perfil perfil, PessoaFisica pessoa) {
+	private Usuario criaUsuario(String login, String senha, Perfil perfil, PessoaFisica pessoa) {
 		UsuarioBuilder usuarioBuilder = new UsuarioBuilder().withLogin(login).withSenha(senha).withPerfil(perfil)
 				.withPessoa(pessoa);
 		return usuarioBuilder.build();
@@ -64,7 +64,7 @@ public class UsuarioAPIControllerTest {
 
 	@Test
 	public void test01_insereUsuario() {
-		Usuario usuario = criaUsuarioBuilder(TestHelper.USUARIO_LOGIN,
+		Usuario usuario = criaUsuario(TestHelper.USUARIO_LOGIN,
 				TestHelper.USUARIO_SENHA, Perfil.ROLE_USUARIO, pessoas.get(0));
 
 		HttpEntity<Object> httpEntity = auth.autorizar(usuario, restTemplate);
@@ -198,7 +198,7 @@ public class UsuarioAPIControllerTest {
 
 	@Test
 	public void test08_deletaUsuarioPorObjetoEPorCodigo() {
-		Usuario usuarioDeletar = criaUsuarioBuilder(USUARIO_DELETAR_LOGIN, USUARIO_DELETAR_SENHA, Perfil.ROLE_USUARIO,
+		Usuario usuarioDeletar = criaUsuario(USUARIO_DELETAR_LOGIN, USUARIO_DELETAR_SENHA, Perfil.ROLE_USUARIO,
 				pessoas.get(2));
 		HttpEntity<Object> httpEntity = auth.autorizar(usuarioDeletar, restTemplate);
 		ParameterizedTypeReference<Response<Usuario>> tipoRetorno = new ParameterizedTypeReference<Response<Usuario>>() {
@@ -216,7 +216,7 @@ public class UsuarioAPIControllerTest {
 				HttpMethod.DELETE, httpEntityDelete, tipoRetorno, 3);
 		assertEquals(HttpStatus.NO_CONTENT, respostaDelete.getStatusCode());
 
-		usuarioDeletar = criaUsuarioBuilder(USUARIO_DELETAR_LOGIN, USUARIO_DELETAR_SENHA, Perfil.ROLE_USUARIO,
+		usuarioDeletar = criaUsuario(USUARIO_DELETAR_LOGIN, USUARIO_DELETAR_SENHA, Perfil.ROLE_USUARIO,
 				pessoas.get(2));
 		respostaInsereDeletar = restTemplate.exchange("/api/usuario", HttpMethod.POST, httpEntity, tipoRetorno);
 		assertEquals(HttpStatus.OK, respostaInsereDeletar.getStatusCode());

@@ -1,6 +1,7 @@
 package br.com.ifsp.garageando.service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import br.com.ifsp.garageando.enums.DiaSemana;
+import br.com.ifsp.garageando.enums.Estado;
 import br.com.ifsp.garageando.enums.PessoaTipo;
+import br.com.ifsp.garageando.model.Endereco;
+import br.com.ifsp.garageando.model.FaixaHorarioDisponivel;
 import br.com.ifsp.garageando.model.PessoaFisica;
 import br.com.ifsp.garageando.model.PessoaJuridica;
 import br.com.ifsp.garageando.model.Usuario;
@@ -35,13 +40,16 @@ import br.com.ifsp.garageando.security.enums.Perfil;
 
 @Component
 public class TestHelper {
-
-	public static final String USUARIO_LOGIN = "xoblinhas";
-	public static final String USUARIO_SENHA = "xoblas";
-
+	
 	private static final String CPF1 = "34540622099";
 	private static final String CPF2 = "24818682004";
 	private static final String CPF3 = "19317293018";
+	
+	public static final String USUARIO_LOGIN = "xoblinhas";
+	public static final String USUARIO_SENHA = "xoblas";
+
+	public static final int LOCAL_NUMERO = 628;
+	public static final Double LOCAL_PRECO_MEDIO_HORA = 5D;
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
@@ -138,12 +146,54 @@ public class TestHelper {
 		return null;
 	}
 
-	public void criarUsuarios() {
+	public List<Usuario> criarUsuarios() {
+		List<Usuario> usuarios = new LinkedList<>();
 		criarPessoas(false).stream().forEach(pessoa -> {
 			UsuarioBuilder usuarioBuilder = new UsuarioBuilder().withLogin(USUARIO_LOGIN + Math.random())
 					.withSenha(bCryptEncoder.encode(USUARIO_SENHA + Math.random())).withPerfil(Perfil.ROLE_USUARIO)
 					.withPessoa(pessoa);
-			usuarioRepository.save(usuarioBuilder.build());
+			usuarios.add(usuarioBuilder.build());
 		});
+		usuarioRepository.saveAll(usuarios);
+		return usuarios;
+	}
+
+	public List<Endereco> criarEnderecos() {
+		List<Endereco> enderecos = new LinkedList<>();
+
+		String[][] dados = { { "Salto", "Salto de São José", "Rua dos Curimbatás", "13324275", Estado.SP.toString() },
+				{ "Salto", "Centro", "Rua 9 de Julho", "13324000", Estado.SP.toString() },
+				{ "Salto", "Centro", "Rua Rio Branco", "13324000", Estado.SP.toString() } };
+
+		for (String data[] : dados) {
+			int aux = 0;
+			Endereco endereco = new Endereco();
+			endereco.setCidade(data[aux++]);
+			endereco.setBairro(data[aux++]);
+			endereco.setRua(data[aux++]);
+			endereco.setCep(Integer.parseInt(data[aux++]));
+			endereco.setEstado(Estado.valueOf(data[aux++]));
+			enderecos.add(endereco);
+		}
+		return enderecos;
+	}
+
+	public List<FaixaHorarioDisponivel> criarFaixasDeHorario() {
+		List<FaixaHorarioDisponivel> faixasDeHorario = new LinkedList<>();
+
+		String[][] dados = { { "08:00", "18:00", DiaSemana.SEGUNDA.toString(), DiaSemana.SEXTA.toString() },
+				{ "08:00", "12:00", DiaSemana.SÁBADO.toString(), DiaSemana.SÁBADO.toString() },
+				{ "20:00", "00:00", DiaSemana.DOMINGO.toString(), DiaSemana.SEGUNDA.toString() } };
+
+		for (String[] data : dados) {
+			int aux = 0;
+			FaixaHorarioDisponivel faixaHorario = new FaixaHorarioDisponivel();
+			faixaHorario.setHorarioInicio(LocalTime.parse(data[aux++]));
+			faixaHorario.setHorarioFim(LocalTime.parse(data[aux++]));
+			faixaHorario.setDiaDaSemanaInicio(DiaSemana.valueOf(data[aux++]));
+			faixaHorario.setDiaDaSemanaFim(DiaSemana.valueOf(data[aux++]));
+			faixasDeHorario.add(faixaHorario);
+		}
+		return faixasDeHorario;
 	}
 }

@@ -4,6 +4,12 @@ import java.util.List;
 
 import br.com.ifsp.garageando.security.enums.Perfil;
 
+/**
+ *	27 de nov de 2019
+ *
+ *	@author gregory.feijon
+ */
+
 public class UsuarioBuilder {
 
 	private Usuario usuario = new Usuario();
