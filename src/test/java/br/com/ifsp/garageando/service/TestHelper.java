@@ -83,14 +83,14 @@ public class TestHelper {
 
 	@Transactional
 	public void limpaBanco() {
-		pessoaRepository.deleteAll();
+		faixaHorarioRepository.deleteAll();
+		avaliacaoRepository.deleteAll();
+		localRepository.deleteAll();
+		eventoRepository.deleteAll();
+		enderecoRepository.deleteAll();
 		pessoaJuridicaRepository.deleteAll();
 		usuarioRepository.deleteAll();
-		localRepository.deleteAll();
-		faixaHorarioRepository.deleteAll();
-		enderecoRepository.deleteAll();
-		eventoRepository.deleteAll();
-		avaliacaoRepository.deleteAll();
+		pessoaRepository.deleteAll();
 		entityManager.createNativeQuery("ALTER TABLE usuarios AUTO_INCREMENT = 1").executeUpdate();
 		entityManager.createNativeQuery("ALTER TABLE avaliacoes AUTO_INCREMENT = 1").executeUpdate();
 		entityManager.createNativeQuery("ALTER TABLE enderecos AUTO_INCREMENT = 1").executeUpdate();

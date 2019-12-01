@@ -35,7 +35,7 @@ import br.com.ifsp.garageando.util.Helpers;
 @RestController
 @RequestMapping("api/local")
 @CrossOrigin(origins = "*")
-public class LocalAPIController implements IAPIController<Local, LocalDTO> {
+public class LocalAPIController implements IAPIController<Local, LocalDTO<Local>> {
 
 	private static final Logger LOG = LoggerFactory.getLogger(LocalAPIController.class);
 
@@ -43,12 +43,12 @@ public class LocalAPIController implements IAPIController<Local, LocalDTO> {
 	private LocalService localService;
 
 	@PostMapping("/usuario")
-	public ResponseEntity<Response<LocalDTO>> findByUsuario(@RequestBody LocalDTO localDTO) {
+	public ResponseEntity<Response<LocalDTO<Local>>> findByUsuario(@RequestBody LocalDTO<Local> localDTO) {
 		LOG.debug("findById({})", localDTO.getId());
 		List<Local> listLocais = localService.findLocaisByUsuario(localDTO.getUsuario());
 		if (!Helpers.listEmpty(listLocais)) {
-			Response<LocalDTO> response = new Response<>();
-			localDTO.setLocais(listLocais);
+			Response<LocalDTO<Local>> response = new Response<>();
+			localDTO.setEntities(listLocais);
 			response.setData(localDTO);
 			return ResponseEntity.ok(response);
 		} else {
@@ -57,12 +57,12 @@ public class LocalAPIController implements IAPIController<Local, LocalDTO> {
 	}
 
 	@PostMapping("/endereco")
-	public ResponseEntity<Response<LocalDTO>> findByEndereco(@RequestBody LocalDTO localDTO) {
+	public ResponseEntity<Response<LocalDTO<Local>>> findByEndereco(@RequestBody LocalDTO<Local> localDTO) {
 		LOG.debug("findById({})", localDTO.getId());
 		List<Local> listLocais = localService.findLocaisByEndereco(localDTO.getEndereco());
 		if (!Helpers.listEmpty(listLocais)) {
-			Response<LocalDTO> response = new Response<>();
-			localDTO.setLocais(listLocais);
+			Response<LocalDTO<Local>> response = new Response<>();
+			localDTO.setEntities(listLocais);
 			response.setData(localDTO);
 			return ResponseEntity.ok(response);
 		} else {
@@ -72,12 +72,12 @@ public class LocalAPIController implements IAPIController<Local, LocalDTO> {
 
 	@Override
 	@PostMapping("/id")
-	public ResponseEntity<Response<LocalDTO>> findById(@RequestBody LocalDTO localDTO) {
+	public ResponseEntity<Response<LocalDTO<Local>>> findById(@RequestBody LocalDTO<Local> localDTO) {
 		LOG.debug("findById({})", localDTO.getId());
 		Optional<Local> opLocal = localService.findById(localDTO.getId());
 		if (opLocal.isPresent()) {
-			Response<LocalDTO> response = new Response<>();
-			localDTO.setLocal(opLocal.get());
+			Response<LocalDTO<Local>> response = new Response<>();
+			localDTO.setEntity(opLocal.get());
 			response.setData(localDTO);
 			return ResponseEntity.ok(response);
 		} else {

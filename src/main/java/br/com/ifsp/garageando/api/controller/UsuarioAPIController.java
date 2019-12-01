@@ -37,7 +37,7 @@ import br.com.ifsp.garageando.util.StringUtil;
 @RestController
 @RequestMapping("api/usuario")
 @CrossOrigin(origins = "*")
-public class UsuarioAPIController implements IAPIController<Usuario, UsuarioDTO> {
+public class UsuarioAPIController implements IAPIController<Usuario, UsuarioDTO<Usuario>> {
 
 	private static final Logger LOG = LoggerFactory.getLogger(UsuarioAPIController.class);
 
@@ -48,12 +48,12 @@ public class UsuarioAPIController implements IAPIController<Usuario, UsuarioDTO>
 	private BCryptPasswordEncoder bCryptEncoder;
 
 	@PostMapping("/email")
-	public ResponseEntity<Response<UsuarioDTO>> findByEmail(@RequestBody UsuarioDTO usuarioDTO) {
+	public ResponseEntity<Response<UsuarioDTO<Usuario>>> findByEmail(@RequestBody UsuarioDTO<Usuario> usuarioDTO) {
 		LOG.debug("findById({})", usuarioDTO.getId());
 		Optional<Usuario> opUsuario = usuarioService.findUsuarioByEmail(usuarioDTO.getEmail());
 		if (opUsuario.isPresent()) {
-			Response<UsuarioDTO> response = new Response<>();
-			usuarioDTO.setUsuario(opUsuario.get());
+			Response<UsuarioDTO<Usuario>> response = new Response<>();
+			usuarioDTO.setEntity(opUsuario.get());
 			response.setData(usuarioDTO);
 			return ResponseEntity.ok(response);
 		} else {
@@ -62,12 +62,12 @@ public class UsuarioAPIController implements IAPIController<Usuario, UsuarioDTO>
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<Response<UsuarioDTO>> findByLogin(@RequestBody UsuarioDTO usuarioDTO) {
+	public ResponseEntity<Response<UsuarioDTO<Usuario>>> findByLogin(@RequestBody UsuarioDTO<Usuario> usuarioDTO) {
 		LOG.debug("findById({})", usuarioDTO.getId());
 		Optional<Usuario> opUsuario = usuarioService.findUsuarioByLogin(usuarioDTO.getLogin());
 		if (opUsuario.isPresent()) {
-			Response<UsuarioDTO> response = new Response<>();
-			usuarioDTO.setUsuario(opUsuario.get());
+			Response<UsuarioDTO<Usuario>> response = new Response<>();
+			usuarioDTO.setEntity(opUsuario.get());
 			response.setData(usuarioDTO);
 			return ResponseEntity.ok(response);
 		} else {
@@ -77,12 +77,12 @@ public class UsuarioAPIController implements IAPIController<Usuario, UsuarioDTO>
 
 	@Override
 	@PostMapping("/id")
-	public ResponseEntity<Response<UsuarioDTO>> findById(@RequestBody UsuarioDTO usuarioDTO) {
+	public ResponseEntity<Response<UsuarioDTO<Usuario>>> findById(@RequestBody UsuarioDTO<Usuario> usuarioDTO) {
 		LOG.debug("findById({})", usuarioDTO.getId());
 		Optional<Usuario> opUsuario = usuarioService.findById(usuarioDTO.getId());
 		if (opUsuario.isPresent()) {
-			Response<UsuarioDTO> response = new Response<>();
-			usuarioDTO.setUsuario(opUsuario.get());
+			Response<UsuarioDTO<Usuario>> response = new Response<>();
+			usuarioDTO.setEntity(opUsuario.get());
 			response.setData(usuarioDTO);
 			return ResponseEntity.ok(response);
 		} else {

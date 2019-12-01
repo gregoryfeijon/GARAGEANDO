@@ -139,34 +139,34 @@ public class LocalAPIControllerTest {
 
 	@Test
 	public void test05_findLocalById() {
-		LocalDTOBuilder localDTOBuilder = new LocalDTOBuilder().withId(1L);
-		LocalDTO localDTO = localDTOBuilder.build();
+		LocalDTOBuilder<Local> localDTOBuilder = new LocalDTOBuilder<Local>().withId(1L);
+		LocalDTO<Local> localDTO = localDTOBuilder.build();
 		HttpEntity<Object> httpEntity = auth.autorizar(localDTO, restTemplate);
-		ParameterizedTypeReference<Response<LocalDTO>> tipoRetorno = new ParameterizedTypeReference<Response<LocalDTO>>() {
+		ParameterizedTypeReference<Response<LocalDTO<Local>>> tipoRetorno = new ParameterizedTypeReference<Response<LocalDTO<Local>>>() {
 		};
 
-		ResponseEntity<Response<LocalDTO>> resposta = restTemplate.exchange("/api/local/id", HttpMethod.POST,
+		ResponseEntity<Response<LocalDTO<Local>>> resposta = restTemplate.exchange("/api/local/id", HttpMethod.POST,
 				httpEntity, tipoRetorno);
 		assertEquals(HttpStatus.OK, resposta.getStatusCode());
 		assertTrue(resposta.getHeaders().getContentType().equals(MediaType.APPLICATION_JSON));
-		Local local = resposta.getBody().getData().getLocal();
+		Local local = resposta.getBody().getData().getEntity();
 		assertNotNull(local);
 		assertEquals(local.getId(), 1L);
 	}
 
 	@Test
 	public void test06_findLocalByUsuario() {
-		LocalDTOBuilder localDTOBuilder = new LocalDTOBuilder().withUsuario(usuarios.get(0));
-		LocalDTO localDTO = localDTOBuilder.build();
+		LocalDTOBuilder<Local> localDTOBuilder = new LocalDTOBuilder<Local>().withUsuario(usuarios.get(0));
+		LocalDTO<Local> localDTO = localDTOBuilder.build();
 		HttpEntity<Object> httpEntity = auth.autorizar(localDTO, restTemplate);
-		ParameterizedTypeReference<Response<LocalDTO>> tipoRetorno = new ParameterizedTypeReference<Response<LocalDTO>>() {
+		ParameterizedTypeReference<Response<LocalDTO<Local>>> tipoRetorno = new ParameterizedTypeReference<Response<LocalDTO<Local>>>() {
 		};
 
-		ResponseEntity<Response<LocalDTO>> resposta = restTemplate.exchange("/api/local/usuario", HttpMethod.POST,
-				httpEntity, tipoRetorno);
+		ResponseEntity<Response<LocalDTO<Local>>> resposta = restTemplate.exchange("/api/local/usuario",
+				HttpMethod.POST, httpEntity, tipoRetorno);
 		assertEquals(HttpStatus.OK, resposta.getStatusCode());
 		assertTrue(resposta.getHeaders().getContentType().equals(MediaType.APPLICATION_JSON));
-		List<Local> locais = resposta.getBody().getData().getLocais();
+		List<Local> locais = resposta.getBody().getData().getEntities();
 		assertNotNull(locais);
 		Local local = locais.get(0);
 		assertNotNull(local);
@@ -174,17 +174,17 @@ public class LocalAPIControllerTest {
 
 	@Test
 	public void test07_findLocalByEndereco() {
-		LocalDTOBuilder localDTOBuilder = new LocalDTOBuilder().withEndereco(enderecos.get(0));
-		LocalDTO localDTO = localDTOBuilder.build();
+		LocalDTOBuilder<Local> localDTOBuilder = new LocalDTOBuilder<Local>().withEndereco(enderecos.get(0));
+		LocalDTO<Local> localDTO = localDTOBuilder.build();
 		HttpEntity<Object> httpEntity = auth.autorizar(localDTO, restTemplate);
-		ParameterizedTypeReference<Response<LocalDTO>> tipoRetorno = new ParameterizedTypeReference<Response<LocalDTO>>() {
+		ParameterizedTypeReference<Response<LocalDTO<Local>>> tipoRetorno = new ParameterizedTypeReference<Response<LocalDTO<Local>>>() {
 		};
 
-		ResponseEntity<Response<LocalDTO>> resposta = restTemplate.exchange("/api/local/endereco", HttpMethod.POST,
-				httpEntity, tipoRetorno);
+		ResponseEntity<Response<LocalDTO<Local>>> resposta = restTemplate.exchange("/api/local/endereco",
+				HttpMethod.POST, httpEntity, tipoRetorno);
 		assertEquals(HttpStatus.OK, resposta.getStatusCode());
 		assertTrue(resposta.getHeaders().getContentType().equals(MediaType.APPLICATION_JSON));
-		List<Local> locais = resposta.getBody().getData().getLocais();
+		List<Local> locais = resposta.getBody().getData().getEntities();
 		assertNotNull(locais);
 		Local local = locais.get(0);
 		assertNotNull(local);
@@ -207,18 +207,18 @@ public class LocalAPIControllerTest {
 
 	@Test
 	public void test09_AlteraLocal() {
-		LocalDTOBuilder localDTOBuilder = new LocalDTOBuilder().withId(1L);
-		LocalDTO localDTO = localDTOBuilder.build();
+		LocalDTOBuilder<Local> localDTOBuilder = new LocalDTOBuilder<Local>().withId(1L);
+		LocalDTO<Local> localDTO = localDTOBuilder.build();
 		HttpEntity<Object> httpEntity = auth.autorizar(localDTO, restTemplate);
-		ParameterizedTypeReference<Response<LocalDTO>> tipoRetorno = new ParameterizedTypeReference<Response<LocalDTO>>() {
+		ParameterizedTypeReference<Response<LocalDTO<Local>>> tipoRetorno = new ParameterizedTypeReference<Response<LocalDTO<Local>>>() {
 		};
 
-		ResponseEntity<Response<LocalDTO>> resposta = restTemplate.exchange("/api/local/id", HttpMethod.POST,
+		ResponseEntity<Response<LocalDTO<Local>>> resposta = restTemplate.exchange("/api/local/id", HttpMethod.POST,
 				httpEntity, tipoRetorno);
 		assertEquals(HttpStatus.OK, resposta.getStatusCode());
 		assertTrue(resposta.getHeaders().getContentType().equals(MediaType.APPLICATION_JSON));
-		assertNotNull(resposta.getBody().getData().getLocal());
-		Local local = resposta.getBody().getData().getLocal();
+		assertNotNull(resposta.getBody().getData().getEntity());
+		Local local = resposta.getBody().getData().getEntity();
 		local.setAltura(ALTURA_ALTERADO);
 		local.setLargura(LARGURA_ALTERADO);
 		local.setDisponivel(DISPONIVEL_ALTERADO);

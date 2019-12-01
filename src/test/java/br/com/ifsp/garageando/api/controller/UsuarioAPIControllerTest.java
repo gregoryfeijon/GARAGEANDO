@@ -98,51 +98,53 @@ public class UsuarioAPIControllerTest {
 
 	@Test
 	public void test03_findUsuarioById() {
-		UsuarioDTOBuilder usuarioDTOBuilder = new UsuarioDTOBuilder().withId(1L);
-		UsuarioDTO usuarioDTO = usuarioDTOBuilder.build();
+		UsuarioDTOBuilder<Usuario> usuarioDTOBuilder = new UsuarioDTOBuilder<Usuario>().withId(1L);
+		UsuarioDTO<Usuario> usuarioDTO = usuarioDTOBuilder.build();
 		HttpEntity<Object> httpEntity = auth.autorizar(usuarioDTO, restTemplate);
-		ParameterizedTypeReference<Response<UsuarioDTO>> tipoRetorno = new ParameterizedTypeReference<Response<UsuarioDTO>>() {
+		ParameterizedTypeReference<Response<UsuarioDTO<Usuario>>> tipoRetorno = new ParameterizedTypeReference<Response<UsuarioDTO<Usuario>>>() {
 		};
 
-		ResponseEntity<Response<UsuarioDTO>> resposta = restTemplate.exchange("/api/usuario/id", HttpMethod.POST,
-				httpEntity, tipoRetorno);
+		ResponseEntity<Response<UsuarioDTO<Usuario>>> resposta = restTemplate.exchange("/api/usuario/id",
+				HttpMethod.POST, httpEntity, tipoRetorno);
 		assertEquals(HttpStatus.OK, resposta.getStatusCode());
 		assertTrue(resposta.getHeaders().getContentType().equals(MediaType.APPLICATION_JSON));
-		Usuario usuario = resposta.getBody().getData().getUsuario();
+		Usuario usuario = resposta.getBody().getData().getEntity();
 		assertNotNull(usuario);
 		assertEquals(usuario.getId(), Long.valueOf(1L));
 	}
 
 	@Test
 	public void test04_findUsuarioByEmail() {
-		UsuarioDTOBuilder usuarioDTOBuilder = new UsuarioDTOBuilder().withEmail(pessoas.get(0).getEmail());
-		UsuarioDTO usuarioDTO = usuarioDTOBuilder.build();
+		UsuarioDTOBuilder<Usuario> usuarioDTOBuilder = new UsuarioDTOBuilder<Usuario>()
+				.withEmail(pessoas.get(0).getEmail());
+		UsuarioDTO<Usuario> usuarioDTO = usuarioDTOBuilder.build();
 		HttpEntity<Object> httpEntity = auth.autorizar(usuarioDTO, restTemplate);
-		ParameterizedTypeReference<Response<UsuarioDTO>> tipoRetorno = new ParameterizedTypeReference<Response<UsuarioDTO>>() {
+		ParameterizedTypeReference<Response<UsuarioDTO<Usuario>>> tipoRetorno = new ParameterizedTypeReference<Response<UsuarioDTO<Usuario>>>() {
 		};
 
-		ResponseEntity<Response<UsuarioDTO>> resposta = restTemplate.exchange("/api/usuario/email", HttpMethod.POST,
-				httpEntity, tipoRetorno);
+		ResponseEntity<Response<UsuarioDTO<Usuario>>> resposta = restTemplate.exchange("/api/usuario/email",
+				HttpMethod.POST, httpEntity, tipoRetorno);
 		assertEquals(HttpStatus.OK, resposta.getStatusCode());
 		assertTrue(resposta.getHeaders().getContentType().equals(MediaType.APPLICATION_JSON));
-		Usuario usuario = resposta.getBody().getData().getUsuario();
+		Usuario usuario = resposta.getBody().getData().getEntity();
 		assertNotNull(usuario);
 		assertEquals(usuario.getPessoa().getEmail(), pessoas.get(0).getEmail());
 	}
 
 	@Test
 	public void test05_findUsuarioByLogin() {
-		UsuarioDTOBuilder usuarioDTOBuilder = new UsuarioDTOBuilder().withLogin(TestHelper.USUARIO_LOGIN);
-		UsuarioDTO usuarioDTO = usuarioDTOBuilder.build();
+		UsuarioDTOBuilder<Usuario> usuarioDTOBuilder = new UsuarioDTOBuilder<Usuario>()
+				.withLogin(TestHelper.USUARIO_LOGIN);
+		UsuarioDTO<Usuario> usuarioDTO = usuarioDTOBuilder.build();
 		HttpEntity<Object> httpEntity = auth.autorizar(usuarioDTO, restTemplate);
-		ParameterizedTypeReference<Response<UsuarioDTO>> tipoRetorno = new ParameterizedTypeReference<Response<UsuarioDTO>>() {
+		ParameterizedTypeReference<Response<UsuarioDTO<Usuario>>> tipoRetorno = new ParameterizedTypeReference<Response<UsuarioDTO<Usuario>>>() {
 		};
 
-		ResponseEntity<Response<UsuarioDTO>> resposta = restTemplate.exchange("/api/usuario/login", HttpMethod.POST,
-				httpEntity, tipoRetorno);
+		ResponseEntity<Response<UsuarioDTO<Usuario>>> resposta = restTemplate.exchange("/api/usuario/login",
+				HttpMethod.POST, httpEntity, tipoRetorno);
 		assertEquals(HttpStatus.OK, resposta.getStatusCode());
 		assertTrue(resposta.getHeaders().getContentType().equals(MediaType.APPLICATION_JSON));
-		Usuario usuario = resposta.getBody().getData().getUsuario();
+		Usuario usuario = resposta.getBody().getData().getEntity();
 		assertNotNull(usuario);
 		assertEquals(usuario.getLogin(), TestHelper.USUARIO_LOGIN);
 	}
@@ -164,18 +166,18 @@ public class UsuarioAPIControllerTest {
 
 	@Test
 	public void test07_AlteraUsuarioEPessoa() {
-		UsuarioDTOBuilder usuarioDTOBuilder = new UsuarioDTOBuilder().withId(2L);
-		UsuarioDTO usuarioDTO = usuarioDTOBuilder.build();
+		UsuarioDTOBuilder<Usuario> usuarioDTOBuilder = new UsuarioDTOBuilder<Usuario>().withId(2L);
+		UsuarioDTO<Usuario> usuarioDTO = usuarioDTOBuilder.build();
 		HttpEntity<Object> httpEntity = auth.autorizar(usuarioDTO, restTemplate);
-		ParameterizedTypeReference<Response<UsuarioDTO>> tipoRetorno = new ParameterizedTypeReference<Response<UsuarioDTO>>() {
+		ParameterizedTypeReference<Response<UsuarioDTO<Usuario>>> tipoRetorno = new ParameterizedTypeReference<Response<UsuarioDTO<Usuario>>>() {
 		};
 
-		ResponseEntity<Response<UsuarioDTO>> resposta = restTemplate.exchange("/api/usuario/id", HttpMethod.POST,
-				httpEntity, tipoRetorno);
+		ResponseEntity<Response<UsuarioDTO<Usuario>>> resposta = restTemplate.exchange("/api/usuario/id",
+				HttpMethod.POST, httpEntity, tipoRetorno);
 		assertEquals(HttpStatus.OK, resposta.getStatusCode());
 		assertTrue(resposta.getHeaders().getContentType().equals(MediaType.APPLICATION_JSON));
-		assertNotNull(resposta.getBody().getData().getUsuario());
-		Usuario usuario = resposta.getBody().getData().getUsuario();
+		assertNotNull(resposta.getBody().getData().getEntity());
+		Usuario usuario = resposta.getBody().getData().getEntity();
 		String loginNovo = TestHelper.USUARIO_LOGIN + Math.random();
 		usuario.setLogin(loginNovo);
 		usuario.getPessoa().setEmail("mudou.mudou@gmail.com");
@@ -223,8 +225,7 @@ public class UsuarioAPIControllerTest {
 		assertNotNull(usuarioDeletar);
 
 		HttpEntity<Object> httpEntityDelete2 = auth.autorizar(usuarioDeletar, restTemplate);
-		respostaDelete = restTemplate.exchange("/api/usuario", HttpMethod.DELETE, httpEntityDelete2, tipoRetorno,
-				4);
+		respostaDelete = restTemplate.exchange("/api/usuario", HttpMethod.DELETE, httpEntityDelete2, tipoRetorno, 4);
 		assertEquals(HttpStatus.NO_CONTENT, respostaDelete.getStatusCode());
 	}
 }
