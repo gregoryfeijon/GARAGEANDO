@@ -151,7 +151,7 @@ public class LocalAPIControllerTest {
 		assertTrue(resposta.getHeaders().getContentType().equals(MediaType.APPLICATION_JSON));
 		Local local = resposta.getBody().getData().getEntity();
 		assertNotNull(local);
-		assertEquals(local.getId(), 1L);
+		assertEquals(local.getId(), Long.valueOf(1L));
 	}
 
 	@Test
