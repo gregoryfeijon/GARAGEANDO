@@ -46,7 +46,7 @@ public abstract class Pessoa implements Serializable {
 	private static final String NOME_INVALIDO = "Nome inválido!!!";
 	private static final String EMAIL_INVALIDO = "Email inválido!!!";
 
-	private long id;
+	private Long id;
 	private String nome;
 	private String email;
 	private String telefone;
@@ -57,11 +57,11 @@ public abstract class Pessoa implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

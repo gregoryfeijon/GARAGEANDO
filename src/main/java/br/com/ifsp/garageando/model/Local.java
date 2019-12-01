@@ -38,7 +38,7 @@ public class Local implements Serializable {
 	private static final String USUARIO_OBRIGATORIO = "ATENÇÃO! O campo referente a usuário é OBRIGATÓRIO!";
 	public static final String ENDERECO_OBRIGATORIO = "ATENÇÃO! é OBRIGATÓRIO que um local possua um endereço!";
 
-	private long id;
+	private Long id;
 	private Double largura;
 	private Double altura;
 	private boolean isDisponivel = true;
@@ -52,11 +52,11 @@ public class Local implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

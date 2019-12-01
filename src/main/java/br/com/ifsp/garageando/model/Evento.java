@@ -39,7 +39,7 @@ public class Evento implements Serializable {
 	private static final String DATA_OBRIGATORIO = "ATENÇÃO! O campo data do evento é OBRIGATÓRIO!";
 	private static final String NUMERO_INVALIDO = "ATENÇÃO! O número do local do evento inserido é inválido!";
 
-	private long id;
+	private Long id;
 	private String nome;
 	private Double preco;
 	private LocalDate data;
@@ -51,11 +51,11 @@ public class Evento implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

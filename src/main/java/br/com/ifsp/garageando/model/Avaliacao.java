@@ -38,7 +38,7 @@ public class Avaliacao implements Serializable {
 	private static final String USUARIO_OBRIGATORIO = "ATENÇÃO! É necessário definir o usuário da avaliação!";
 	private static final String RATING_INVALIDO = "ATENÇÃO! O valor inserido para avaliar o local é inválido!";
 
-	private long id;
+	private Long id;
 	private String comentario;
 	private double rating;
 	private Usuario usuarioAvaliador;
@@ -47,11 +47,11 @@ public class Avaliacao implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

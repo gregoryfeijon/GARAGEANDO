@@ -38,7 +38,7 @@ public class Endereco implements Serializable {
 	private static final String RUA_OBRIGATORIO = "ATENÇÃO! O campo rua é OBRIGATÓRIO!";
 	private static final String CEP_INVALIDO = "ATENÇÃO! O número de CEP inserido é inválido!";
 
-	private long id;
+	private Long id;
 	private String cidade;
 	private String bairro;
 	private String rua;
@@ -52,11 +52,11 @@ public class Endereco implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

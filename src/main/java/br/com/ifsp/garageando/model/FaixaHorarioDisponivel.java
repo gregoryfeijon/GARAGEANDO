@@ -36,7 +36,7 @@ public class FaixaHorarioDisponivel implements Serializable {
 	private static final String DIA_SEMANA_INICIO_OBRIGATORIO = "ATENÇÃO! O dia inicial da semana em que o local está disponível naquela faixa de horário é OBRIGATÓRIO!";
 	private static final String DIA_SEMANA_FIM_OBRIGATORIO = "ATENÇÃO! O dia final da semana em que o local está disponível naquela faixa de horário é OBRIGATÓRIO!";
 
-	private long id;
+	private Long id;
 	private LocalTime horarioInicio;
 	private LocalTime horarioFim;
 	private DiaSemana diaDaSemanaInicio;
@@ -45,11 +45,11 @@ public class FaixaHorarioDisponivel implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
