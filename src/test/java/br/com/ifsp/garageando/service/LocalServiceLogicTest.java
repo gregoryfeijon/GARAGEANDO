@@ -60,7 +60,7 @@ public class LocalServiceLogicTest {
 	}
 
 	@Test
-	public void test01_CadastrarLocal() {
+	public void test01_cadastrarLocal() {
 		Local local = criarLocal(usuarios.get(0), enderecos.get(0), TestHelper.LOCAL_NUMERO,
 				TestHelper.LOCAL_PRECO_MEDIO_HORA);
 		Optional<Local> opLocal = localService.save(local);
@@ -70,7 +70,7 @@ public class LocalServiceLogicTest {
 	}
 
 	@Test
-	public void test02_AlterarLocal() {
+	public void test02_alterarLocal() {
 		Optional<Local> opLocal = localService.findById(1L);
 		assertTrue(opLocal.isPresent());
 
