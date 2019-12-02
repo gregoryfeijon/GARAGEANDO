@@ -20,6 +20,11 @@ public class LocalBuilder {
 		return local;
 	}
 
+	public LocalBuilder withID(Long id) {
+		local.setId(id);
+		return this;
+	}
+
 	public LocalBuilder withLargura(Double largura) {
 		local.setLargura(largura);
 		return this;

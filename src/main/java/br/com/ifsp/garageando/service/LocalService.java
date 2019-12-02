@@ -1,7 +1,6 @@
 package br.com.ifsp.garageando.service;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -69,18 +68,9 @@ public class LocalService implements IService<Local> {
 	public List<String> verificaInformacoesInseridas(Local local) {
 		Map<String, Boolean> map = new HashMap<>();
 		map.put("Erro! É necessário especificar um endereço!", Helpers.isNull(local.getEnderecoLocal()));
-		map.put("Erro! É necessário especificar pelo menos uma faixa de horário!", Helpers.listEmpty(local.getFaixasHorariosDisponiveis()));
+		map.put("Erro! É necessário especificar pelo menos uma faixa de horário!",
+				Helpers.listEmpty(local.getFaixasHorariosDisponiveis()));
 		map.put("Erro! É necessário especificar um usuário!", Helpers.isNull(local.getUsuarioProprietario()));
-		return processaErros(map);
-	}
-
-	private List<String> processaErros(Map<String, Boolean> map) {
-		List<String> erros = new LinkedList<>();
-		map.forEach((mensagem, v) -> {
-			if (v) {
-				erros.add(mensagem);
-			}
-		});
-		return erros;
+		return Helpers.processaErros(map);
 	}
 }

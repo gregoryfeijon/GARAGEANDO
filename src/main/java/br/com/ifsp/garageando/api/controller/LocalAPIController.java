@@ -129,7 +129,7 @@ public class LocalAPIController implements IAPIController<Local, LocalDTO<Local>
 				return ResponseEntity.noContent().build();
 			} else {
 				Response<Local> response = new Response<>();
-				response.setErrors(Arrays.asList("Erro ao excluir o usuário!"));
+				response.setErrors(Arrays.asList("Erro ao excluir o local!"));
 				return ResponseEntity.badRequest().body(response);
 			}
 		} else {
@@ -149,7 +149,7 @@ public class LocalAPIController implements IAPIController<Local, LocalDTO<Local>
 				return ResponseEntity.noContent().build();
 			} else {
 				Response<Local> response = new Response<>();
-				response.setErrors(Arrays.asList("Erro ao excluir o usuário!"));
+				response.setErrors(Arrays.asList("Erro ao excluir o local!"));
 				return ResponseEntity.badRequest().body(response);
 			}
 		} else {
@@ -167,7 +167,7 @@ public class LocalAPIController implements IAPIController<Local, LocalDTO<Local>
 			response.setData(opLocal.get());
 			return ResponseEntity.ok(response);
 		} else {
-			response.setErrors(Arrays.asList("Erro! O cadastro de usuário não foi efetuado com sucesso!"));
+			response.setErrors(Arrays.asList("Erro! A alteração no cadastro de usuário não foi efetuada com sucesso!"));
 			return ResponseEntity.badRequest().body(response);
 		}
 	}

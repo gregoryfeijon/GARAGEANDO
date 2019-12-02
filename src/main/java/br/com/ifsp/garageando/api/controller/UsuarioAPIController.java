@@ -176,7 +176,7 @@ public class UsuarioAPIController implements IAPIController<Usuario, UsuarioDTO<
 			response.setData(opUsuario.get());
 			return ResponseEntity.ok(response);
 		} else {
-			response.setErrors(Arrays.asList("Erro! O cadastro de usuário não foi efetuado com sucesso!"));
+			response.setErrors(Arrays.asList("Erro! A alteração no cadastro de usuário não foi efetuada com sucesso!"));
 			return ResponseEntity.badRequest().body(response);
 		}
 	}

@@ -79,7 +79,7 @@ public class Evento implements Serializable {
 	}
 
 	@JsonFormat(pattern = "dd-MM-yyyy")
-	@NotBlank(message = DATA_OBRIGATORIO)
+	@NotNull(message = DATA_OBRIGATORIO)
 	@Column(name = "DATA", nullable = false)
 	public LocalDate getData() {
 		return data;

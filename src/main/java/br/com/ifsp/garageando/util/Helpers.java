@@ -1,6 +1,8 @@
 package br.com.ifsp.garageando.util;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
 /**
@@ -55,4 +57,14 @@ public class Helpers {
 //		Predicate<T> predicate = p -> p == null;
 //		return predicate;
 //	}
+
+	public static List<String> processaErros(Map<String, Boolean> map) {
+		List<String> erros = new LinkedList<>();
+		map.forEach((mensagem, v) -> {
+			if (v) {
+				erros.add(mensagem);
+			}
+		});
+		return erros;
+	}
 }
