@@ -42,7 +42,7 @@ public class EventoDTOBuilder<T> extends WsDTO<T> {
 		return this;
 	}
 
-	public EventoDTOBuilder<T> withLocais(List<T> locais) {
+	public EventoDTOBuilder<T> withEventos(List<T> locais) {
 		eventoDTO.setEntities(locais);
 		return this;
 	}

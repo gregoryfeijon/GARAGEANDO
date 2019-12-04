@@ -30,6 +30,7 @@ import br.com.ifsp.garageando.model.Local;
 import br.com.ifsp.garageando.model.LocalBuilder;
 import br.com.ifsp.garageando.model.LocalDTOBuilder;
 import br.com.ifsp.garageando.model.Usuario;
+import br.com.ifsp.garageando.service.LocalServiceLogicTest;
 import br.com.ifsp.garageando.service.TestHelper;
 
 /**
@@ -42,11 +43,6 @@ import br.com.ifsp.garageando.service.TestHelper;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class LocalAPIControllerTest {
-
-	private static final int NUMERO_ALTERADO = 123;
-	private static final boolean DISPONIVEL_ALTERADO = false;
-	private static final Double LARGURA_ALTERADO = 20D;
-	private static final Double ALTURA_ALTERADO = 10D;
 
 	@Autowired
 	private TestRestTemplate restTemplate;
@@ -64,8 +60,7 @@ public class LocalAPIControllerTest {
 		LocalBuilder localBuilder = new LocalBuilder().withNumero(localNumero).withPrecoMedioHora(localPrecoMedioHora)
 				.withUsuarioProprietario(usuario).withEnderecoLocal(endereco)
 				.withFaixasHorariosDisponiveis(faixasDeHorario);
-		Local local = localBuilder.build();
-		return local;
+		return localBuilder.build();
 	}
 
 	@Test
@@ -219,10 +214,10 @@ public class LocalAPIControllerTest {
 		assertTrue(resposta.getHeaders().getContentType().equals(MediaType.APPLICATION_JSON));
 		assertNotNull(resposta.getBody().getData().getEntity());
 		Local local = resposta.getBody().getData().getEntity();
-		local.setAltura(ALTURA_ALTERADO);
-		local.setLargura(LARGURA_ALTERADO);
-		local.setDisponivel(DISPONIVEL_ALTERADO);
-		local.setNumero(NUMERO_ALTERADO);
+		local.setAltura(LocalServiceLogicTest.ALTURA_ALTERADO);
+		local.setLargura(LocalServiceLogicTest.LARGURA_ALTERADO);
+		local.setDisponivel(LocalServiceLogicTest.DISPONIVEL_ALTERADO);
+		local.setNumero(LocalServiceLogicTest.NUMERO_ALTERADO);
 		local.setEnderecoLocal(enderecos.get(1));
 
 		HttpEntity<Object> httpEntityEdit = auth.autorizar(local, restTemplate);
@@ -235,10 +230,10 @@ public class LocalAPIControllerTest {
 		assertTrue(respostaEdit.getHeaders().getContentType().equals(MediaType.APPLICATION_JSON));
 		local = respostaEdit.getBody().getData();
 		assertNotNull(local);
-		assertEquals(local.getAltura(), ALTURA_ALTERADO);
-		assertEquals(local.getLargura(), LARGURA_ALTERADO);
-		assertEquals(local.isDisponivel(), DISPONIVEL_ALTERADO);
-		assertEquals(local.getNumero(), NUMERO_ALTERADO);
+		assertEquals(local.getAltura(), LocalServiceLogicTest.ALTURA_ALTERADO);
+		assertEquals(local.getLargura(), LocalServiceLogicTest.LARGURA_ALTERADO);
+		assertEquals(local.isDisponivel(), LocalServiceLogicTest.DISPONIVEL_ALTERADO);
+		assertEquals(local.getNumero(), LocalServiceLogicTest.NUMERO_ALTERADO);
 		assertEquals(local.getEnderecoLocal().getRua(), enderecos.get(1).getRua());
 	}
 

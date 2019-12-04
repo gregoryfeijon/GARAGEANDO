@@ -37,10 +37,10 @@ public class UsuarioBuilder {
 		return this;
 	}
 
-	public UsuarioBuilder withEventos(List<Evento> eventos) {
-		usuario.setEventos(eventos);
-		return this;
-	}
+//	public UsuarioBuilder withEventos(List<Evento> eventos) {
+//		usuario.setEventos(eventos);
+//		return this;
+//	}
 
 	public UsuarioBuilder withPessoa(PessoaFisica pessoaFisica) {
 		usuario.setPessoa(pessoaFisica);

@@ -35,7 +35,7 @@ public class EventoBuilder {
 		return this;
 	}
 
-	public EventoBuilder withNumero(int numero) {
+	public EventoBuilder withNumero(Integer numero) {
 		evento.setNumero(numero);
 		return this;
 	}

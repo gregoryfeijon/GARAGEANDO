@@ -40,8 +40,13 @@ public class LocalBuilder {
 		return this;
 	}
 
-	public LocalBuilder withNumero(int numero) {
+	public LocalBuilder withNumero(Integer numero) {
 		local.setNumero(numero);
+		return this;
+	}
+
+	public LocalBuilder withComplemento(String complemento) {
+		local.setComplemento(complemento);
 		return this;
 	}
 

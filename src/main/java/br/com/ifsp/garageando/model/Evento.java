@@ -38,12 +38,14 @@ public class Evento implements Serializable {
 	private static final String NOME_EVENTO_OBRIGATORIO = "ATENÇÃO! O campo nome do evento é OBRIGATÓRIO!";
 	private static final String DATA_OBRIGATORIO = "ATENÇÃO! O campo data do evento é OBRIGATÓRIO!";
 	private static final String NUMERO_INVALIDO = "ATENÇÃO! O número do local do evento inserido é inválido!";
+	private static final String ENDERECO_OBRIGATORIO = "ATENÇÃO! é OBRIGATÓRIO que um evento possua um endereço!";
+	private static final String USUARIO_OBRIGATORIO = "ATENÇÃO! O campo referente a usuário é OBRIGATÓRIO!";
 
 	private Long id;
 	private String nome;
 	private Double preco;
 	private LocalDate data;
-	private int numero;
+	private Integer numero;
 	private String complemento;
 	private Endereco enderecoEvento;
 	private Usuario usuarioResponsavelEvento;
@@ -91,11 +93,11 @@ public class Evento implements Serializable {
 
 	@Positive(message = NUMERO_INVALIDO)
 	@Column(name = "NUMERO")
-	public int getNumero() {
+	public Integer getNumero() {
 		return numero;
 	}
 
-	public void setNumero(int numero) {
+	public void setNumero(Integer numero) {
 		this.numero = numero;
 	}
 
@@ -111,7 +113,7 @@ public class Evento implements Serializable {
 
 	@JoinColumn(name = "ENDERECO_ID", nullable = false, foreignKey = @ForeignKey(name = "fk_endereco_evento_id"))
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false)
-	@NotNull(message = Local.ENDERECO_OBRIGATORIO)
+	@NotNull(message = ENDERECO_OBRIGATORIO)
 	public Endereco getEnderecoEvento() {
 		return enderecoEvento;
 	}
@@ -122,6 +124,7 @@ public class Evento implements Serializable {
 
 	@JoinColumn(name = "USUARIO_ID", nullable = false, foreignKey = @ForeignKey(name = "fk_usuario_resp_id"))
 	@ManyToOne(fetch = FetchType.EAGER)
+	@NotNull(message = USUARIO_OBRIGATORIO)
 	public Usuario getUsuarioResponsavelEvento() {
 		return usuarioResponsavelEvento;
 	}

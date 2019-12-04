@@ -28,7 +28,7 @@ import br.com.ifsp.garageando.enums.Estado;
 
 @Entity
 @Table(name = "enderecos")
-@JsonIgnoreProperties(ignoreUnknown = true, value = {"locais"})
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"locais", "eventos"})
 public class Endereco implements Serializable {
 
 	private static final long serialVersionUID = 4830439413890041038L;

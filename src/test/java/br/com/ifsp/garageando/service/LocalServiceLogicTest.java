@@ -32,6 +32,11 @@ import br.com.ifsp.garageando.model.Usuario;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class LocalServiceLogicTest {
 
+	public static final Integer NUMERO_ALTERADO = 123;
+	public static final boolean DISPONIVEL_ALTERADO = false;
+	public static final Double LARGURA_ALTERADO = 20D;
+	public static final Double ALTURA_ALTERADO = 10D;
+	
 	@Autowired
 	private LocalService localService;
 

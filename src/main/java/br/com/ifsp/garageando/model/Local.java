@@ -13,11 +13,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -36,14 +38,16 @@ public class Local implements Serializable {
 
 	private static final String PRECO_MEDIO_OBRIGATORIO = "ATENÇÃO! O campo preço médio é OBRIGATÓRIO!";
 	private static final String USUARIO_OBRIGATORIO = "ATENÇÃO! O campo referente a usuário é OBRIGATÓRIO!";
-	public static final String ENDERECO_OBRIGATORIO = "ATENÇÃO! é OBRIGATÓRIO que um local possua um endereço!";
-
+	private static final String ENDERECO_OBRIGATORIO = "ATENÇÃO! é OBRIGATÓRIO que um local possua um endereço!";
+	private static final String NUMERO_INVALIDO = "ATENÇÃO! O número do local inserido é inválido!";
+	
 	private Long id;
 	private Double largura;
 	private Double altura;
 	private boolean isDisponivel = true;
 	private Double precoMedioHora;
-	private int numero;
+	private Integer numero;
+	private String complemento;
 	private Endereco enderecoLocal;
 	private List<Avaliacao> avaliacoes;
 	private List<FaixaHorarioDisponivel> faixasHorariosDisponiveis;
@@ -78,13 +82,24 @@ public class Local implements Serializable {
 		this.altura = altura;
 	}
 
+	@Positive(message = NUMERO_INVALIDO)
 	@Column(name = "NUMERO")
-	public int getNumero() {
+	public Integer getNumero() {
 		return numero;
 	}
 
-	public void setNumero(int numero) {
+	public void setNumero(Integer numero) {
 		this.numero = numero;
+	}
+
+	@Lob
+	@Column(name = "COMPLEMENTO")
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
 	}
 
 	@Column(name = "DISPONIVEL", nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAULT TRUE")

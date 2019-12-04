@@ -40,16 +40,20 @@ import br.com.ifsp.garageando.security.enums.Perfil;
 
 @Component
 public class TestHelper {
-	
+
 	private static final String CPF1 = "34540622099";
 	private static final String CPF2 = "24818682004";
 	private static final String CPF3 = "19317293018";
-	
+
 	public static final String USUARIO_LOGIN = "xoblinhas";
 	public static final String USUARIO_SENHA = "xoblas";
 
 	public static final int LOCAL_NUMERO = 628;
 	public static final Double LOCAL_PRECO_MEDIO_HORA = 5D;
+
+	public static final String NOME_EVENTO1 = "Afterlife";
+	public static final String NOME_EVENTO2 = "Time Warp";
+	public static final LocalDate DATA_EVENTO = LocalDate.of(2019, 04, 06);
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
@@ -91,14 +95,14 @@ public class TestHelper {
 		pessoaJuridicaRepository.deleteAll();
 		usuarioRepository.deleteAll();
 		pessoaRepository.deleteAll();
-		entityManager.createNativeQuery("ALTER TABLE usuarios AUTO_INCREMENT = 1").executeUpdate();
+		entityManager.createNativeQuery("ALTER TABLE faixas_horarios_disponiveis AUTO_INCREMENT = 1").executeUpdate();
 		entityManager.createNativeQuery("ALTER TABLE avaliacoes AUTO_INCREMENT = 1").executeUpdate();
-		entityManager.createNativeQuery("ALTER TABLE enderecos AUTO_INCREMENT = 1").executeUpdate();
-		entityManager.createNativeQuery("ALTER TABLE eventos AUTO_INCREMENT = 1").executeUpdate();
-		entityManager.createNativeQuery("ALTER TABLE horarios_locais AUTO_INCREMENT = 1").executeUpdate();
 		entityManager.createNativeQuery("ALTER TABLE locais AUTO_INCREMENT = 1").executeUpdate();
-		entityManager.createNativeQuery("ALTER TABLE pessoa_fisica AUTO_INCREMENT = 1").executeUpdate();
+		entityManager.createNativeQuery("ALTER TABLE eventos AUTO_INCREMENT = 1").executeUpdate();
+		entityManager.createNativeQuery("ALTER TABLE enderecos AUTO_INCREMENT = 1").executeUpdate();
 		entityManager.createNativeQuery("ALTER TABLE pessoa_juridica AUTO_INCREMENT = 1").executeUpdate();
+		entityManager.createNativeQuery("ALTER TABLE usuarios AUTO_INCREMENT = 1").executeUpdate();
+		entityManager.createNativeQuery("ALTER TABLE pessoa_fisica AUTO_INCREMENT = 1").executeUpdate();
 	}
 
 	public void criaUsuarioAdmin() {

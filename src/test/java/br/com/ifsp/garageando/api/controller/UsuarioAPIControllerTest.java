@@ -49,7 +49,7 @@ public class UsuarioAPIControllerTest {
 
 	AuthorizationTestHelper<Object> auth = new AuthorizationTestHelper<>();
 
-	private Usuario criaUsuario(String login, String senha, Perfil perfil, PessoaFisica pessoa) {
+	private Usuario criarUsuario(String login, String senha, Perfil perfil, PessoaFisica pessoa) {
 		UsuarioBuilder usuarioBuilder = new UsuarioBuilder().withLogin(login).withSenha(senha).withPerfil(perfil)
 				.withPessoa(pessoa);
 		return usuarioBuilder.build();
@@ -64,7 +64,7 @@ public class UsuarioAPIControllerTest {
 
 	@Test
 	public void test01_insereUsuario() {
-		Usuario usuario = criaUsuario(TestHelper.USUARIO_LOGIN, TestHelper.USUARIO_SENHA, Perfil.ROLE_USUARIO,
+		Usuario usuario = criarUsuario(TestHelper.USUARIO_LOGIN, TestHelper.USUARIO_SENHA, Perfil.ROLE_USUARIO,
 				pessoas.get(0));
 
 		HttpEntity<Object> httpEntity = auth.autorizar(usuario, restTemplate);
@@ -82,7 +82,7 @@ public class UsuarioAPIControllerTest {
 
 	@Test
 	public void test02_tentaInserirUsuarioSemPessoa() {
-		Usuario usuario = criaUsuario(TestHelper.USUARIO_LOGIN + Math.random(),
+		Usuario usuario = criarUsuario(TestHelper.USUARIO_LOGIN + Math.random(),
 				TestHelper.USUARIO_SENHA + Math.random(), Perfil.ROLE_USUARIO, null);
 
 		HttpEntity<Object> httpEntity = auth.autorizar(usuario, restTemplate);
@@ -199,7 +199,7 @@ public class UsuarioAPIControllerTest {
 
 	@Test
 	public void test08_deletaUsuarioPorObjetoEPorCodigo() {
-		Usuario usuarioDeletar = criaUsuario(USUARIO_DELETAR_LOGIN, USUARIO_DELETAR_SENHA, Perfil.ROLE_USUARIO,
+		Usuario usuarioDeletar = criarUsuario(USUARIO_DELETAR_LOGIN, USUARIO_DELETAR_SENHA, Perfil.ROLE_USUARIO,
 				pessoas.get(2));
 		HttpEntity<Object> httpEntity = auth.autorizar(usuarioDeletar, restTemplate);
 		ParameterizedTypeReference<Response<Usuario>> tipoRetorno = new ParameterizedTypeReference<Response<Usuario>>() {
@@ -217,7 +217,7 @@ public class UsuarioAPIControllerTest {
 				HttpMethod.DELETE, httpEntityDelete, tipoRetorno, 3);
 		assertEquals(HttpStatus.NO_CONTENT, respostaDelete.getStatusCode());
 
-		usuarioDeletar = criaUsuario(USUARIO_DELETAR_LOGIN, USUARIO_DELETAR_SENHA, Perfil.ROLE_USUARIO, pessoas.get(2));
+		usuarioDeletar = criarUsuario(USUARIO_DELETAR_LOGIN, USUARIO_DELETAR_SENHA, Perfil.ROLE_USUARIO, pessoas.get(2));
 		respostaInsereDeletar = restTemplate.exchange("/api/usuario", HttpMethod.POST, httpEntity, tipoRetorno);
 		assertEquals(HttpStatus.OK, respostaInsereDeletar.getStatusCode());
 		assertTrue(respostaInsereDeletar.getHeaders().getContentType().equals(MediaType.APPLICATION_JSON));
