@@ -1,7 +1,6 @@
 package br.com.ifsp.garageando.model;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.EnumType;
@@ -17,7 +16,6 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.com.ifsp.garageando.enums.PessoaTipo;
@@ -51,8 +49,8 @@ public abstract class Pessoa implements Serializable {
 	private String email;
 	private String telefone;
 	private String celular;
-	private LocalDate dataNasc;
-	private PessoaTipo pessoaTipo;
+//	private LocalDate dataNasc;
+	private PessoaTipo pessoaTipo = PessoaTipo.FISICA;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -109,15 +107,15 @@ public abstract class Pessoa implements Serializable {
 		this.celular = celular;
 	}
 
-	@JsonFormat(pattern = "dd-MM-yyyy")
-	@Column(name = "DATA_NASC")
-	public LocalDate getDataNasc() {
-		return dataNasc;
-	}
-
-	public void setDataNasc(LocalDate dataNasc) {
-		this.dataNasc = dataNasc;
-	}
+//	@JsonFormat(pattern = "dd-MM-yyyy")
+//	@Column(name = "DATA_NASC")
+//	public LocalDate getDataNasc() {
+//		return dataNasc;
+//	}
+//
+//	public void setDataNasc(LocalDate dataNasc) {
+//		this.dataNasc = dataNasc;
+//	}
 
 	@Enumerated(EnumType.STRING)
 	@NotNull(message = PESSOATIPO_OBRIGATORIO)

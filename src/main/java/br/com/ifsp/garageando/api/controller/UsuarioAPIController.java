@@ -61,6 +61,19 @@ public class UsuarioAPIController implements IAPIController<Usuario, UsuarioDTO<
 		}
 	}
 
+	@PostMapping("/loginTeste")
+	public ResponseEntity<Response<Usuario>> findByLoginTeste(@RequestBody UsuarioDTO<Usuario> usuarioDTO) {
+		LOG.debug("findById({})", usuarioDTO.getId());
+		Optional<Usuario> opUsuario = usuarioService.findUsuarioByLogin(usuarioDTO.getLogin());
+		if (opUsuario.isPresent()) {
+			Response<Usuario> response = new Response<>();
+			response.setData(opUsuario.get());
+			return ResponseEntity.ok(response);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
 	@PostMapping("/login")
 	public ResponseEntity<Response<UsuarioDTO<Usuario>>> findByLogin(@RequestBody UsuarioDTO<Usuario> usuarioDTO) {
 		LOG.debug("findById({})", usuarioDTO.getId());
@@ -103,7 +116,7 @@ public class UsuarioAPIController implements IAPIController<Usuario, UsuarioDTO<
 	}
 
 	@Override
-	@PostMapping
+	@PostMapping("/registrar")
 	public ResponseEntity<Response<Usuario>> cadastrar(@Valid @RequestBody Usuario usuario) {
 		LOG.debug("saving({})", usuario);
 		Response<Usuario> response = new Response<>();

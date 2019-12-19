@@ -120,11 +120,11 @@ public class TestHelper {
 		List<PessoaFisica> pessoas = new LinkedList<>();
 
 		String[][] data = {
-				{ "Michaelbielson", "michael.bielson@gmail.com", "1140028922", "11998567553", "1996-06-06", "FISICA",
+				{ "Michaelbielson", "michael.bielson@gmail.com", "1140028922", "11998567553", "FISICA",
 						CPF1 },
-				{ "Bielmichaelson", "biel.michaelson@gmail.com", "1189224002", "11975539856", "1996-06-06", "FISICA",
+				{ "Bielmichaelson", "biel.michaelson@gmail.com", "1189224002", "11975539856", "FISICA",
 						CPF2 },
-				{ "Irineu Matovalino", "irineu.matovalino@gmail.com", "1164332910", "11972596470", "1992-02-20",
+				{ "Irineu Matovalino", "irineu.matovalino@gmail.com", "1164332910", "11972596470",
 						"FISICA", CPF3 } };
 
 		for (String[] dados : data) {
@@ -134,7 +134,7 @@ public class TestHelper {
 			pessoa.setEmail(dados[idx++]);
 			pessoa.setTelefone(dados[idx++]);
 			pessoa.setCelular(dados[idx++]);
-			pessoa.setDataNasc(LocalDate.parse(dados[idx++]));
+//			pessoa.setDataNasc(LocalDate.parse(dados[idx++]));
 			pessoa.setPessoaTipo(PessoaTipo.valueOf(dados[idx++]));
 			pessoa.setCpf(dados[idx++]);
 			pessoas.add(pessoa);

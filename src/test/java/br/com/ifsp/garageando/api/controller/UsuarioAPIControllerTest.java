@@ -71,7 +71,7 @@ public class UsuarioAPIControllerTest {
 		ParameterizedTypeReference<Response<Usuario>> tipoRetorno = new ParameterizedTypeReference<Response<Usuario>>() {
 		};
 
-		ResponseEntity<Response<Usuario>> resposta = restTemplate.exchange("/api/usuario", HttpMethod.POST, httpEntity,
+		ResponseEntity<Response<Usuario>> resposta = restTemplate.exchange("/api/usuario/registrar", HttpMethod.POST, httpEntity,
 				tipoRetorno);
 		assertEquals(HttpStatus.OK, resposta.getStatusCode());
 		assertTrue(resposta.getHeaders().getContentType().equals(MediaType.APPLICATION_JSON));
@@ -89,7 +89,7 @@ public class UsuarioAPIControllerTest {
 		ParameterizedTypeReference<Response<Usuario>> tipoRetorno = new ParameterizedTypeReference<Response<Usuario>>() {
 		};
 
-		ResponseEntity<Response<Usuario>> resposta = restTemplate.exchange("/api/usuario", HttpMethod.POST, httpEntity,
+		ResponseEntity<Response<Usuario>> resposta = restTemplate.exchange("/api/usuario/registrar", HttpMethod.POST, httpEntity,
 				tipoRetorno);
 		assertEquals(HttpStatus.BAD_REQUEST, resposta.getStatusCode());
 		assertTrue(resposta.getBody().getErrors()
@@ -205,7 +205,7 @@ public class UsuarioAPIControllerTest {
 		ParameterizedTypeReference<Response<Usuario>> tipoRetorno = new ParameterizedTypeReference<Response<Usuario>>() {
 		};
 
-		ResponseEntity<Response<Usuario>> respostaInsereDeletar = restTemplate.exchange("/api/usuario", HttpMethod.POST,
+		ResponseEntity<Response<Usuario>> respostaInsereDeletar = restTemplate.exchange("/api/usuario/registrar", HttpMethod.POST,
 				httpEntity, tipoRetorno);
 		assertEquals(HttpStatus.OK, respostaInsereDeletar.getStatusCode());
 		assertTrue(respostaInsereDeletar.getHeaders().getContentType().equals(MediaType.APPLICATION_JSON));
@@ -218,7 +218,7 @@ public class UsuarioAPIControllerTest {
 		assertEquals(HttpStatus.NO_CONTENT, respostaDelete.getStatusCode());
 
 		usuarioDeletar = criarUsuario(USUARIO_DELETAR_LOGIN, USUARIO_DELETAR_SENHA, Perfil.ROLE_USUARIO, pessoas.get(2));
-		respostaInsereDeletar = restTemplate.exchange("/api/usuario", HttpMethod.POST, httpEntity, tipoRetorno);
+		respostaInsereDeletar = restTemplate.exchange("/api/usuario/registrar", HttpMethod.POST, httpEntity, tipoRetorno);
 		assertEquals(HttpStatus.OK, respostaInsereDeletar.getStatusCode());
 		assertTrue(respostaInsereDeletar.getHeaders().getContentType().equals(MediaType.APPLICATION_JSON));
 		usuarioDeletar = respostaInsereDeletar.getBody().getData();

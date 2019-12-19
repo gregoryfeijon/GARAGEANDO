@@ -44,11 +44,13 @@ public class Usuario implements Serializable {
 	private static final String LOGIN_OBRIGATORIO = "ATENÇÃO! O campo login é OBRIGATÓRIO!";
 	private static final String SENHA_OBRIGATORIO = "ATENÇÃO! O campo senha é OBRIGATÓRIO!";
 	private static final String PERFIL_OBRIGATORIO = "ATENÇÃO! A informação referente a perfil é OBRIGATÓRIO!";
-
+	private static final String LOGIN_INVALIDO = "ATENÇÃO! O login inserido é inválido!";
+	private static final String SENHA_INVALIDA = "ATENÇÃO! A senha inserida é inválida!";
+	
 	private Long id;
 	private String login;
 	private String senha;
-	private Perfil perfil;
+	private Perfil perfil = Perfil.ROLE_USUARIO;
 	private PessoaFisica pessoa;
 	private List<Local> locaisFavoritos;
 	private List<Evento> eventos;
@@ -66,7 +68,7 @@ public class Usuario implements Serializable {
 	}
 
 	@NotBlank(message = LOGIN_OBRIGATORIO)
-	@Length(min = 3)
+	@Length(min = 3, message = LOGIN_INVALIDO)
 	@Column(name = "LOGIN", nullable = false, unique = true)
 	public String getLogin() {
 		return login;
@@ -77,7 +79,7 @@ public class Usuario implements Serializable {
 	}
 
 	@NotBlank(message = SENHA_OBRIGATORIO)
-	@Length(min = 3)
+	@Length(min = 3, message = SENHA_INVALIDA)
 	@Column(name = "SENHA", nullable = false)
 	public String getSenha() {
 		return senha;

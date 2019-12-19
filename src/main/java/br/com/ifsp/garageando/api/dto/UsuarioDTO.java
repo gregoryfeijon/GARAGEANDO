@@ -12,7 +12,7 @@ public class UsuarioDTO<T> extends WsDTO<T> {
 	private String login;
 	private String senha;
 	private String email;
-
+	
 	public String getLogin() {
 		return login;
 	}
